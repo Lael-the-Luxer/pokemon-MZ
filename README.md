@@ -1,7 +1,7 @@
 # PMZ — Pokémon Engine for RPG Maker MZ
 
-> **ES:** Crea tu propio juego Pokémon en RPG Maker MZ sin programar.  
-> **EN:** Create your own Pokémon fan game in RPG Maker MZ without coding.
+> **ES:** Crea tu propio juego Pokémon en RPG Maker MZ.  
+> **EN:** Create your own Pokémon fan game in RPG Maker MZ.
 
 PMZ es el equivalente a Pokémon Essentials pero para RPG Maker MZ — moderno, en JavaScript, con exportación nativa a **web y móvil**.
 
