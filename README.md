@@ -21,8 +21,9 @@ PMZ is the Pokémon Essentials equivalent for RPG Maker MZ — modern, JavaScrip
 ---
 
 ## Quick Start
-descargar el proyecto, abrir el en Rpgmaker MZ y listo. 
+descargar el proyecto, abrir el en Rpgmaker MZ y listo.  
 Download the project, open it in RPG Maker MZ, and you're done. 
+
 otro metodo/another method:
 1. Copy `PMZ_Core.js`, `PMZ_Menu.js`, `PMZ_Battle.js` → `js/plugins/`
 2. Copy the `PMZ/` folder → project root
