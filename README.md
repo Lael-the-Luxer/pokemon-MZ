@@ -11,12 +11,12 @@ PMZ is the Pokémon Essentials equivalent for RPG Maker MZ — modern, JavaScrip
 
 ## Features
 
-- ⚡ 151 Pokémon, 176 moves, 81 abilities, 134 items, 50 TMs
-- 🎮 Single & double battles, trainer system, 8 gym badges
-- 💎 Mega Evolution, Primal Reversion — fully customizable via JSON
-- 🧬 EV/IV, natures, gender, breeding with egg moves
-- 🌊 Overworld HMs (Surf, Fly, Cut...), weather, day/night cycle
-- 🌐 Native web & mobile export (no Joiplay needed)
+-  151 Pokémon, 176 moves, 81 abilities, 134 items, 50 TMs
+-  Single & double battles, trainer system, 8 gym badges
+-  Mega Evolution, Primal Reversion — fully customizable via JSON
+-  EV/IV, natures, gender, breeding with egg moves
+-  Overworld HMs (Surf, Fly, Cut...), weather, day/night cycle
+-  Native web & mobile export (no Joiplay needed)
 
 ---
 
