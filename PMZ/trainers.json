@@ -1,0 +1,205 @@
+{
+  "youngster": {
+    "id": 1, "name": "Youngster", "class": "Youngster", "sprite": "trainer_male_1", "money": 100,
+    "pokemon": [
+      { "species": "rattata", "level": 5, "moves": ["tackle", "tailwhip"] },
+      { "species": "spearow", "level": 7, "moves": ["peck", "growl"] }
+    ],
+    "dialogue": { "intro": "¡Hey! ¿Quieres luchar?", "win": "¡Eres muy fuerte!", "lose": "¡Bien hecho!" }
+  },
+  "lass": {
+    "id": 2, "name": "Lass", "class": "Lass", "sprite": "trainer_female_1", "money": 80,
+    "pokemon": [
+      { "species": "pidgey", "level": 8, "moves": ["tackle", "gust", "sandattack"] },
+      { "species": "nidoranf", "level": 10, "moves": ["scratch", "growl", "tailwhip"] }
+    ],
+    "dialogue": { "intro": "¡Mis Pokémon son adorables!", "win": "¡No te rindas!", "lose": "¡Bien hecho!" }
+  },
+  "bugcatcher": {
+    "id": 3, "name": "Bug Catcher", "class": "Bug Catcher", "sprite": "trainer_male_2", "money": 50,
+    "pokemon": [
+      { "species": "caterpie", "level": 3, "moves": ["tackle", "stringshot"] },
+      { "species": "metapod", "level": 4, "moves": ["harden"] },
+      { "species": "weedle", "level": 3, "moves": ["poisonsting", "stringshot"] }
+    ],
+    "dialogue": { "intro": "¡Atrapo bichos!", "win": "¡Mis bichos!", "lose": "¡Gané!" }
+  },
+  "camper": {
+    "id": 4, "name": "Camper", "class": "Camper", "sprite": "trainer_male_3", "money": 120,
+    "pokemon": [
+      { "species": "sandshrew", "level": 12, "moves": ["scratch", "sandattack", "poisonsting"] },
+      { "species": "diglett", "level": 14, "moves": ["scratch", "growl", "dig"] }
+    ],
+    "dialogue": { "intro": "¡Vamos de aventura!", "win": "¡Buen viaje!", "lose": "¡Victoria!" }
+  },
+  "picnicker": {
+    "id": 5, "name": "Picnicker", "class": "Picnicker", "sprite": "trainer_female_2", "money": 100,
+    "pokemon": [
+      { "species": "vulpix", "level": 15, "moves": ["ember", "tailwhip", "quickattack"] },
+      { "species": "oddish", "level": 13, "moves": ["absorb", "poisonpowder"] }
+    ],
+    "dialogue": { "intro": "¡Disfruta el día!", "win": "Qué divertido", "lose": "Qué bien" }
+  },
+  "hiker": {
+    "id": 6, "name": "Hiker", "class": "Hiker", "sprite": "trainer_male_4", "money": 150,
+    "pokemon": [
+      { "species": "geodude", "level": 16, "moves": ["tackle", "rockthrow", "defensecurl"] },
+      { "species": "onix", "level": 18, "moves": ["tackle", "rockthrow", "screech", "bind"] }
+    ],
+    "dialogue": { "intro": "¡Las montañas son mi hogar!", "win": "¡A la cima!", "lose": "¡Abajo!" }
+  },
+  "sailor": {
+    "id": 7, "name": "Sailor", "class": "Sailor", "sprite": "trainer_male_5", "money": 130,
+    "pokemon": [
+      { "species": "tentacool", "level": 18, "moves": ["acid", "supersonic", "wrap"] },
+      { "species": "horsea", "level": 20, "moves": ["bubble", "smokescreen", "leer"] }
+    ],
+    "dialogue": { "intro": "¡El mar es mi pasión!", "win": "¡A la deriva!", "lose": "¡Zarpa!" }
+  },
+  "supernerd": {
+    "id": 8, "name": "Super Nerd", "class": "Super Nerd", "sprite": "trainer_male_6", "money": 110,
+    "pokemon": [
+      { "species": "grimer", "level": 14, "moves": ["poisongas", "pound", "harden"] },
+      { "species": "voltorb", "level": 16, "moves": ["tackle", "sonicboom", "thundershock"] }
+    ],
+    "dialogue": { "intro": "¡La ciencia Pokémon es poder!", "win": "¡Teoría probada!", "lose": "¡Fallo experimental!" }
+  },
+  "rocketgrunt": {
+    "id": 20, "name": "Team Rocket Grunt", "class": "Rocket", "sprite": "trainer_rocket_m", "money": 200,
+    "pokemon": [
+      { "species": "ekans", "level": 14, "moves": ["wrap", "leer", "poisonsting", "bite"] },
+      { "species": "koffing", "level": 16, "moves": ["tackle", "smog", "sludge"] }
+    ],
+    "dialogue": { "intro": "¡El Team Rocket no se rinde!", "win": "¡Nos vengaremos!", "lose": "¡Maldición!" }
+  },
+  "brock": {
+    "id": 100, "name": "Brock", "class": "Gym Leader", "badge": "boulder", "sprite": "leader_brock", "money": 1000,
+    "pokemon": [
+      { "species": "geodude", "level": 12, "moves": ["tackle", "rockthrow", "defensecurl"] },
+      { "species": "onix", "level": 14, "moves": ["tackle", "rockthrow", "screech", "bind"] }
+    ],
+    "dialogue": { "intro": "¡Soy Brock! ¡Mis rocas te aplastarán!", "win": "¡La fortaleza vence!", "lose": "¡Tu poder es asombroso! ¡Toma la Medalla Roca!" }
+  },
+  "misty": {
+    "id": 101, "name": "Misty", "class": "Gym Leader", "badge": "cascade", "sprite": "leader_misty", "money": 1200,
+    "pokemon": [
+      { "species": "staryu", "level": 18, "moves": ["watergun", "harden", "bubblebeam"] },
+      { "species": "starmie", "level": 21, "moves": ["watergun", "harden", "bubblebeam", "recover"] }
+    ],
+    "dialogue": { "intro": "¡Soy Misty! ¡El agua me da fuerza!", "win": "¡El agua gana!", "lose": "¡Eres increíble! ¡Toma la Medalla Cascada!" }
+  },
+  "surge": {
+    "id": 102, "name": "Lt. Surge", "class": "Gym Leader", "badge": "thunder", "sprite": "leader_surge", "money": 1500,
+    "pokemon": [
+      { "species": "voltorb", "level": 21, "moves": ["tackle", "sonicboom", "thundershock"] },
+      { "species": "pikachu", "level": 18, "moves": ["thundershock", "growl", "quickattack"] },
+      { "species": "raichu", "level": 24, "moves": ["thundershock", "thunderbolt", "quickattack", "agility"] }
+    ],
+    "dialogue": { "intro": "¡El trueno de la guerra!", "win": "¡Electrizante!", "lose": "¡Tu poder es impactante!" }
+  },
+  "erika": {
+    "id": 103, "name": "Erika", "class": "Gym Leader", "badge": "rainbow", "sprite": "leader_erika", "money": 1800,
+    "pokemon": [
+      { "species": "victreebel", "level": 29, "moves": ["vinewhip", "razorleaf", "acid", "sleeppowder"] },
+      { "species": "vileplume", "level": 32, "moves": ["absorb", "petaldance", "acid", "solarbeam"] }
+    ],
+    "dialogue": { "intro": "¡La fragancia de las flores!", "win": "¡La naturaleza es bella!", "lose": "¡Has florecido!" }
+  },
+  "koga": {
+    "id": 104, "name": "Koga", "class": "Gym Leader", "badge": "soul", "sprite": "leader_koga", "money": 2200,
+    "pokemon": [
+      { "species": "koffing", "level": 37, "moves": ["sludge", "smog", "selfdestruct", "haze"] },
+      { "species": "muk", "level": 39, "moves": ["sludge", "minimize", "screech", "disable"] },
+      { "species": "koffing", "level": 37, "moves": ["sludge", "smog", "selfdestruct", "haze"] },
+      { "species": "weezing", "level": 43, "moves": ["sludge", "smog", "explosion", "hypnosis"] }
+    ],
+    "dialogue": { "intro": "¡El veneno es mi arte!", "win": "¡La niebla te envuelve!", "lose": "¡Tu veneno es más fuerte! ¡Toma la Medalla Alma!" }
+  },
+  "sabrina": {
+    "id": 105, "name": "Sabrina", "class": "Gym Leader", "badge": "marsh", "sprite": "leader_sabrina", "money": 2500,
+    "pokemon": [
+      { "species": "kadabra", "level": 38, "moves": ["confusion", "disable", "psychic", "recover"] },
+      { "species": "mr_mime", "level": 37, "moves": ["confusion", "barrier", "psychic", "light_screen"] },
+      { "species": "venomoth", "level": 38, "moves": ["poisonpowder", "psychic", "supersonic", "gust"] },
+      { "species": "alakazam", "level": 43, "moves": ["psychic", "recover", "reflect", "confuseray"] }
+    ],
+    "dialogue": { "intro": "Mi mente controla todo.", "win": "Tu mente es débil.", "lose": "¡Increíble! ¡Toma la Medalla Pantano!" }
+  },
+  "blaine": {
+    "id": 106, "name": "Blaine", "class": "Gym Leader", "badge": "volcano", "sprite": "leader_blaine", "money": 3000,
+    "pokemon": [
+      { "species": "growlithe", "level": 42, "moves": ["ember", "bite", "roar", "flamethrower"] },
+      { "species": "ponyta", "level": 40, "moves": ["ember", "stomp", "tailwhip", "fireblast"] },
+      { "species": "rapidash", "level": 42, "moves": ["fireblast", "stomp", "agility", "furyattack"] },
+      { "species": "arcanine", "level": 47, "moves": ["flamethrower", "extremespeed", "roar", "bite"] }
+    ],
+    "dialogue": { "intro": "¡El fuego forja campeones!", "win": "¡Ardiste!", "lose": "¡Tu fuego es más intenso! ¡Toma la Medalla Volcán!" }
+  },
+  "giovanni": {
+    "id": 107, "name": "Giovanni", "class": "Gym Leader", "badge": "earth", "sprite": "leader_giovanni", "money": 3500,
+    "pokemon": [
+      { "species": "rhyhorn", "level": 45, "moves": ["hornattack", "stomp", "rockslide", "earthquake"] },
+      { "species": "dugtrio", "level": 42, "moves": ["dig", "slash", "earthquake", "sandattack"] },
+      { "species": "nidoqueen", "level": 44, "moves": ["body slam", "earthquake", "superpower", "poisonsting"] },
+      { "species": "nidoking", "level": 45, "moves": ["earthquake", "megahorn", "thrash", "poisonsting"] },
+      { "species": "rhydon", "level": 50, "moves": ["earthquake", "rockslide", "hornattack", "stomp"] }
+    ],
+    "dialogue": { "intro": "¡El poder de la tierra es mío!", "win": "¡La tierra te traga!", "lose": "¡Tu fuerza supera la mía! ¡Toma la Medalla Tierra!" }
+  },
+  "lorelei": {
+    "id": 200, "name": "Lorelei", "class": "Elite Four", "sprite": "elite_lorelei", "money": 4000,
+    "pokemon": [
+      { "species": "dewgong", "level": 52, "moves": ["aurorabeam", "rest", "take_down", "icebeam"] },
+      { "species": "cloyster", "level": 51, "moves": ["spike cannon", "clamp", "aurorabeam", "barrier"] },
+      { "species": "slowbro", "level": 52, "moves": ["psychic", "surf", "amnesia", "slackoff"] },
+      { "species": "jynx", "level": 54, "moves": ["icebeam", "psychic", "lovelykiss", "body slam"] },
+      { "species": "lapras", "level": 56, "moves": ["icebeam", "surf", "body slam", "rest"] }
+    ],
+    "dialogue": { "intro": "¡El hielo congela todo!", "win": "¡Congelado!", "lose": "¡Tu calor es demasiado!" }
+  },
+  "bruno": {
+    "id": 201, "name": "Bruno", "class": "Elite Four", "sprite": "elite_bruno", "money": 4000,
+    "pokemon": [
+      { "species": "onix", "level": 53, "moves": ["rockslide", "earthquake", "bind", "screech"] },
+      { "species": "hitmonchan", "level": 55, "moves": ["machpunch", "thunderpunch", "firepunch", "icepunch"] },
+      { "species": "hitmonlee", "level": 55, "moves": ["highjumpkick", "megakick", "rollingkick", "doublekick"] },
+      { "species": "onix", "level": 53, "moves": ["rockslide", "earthquake", "bind", "screech"] },
+      { "species": "machamp", "level": 58, "moves": ["crosschop", "rockslide", "earthquake", "strength"] }
+    ],
+    "dialogue": { "intro": "¡La fuerza bruta vence todo!", "win": "¡Aplastado!", "lose": "¡Tu poder es digno!" }
+  },
+  "agatha": {
+    "id": 202, "name": "Agatha", "class": "Elite Four", "sprite": "elite_agatha", "money": 4000,
+    "pokemon": [
+      { "species": "gengar", "level": 54, "moves": ["shadowball", "sludgebomb", "hypnosis", "dream eater"] },
+      { "species": "golbat", "level": 53, "moves": ["wingattack", "bite", "confuseray", "aircutter"] },
+      { "species": "haunter", "level": 55, "moves": ["shadowball", "sludgebomb", "confuseray", "nightshade"] },
+      { "species": "arbok", "level": 53, "moves": ["sludgebomb", "earthquake", "glare", "wrap"] },
+      { "species": "gengar", "level": 58, "moves": ["shadowball", "sludgebomb", "hypnosis", "dream eater"] }
+    ],
+    "dialogue": { "intro": "¡Los fantasmas te acechan!", "win": "¡La oscuridad te consume!", "lose": "¡Tu luz es demasiado brillante!" }
+  },
+  "lance": {
+    "id": 203, "name": "Lance", "class": "Elite Four", "sprite": "elite_lance", "money": 4500,
+    "pokemon": [
+      { "species": "gyarados", "level": 56, "moves": ["hydro pump", "dragonrage", "hyperbeam", "twister"] },
+      { "species": "dragonair", "level": 54, "moves": ["dragonrage", "slam", "thunderwave", "wrap"] },
+      { "species": "dragonair", "level": 54, "moves": ["dragonrage", "slam", "thunderwave", "wrap"] },
+      { "species": "aerodactyl", "level": 58, "moves": ["wingattack", "rockslide", "hyperbeam", "agility"] },
+      { "species": "dragonite", "level": 62, "moves": ["dragonrage", "hyperbeam", "thunderbolt", "icebeam"] }
+    ],
+    "dialogue": { "intro": "¡Los dragones dominan el cielo!", "win": "¡El dragón es invencible!", "lose": "¡Tu fuerza desafía a los dragones!" }
+  },
+  "blue": {
+    "id": 204, "name": "Blue", "class": "Champion", "sprite": "champion_blue", "money": 5000,
+    "pokemon": [
+      { "species": "pidgeot", "level": 59, "moves": ["wingattack", "hyperbeam", "agility", "mirror move"] },
+      { "species": "alakazam", "level": 57, "moves": ["psychic", "recover", "reflect", "shadowball"] },
+      { "species": "rhydon", "level": 59, "moves": ["earthquake", "rockslide", "hornattack", "megahorn"] },
+      { "species": "gyarados", "level": 59, "moves": ["hydro pump", "dragonrage", "hyperbeam", "thunderbolt"] },
+      { "species": "arcanine", "level": 59, "moves": ["flamethrower", "extremespeed", "bite", "roar"] },
+      { "species": "venusaur", "level": 63, "moves": ["solarbeam", "sludgebomb", "earthquake", "sleeppowder"] }
+    ],
+    "dialogue": { "intro": "¡Soy el campeón! ¡No me vencerás!", "win": "¡El campeón reina!", "lose": "¡Imposible! ¡Eres el nuevo campeón!" }
+  }
+}

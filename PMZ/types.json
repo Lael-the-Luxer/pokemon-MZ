@@ -1,0 +1,149 @@
+{
+  "_meta": {
+    "imageFolder": "Types"
+  },
+  "normal": {
+    "id": 1,
+    "name": "Normal",
+    "color": "#A8A878",
+    "weaknesses": ["fighting"],
+    "resistances": [],
+    "immunities": ["ghost"]
+  },
+  "fire": {
+    "id": 2,
+    "name": "Fire",
+    "color": "#F08030",
+    "weaknesses": ["water", "ground", "rock"],
+    "resistances": ["fire", "grass", "ice", "bug", "steel", "fairy"],
+    "immunities": []
+  },
+  "water": {
+    "id": 3,
+    "name": "Water",
+    "color": "#6890F0",
+    "weaknesses": ["electric", "grass"],
+    "resistances": ["fire", "water", "ice", "steel"],
+    "immunities": []
+  },
+  "electric": {
+    "id": 4,
+    "name": "Electric",
+    "color": "#F8D030",
+    "weaknesses": ["ground"],
+    "resistances": ["electric", "flying", "steel"],
+    "immunities": []
+  },
+  "grass": {
+    "id": 5,
+    "name": "Grass",
+    "color": "#78C850",
+    "weaknesses": ["fire", "ice", "poison", "flying", "bug"],
+    "resistances": ["water", "electric", "grass", "ground"],
+    "immunities": []
+  },
+  "ice": {
+    "id": 6,
+    "name": "Ice",
+    "color": "#98D8D8",
+    "weaknesses": ["fire", "fighting", "rock", "steel"],
+    "resistances": ["ice"],
+    "immunities": []
+  },
+  "fighting": {
+    "id": 7,
+    "name": "Fighting",
+    "color": "#C03028",
+    "weaknesses": ["flying", "psychic", "fairy"],
+    "resistances": ["bug", "rock", "dark"],
+    "immunities": []
+  },
+  "poison": {
+    "id": 8,
+    "name": "Poison",
+    "color": "#A040A0",
+    "weaknesses": ["ground", "psychic"],
+    "resistances": ["grass", "fighting", "poison", "bug", "fairy"],
+    "immunities": []
+  },
+  "ground": {
+    "id": 9,
+    "name": "Ground",
+    "color": "#E0C068",
+    "weaknesses": ["water", "grass", "ice"],
+    "resistances": ["rock", "poison"],
+    "immunities": ["electric"]
+  },
+  "flying": {
+    "id": 10,
+    "name": "Flying",
+    "color": "#A890F0",
+    "weaknesses": ["electric", "ice", "rock", "steel"],
+    "resistances": ["grass", "fighting", "bug"],
+    "immunities": ["ground"]
+  },
+  "psychic": {
+    "id": 11,
+    "name": "Psychic",
+    "color": "#F85888",
+    "weaknesses": ["bug", "ghost", "dark"],
+    "resistances": ["fighting", "psychic"],
+    "immunities": []
+  },
+  "bug": {
+    "id": 12,
+    "name": "Bug",
+    "color": "#A8B820",
+    "weaknesses": ["fire", "flying", "rock"],
+    "resistances": ["grass", "fighting", "ground"],
+    "immunities": []
+  },
+  "rock": {
+    "id": 13,
+    "name": "Rock",
+    "color": "#B8A038",
+    "weaknesses": ["water", "grass", "fighting", "ground", "steel"],
+    "resistances": ["normal", "fire", "poison", "flying"],
+    "immunities": []
+  },
+  "ghost": {
+    "id": 14,
+    "name": "Ghost",
+    "color": "#705898",
+    "weaknesses": ["ghost", "dark"],
+    "resistances": ["poison", "bug"],
+    "immunities": ["normal", "fighting"]
+  },
+  "dragon": {
+    "id": 15,
+    "name": "Dragon",
+    "color": "#7038F8",
+    "weaknesses": ["ice", "dragon", "fairy"],
+    "resistances": ["fire", "water", "electric", "grass"],
+    "immunities": []
+  },
+  "dark": {
+    "id": 16,
+    "name": "Dark",
+    "color": "#705848",
+    "weaknesses": ["fighting", "bug", "fairy"],
+    "resistances": ["ghost", "dark"],
+    "immunities": ["psychic"]
+  },
+  "steel": {
+    "id": 17,
+    "name": "Steel",
+    "color": "#B8B8D0",
+    "weaknesses": ["fire", "fighting", "ground"],
+    "resistances": ["normal", "grass", "ice", "flying", "psychic", "bug", "rock", "dragon", "steel", "fairy"],
+    "immunities": ["poison"]
+  },
+  "fairy": {
+    "id": 18,
+    "name": "Fairy",
+    "color": "#EE99AC",
+    "weaknesses": ["poison", "steel"],
+    "resistances": ["fighting", "bug", "dark"],
+    "immunities": ["dragon"]
+  }
+}

@@ -1,0 +1,7860 @@
+{
+  "bulbasaur": {
+    "id": 1,
+    "name": "Bulbasaur",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 45,
+      "attack": 49,
+      "defense": 49,
+      "spAttack": 65,
+      "spDefense": 65,
+      "speed": 45
+    },
+    "evolutions": [
+      {
+        "to": "ivysaur",
+        "level": 16
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "overgrow"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "growl"
+      ],
+      "7": [
+        "leechseed"
+      ],
+      "13": [
+        "vinewhip"
+      ],
+      "20": [
+        "poisonpowder"
+      ],
+      "25": [
+        "razorleaf"
+      ],
+      "32": [
+        "growth"
+      ],
+      "39": [
+        "sleeppowder"
+      ],
+      "46": [
+        "solarbeam"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "grass"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "spAttack": 1
+    }
+  },
+  "ivysaur": {
+    "id": 2,
+    "name": "Ivysaur",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 62,
+      "defense": 63,
+      "spAttack": 80,
+      "spDefense": 80,
+      "speed": 60
+    },
+    "evolutions": [
+      {
+        "to": "venusaur",
+        "level": 32
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "overgrow"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "growl",
+        "leechseed"
+      ],
+      "13": [
+        "vinewhip"
+      ],
+      "22": [
+        "poisonpowder"
+      ],
+      "30": [
+        "razorleaf"
+      ],
+      "38": [
+        "growth"
+      ],
+      "46": [
+        "sleeppowder"
+      ],
+      "54": [
+        "solarbeam"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "grass"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "spAttack": 1,
+      "spDefense": 1
+    }
+  },
+  "venusaur": {
+    "id": 3,
+    "name": "Venusaur",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 80,
+      "attack": 82,
+      "defense": 83,
+      "spAttack": 100,
+      "spDefense": 100,
+      "speed": 80
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "overgrow"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "growl",
+        "leechseed",
+        "vinewhip"
+      ],
+      "22": [
+        "poisonpowder"
+      ],
+      "30": [
+        "razorleaf"
+      ],
+      "43": [
+        "growth"
+      ],
+      "55": [
+        "sleeppowder"
+      ],
+      "65": [
+        "solarbeam"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "grass"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "spAttack": 2,
+      "spDefense": 1
+    }
+  },
+  "charmander": {
+    "id": 4,
+    "name": "Charmander",
+    "types": [
+      "fire"
+    ],
+    "baseStats": {
+      "hp": 39,
+      "attack": 52,
+      "defense": 43,
+      "spAttack": 60,
+      "spDefense": 50,
+      "speed": 65
+    },
+    "evolutions": [
+      {
+        "to": "charmeleon",
+        "level": 16
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "blaze"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "growl"
+      ],
+      "9": [
+        "ember"
+      ],
+      "15": [
+        "leer"
+      ],
+      "22": [
+        "rage"
+      ],
+      "30": [
+        "slash"
+      ],
+      "38": [
+        "flamethrower"
+      ],
+      "46": [
+        "firespin"
+      ]
+    },
+    "eggGroups": [
+      "field",
+      "dragon"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "charmeleon": {
+    "id": 5,
+    "name": "Charmeleon",
+    "types": [
+      "fire"
+    ],
+    "baseStats": {
+      "hp": 58,
+      "attack": 64,
+      "defense": 58,
+      "spAttack": 80,
+      "spDefense": 65,
+      "speed": 80
+    },
+    "evolutions": [
+      {
+        "to": "charizard",
+        "level": 36
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "blaze"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "growl",
+        "ember"
+      ],
+      "15": [
+        "leer"
+      ],
+      "24": [
+        "rage"
+      ],
+      "33": [
+        "slash"
+      ],
+      "42": [
+        "flamethrower"
+      ],
+      "56": [
+        "firespin"
+      ]
+    },
+    "eggGroups": [
+      "field",
+      "dragon"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "spAttack": 1,
+      "speed": 1
+    }
+  },
+  "charizard": {
+    "id": 6,
+    "name": "Charizard",
+    "types": [
+      "fire",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 78,
+      "attack": 84,
+      "defense": 78,
+      "spAttack": 109,
+      "spDefense": 85,
+      "speed": 100
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "blaze"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "growl",
+        "ember",
+        "leer"
+      ],
+      "24": [
+        "rage"
+      ],
+      "36": [
+        "slash"
+      ],
+      "46": [
+        "flamethrower"
+      ],
+      "55": [
+        "firespin"
+      ]
+    },
+    "eggGroups": [
+      "field",
+      "dragon"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "spAttack": 3
+    }
+  },
+  "squirtle": {
+    "id": 7,
+    "name": "Squirtle",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 44,
+      "attack": 48,
+      "defense": 65,
+      "spAttack": 50,
+      "spDefense": 64,
+      "speed": 43
+    },
+    "evolutions": [
+      {
+        "to": "wartortle",
+        "level": 16
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "torrent"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "tailwhip"
+      ],
+      "8": [
+        "bubble"
+      ],
+      "15": [
+        "watergun"
+      ],
+      "22": [
+        "bite"
+      ],
+      "28": [
+        "withdraw"
+      ],
+      "35": [
+        "skullbash"
+      ],
+      "42": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "water1"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "wartortle": {
+    "id": 8,
+    "name": "Wartortle",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 59,
+      "attack": 63,
+      "defense": 80,
+      "spAttack": 65,
+      "spDefense": 80,
+      "speed": 58
+    },
+    "evolutions": [
+      {
+        "to": "blastoise",
+        "level": 36
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "torrent"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "tailwhip",
+        "bubble"
+      ],
+      "15": [
+        "watergun"
+      ],
+      "24": [
+        "bite"
+      ],
+      "31": [
+        "withdraw"
+      ],
+      "39": [
+        "skullbash"
+      ],
+      "47": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "water1"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "defense": 1,
+      "spDefense": 1
+    }
+  },
+  "blastoise": {
+    "id": 9,
+    "name": "Blastoise",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 79,
+      "attack": 83,
+      "defense": 100,
+      "spAttack": 85,
+      "spDefense": 105,
+      "speed": 78
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "torrent"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "tailwhip",
+        "bubble",
+        "watergun"
+      ],
+      "24": [
+        "bite"
+      ],
+      "31": [
+        "withdraw"
+      ],
+      "42": [
+        "skullbash"
+      ],
+      "52": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "water1"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "defense": 2,
+      "spDefense": 1
+    }
+  },
+  "caterpie": {
+    "id": 10,
+    "name": "Caterpie",
+    "types": [
+      "bug"
+    ],
+    "baseStats": {
+      "hp": 45,
+      "attack": 30,
+      "defense": 35,
+      "spAttack": 20,
+      "spDefense": 20,
+      "speed": 45
+    },
+    "evolutions": [
+      {
+        "to": "metapod",
+        "level": 7
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium",
+    "abilities": [
+      "shielddust",
+      "compoundeyes"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "stringshot"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "metapod": {
+    "id": 11,
+    "name": "Metapod",
+    "types": [
+      "bug"
+    ],
+    "baseStats": {
+      "hp": 50,
+      "attack": 20,
+      "defense": 55,
+      "spAttack": 25,
+      "spDefense": 25,
+      "speed": 30
+    },
+    "evolutions": [
+      {
+        "to": "butterfree",
+        "level": 10
+      }
+    ],
+    "catchRate": 120,
+    "expRate": "medium",
+    "abilities": [
+      "shielddust",
+      "compoundeyes"
+    ],
+    "moves": {
+      "1": [
+        "harden"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "butterfree": {
+    "id": 12,
+    "name": "Butterfree",
+    "types": [
+      "bug",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 45,
+      "defense": 50,
+      "spAttack": 90,
+      "spDefense": 80,
+      "speed": 70
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "shielddust",
+      "compoundeyes"
+    ],
+    "moves": {
+      "1": [
+        "confusion"
+      ],
+      "12": [
+        "poisonpowder"
+      ],
+      "14": [
+        "stunspore"
+      ],
+      "16": [
+        "sleeppowder"
+      ],
+      "18": [
+        "supersonic"
+      ],
+      "22": [
+        "whirlwind"
+      ],
+      "26": [
+        "psybeam"
+      ],
+      "32": [
+        "gust"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 2,
+      "spDefense": 1
+    }
+  },
+  "weedle": {
+    "id": 13,
+    "name": "Weedle",
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 35,
+      "defense": 30,
+      "spAttack": 20,
+      "spDefense": 20,
+      "speed": 50
+    },
+    "evolutions": [
+      {
+        "to": "kakuna",
+        "level": 7
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium_slow",
+    "abilities": [
+      "shielddust",
+      "swarm"
+    ],
+    "moves": {
+      "1": [
+        "poisonsting",
+        "stringshot"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "kakuna": {
+    "id": 14,
+    "name": "Kakuna",
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 45,
+      "attack": 25,
+      "defense": 50,
+      "spAttack": 25,
+      "spDefense": 25,
+      "speed": 35
+    },
+    "evolutions": [
+      {
+        "to": "beedrill",
+        "level": 10
+      }
+    ],
+    "catchRate": 120,
+    "expRate": "medium_slow",
+    "abilities": [
+      "shielddust",
+      "swarm"
+    ],
+    "moves": {
+      "1": [
+        "harden"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "beedrill": {
+    "id": 15,
+    "name": "Beedrill",
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 90,
+      "defense": 40,
+      "spAttack": 45,
+      "spDefense": 80,
+      "speed": 75
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "shielddust",
+      "swarm"
+    ],
+    "moves": {
+      "1": [
+        "furyattack"
+      ],
+      "12": [
+        "furyattack"
+      ],
+      "16": [
+        "twineedle"
+      ],
+      "20": [
+        "rage"
+      ],
+      "25": [
+        "pinmissile"
+      ],
+      "30": [
+        "agility"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "pidgey": {
+    "id": 16,
+    "name": "Pidgey",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 45,
+      "defense": 40,
+      "spAttack": 35,
+      "spDefense": 35,
+      "speed": 56
+    },
+    "evolutions": [
+      {
+        "to": "pidgeotto",
+        "level": 18
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium_slow",
+    "abilities": [
+      "keeneye"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "gust"
+      ],
+      "5": [
+        "sandattack"
+      ],
+      "12": [
+        "quickattack"
+      ],
+      "19": [
+        "whirlwind"
+      ],
+      "28": [
+        "wingattack"
+      ],
+      "36": [
+        "agility"
+      ],
+      "44": [
+        "mirrormove"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "pidgeotto": {
+    "id": 17,
+    "name": "Pidgeotto",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 63,
+      "attack": 60,
+      "defense": 55,
+      "spAttack": 50,
+      "spDefense": 50,
+      "speed": 71
+    },
+    "evolutions": [
+      {
+        "to": "pidgeot",
+        "level": 36
+      }
+    ],
+    "catchRate": 120,
+    "expRate": "medium_slow",
+    "abilities": [
+      "keeneye"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "gust",
+        "sandattack"
+      ],
+      "12": [
+        "quickattack"
+      ],
+      "21": [
+        "whirlwind"
+      ],
+      "31": [
+        "wingattack"
+      ],
+      "40": [
+        "agility"
+      ],
+      "49": [
+        "mirrormove"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "pidgeot": {
+    "id": 18,
+    "name": "Pidgeot",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 83,
+      "attack": 80,
+      "defense": 75,
+      "spAttack": 70,
+      "spDefense": 70,
+      "speed": 101
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "keeneye"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "gust",
+        "sandattack",
+        "quickattack"
+      ],
+      "21": [
+        "whirlwind"
+      ],
+      "31": [
+        "wingattack"
+      ],
+      "44": [
+        "agility"
+      ],
+      "54": [
+        "mirrormove"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 3
+    }
+  },
+  "rattata": {
+    "id": 19,
+    "name": "Rattata",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 30,
+      "attack": 56,
+      "defense": 35,
+      "spAttack": 25,
+      "spDefense": 35,
+      "speed": 72
+    },
+    "evolutions": [
+      {
+        "to": "raticate",
+        "level": 20
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium",
+    "abilities": [
+      "runaway",
+      "guts"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "tailwhip"
+      ],
+      "7": [
+        "quickattack"
+      ],
+      "14": [
+        "hyperfang"
+      ],
+      "23": [
+        "focusenergy"
+      ],
+      "34": [
+        "superfang"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "raticate": {
+    "id": 20,
+    "name": "Raticate",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 55,
+      "attack": 81,
+      "defense": 60,
+      "spAttack": 50,
+      "spDefense": 70,
+      "speed": 97
+    },
+    "evolutions": [],
+    "catchRate": 127,
+    "expRate": "medium",
+    "abilities": [
+      "runaway",
+      "guts"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "tailwhip",
+        "quickattack"
+      ],
+      "14": [
+        "hyperfang"
+      ],
+      "27": [
+        "focusenergy"
+      ],
+      "40": [
+        "superfang"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "spearow": {
+    "id": 21,
+    "name": "Spearow",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 60,
+      "defense": 30,
+      "spAttack": 31,
+      "spDefense": 31,
+      "speed": 70
+    },
+    "evolutions": [
+      {
+        "to": "fearow",
+        "level": 20
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium",
+    "abilities": [
+      "keeneye"
+    ],
+    "moves": {
+      "1": [
+        "peck",
+        "growl"
+      ],
+      "9": [
+        "leer"
+      ],
+      "15": [
+        "furyattack"
+      ],
+      "22": [
+        "mirrormove"
+      ],
+      "29": [
+        "drillpeck"
+      ],
+      "36": [
+        "agility"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "fearow": {
+    "id": 22,
+    "name": "Fearow",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 90,
+      "defense": 65,
+      "spAttack": 61,
+      "spDefense": 61,
+      "speed": 100
+    },
+    "evolutions": [],
+    "catchRate": 90,
+    "expRate": "medium",
+    "abilities": [
+      "keeneye"
+    ],
+    "moves": {
+      "1": [
+        "peck",
+        "growl",
+        "leer",
+        "furyattack"
+      ],
+      "22": [
+        "mirrormove"
+      ],
+      "32": [
+        "drillpeck"
+      ],
+      "41": [
+        "agility"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "ekans": {
+    "id": 23,
+    "name": "Ekans",
+    "types": [
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 35,
+      "attack": 60,
+      "defense": 44,
+      "spAttack": 40,
+      "spDefense": 54,
+      "speed": 55
+    },
+    "evolutions": [
+      {
+        "to": "arbok",
+        "level": 22
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium",
+    "abilities": [
+      "intimidate",
+      "shedskin"
+    ],
+    "moves": {
+      "1": [
+        "wrap",
+        "leer"
+      ],
+      "10": [
+        "poisonsting"
+      ],
+      "17": [
+        "bite"
+      ],
+      "24": [
+        "glare"
+      ],
+      "31": [
+        "screech"
+      ],
+      "38": [
+        "acid"
+      ]
+    },
+    "eggGroups": [
+      "field",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "arbok": {
+    "id": 24,
+    "name": "Arbok",
+    "types": [
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 95,
+      "defense": 69,
+      "spAttack": 65,
+      "spDefense": 79,
+      "speed": 80
+    },
+    "evolutions": [],
+    "catchRate": 90,
+    "expRate": "medium",
+    "abilities": [
+      "intimidate",
+      "shedskin"
+    ],
+    "moves": {
+      "1": [
+        "wrap",
+        "leer",
+        "poisonsting"
+      ],
+      "17": [
+        "bite"
+      ],
+      "27": [
+        "glare"
+      ],
+      "36": [
+        "screech"
+      ],
+      "47": [
+        "acid"
+      ]
+    },
+    "eggGroups": [
+      "field",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "pikachu": {
+    "id": 25,
+    "name": "Pikachu",
+    "types": [
+      "electric"
+    ],
+    "baseStats": {
+      "hp": 35,
+      "attack": 55,
+      "defense": 40,
+      "spAttack": 50,
+      "spDefense": 50,
+      "speed": 90
+    },
+    "evolutions": [
+      {
+        "to": "raichu",
+        "item": "thunderstone"
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "static"
+    ],
+    "moves": {
+      "1": [
+        "thundershock",
+        "growl"
+      ],
+      "9": [
+        "thunderwave"
+      ],
+      "16": [
+        "quickattack"
+      ],
+      "26": [
+        "swift"
+      ],
+      "33": [
+        "agility"
+      ],
+      "43": [
+        "thunder"
+      ]
+    },
+    "eggGroups": [
+      "field",
+      "fairy"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "raichu": {
+    "id": 26,
+    "name": "Raichu",
+    "types": [
+      "electric"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 90,
+      "defense": 55,
+      "spAttack": 90,
+      "spDefense": 80,
+      "speed": 110
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "static"
+    ],
+    "moves": {
+      "1": [
+        "thundershock",
+        "tailwhip",
+        "quickattack",
+        "thunderbolt"
+      ]
+    },
+    "eggGroups": [
+      "field",
+      "fairy"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 3
+    }
+  },
+  "sandshrew": {
+    "id": 27,
+    "name": "Sandshrew",
+    "types": [
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 50,
+      "attack": 75,
+      "defense": 85,
+      "spAttack": 20,
+      "spDefense": 30,
+      "speed": 40
+    },
+    "evolutions": [
+      {
+        "to": "sandslash",
+        "level": 22
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium",
+    "abilities": [
+      "sandveil"
+    ],
+    "moves": {
+      "1": [
+        "scratch"
+      ],
+      "6": [
+        "poisonsting"
+      ],
+      "11": [
+        "sandattack"
+      ],
+      "17": [
+        "slash"
+      ],
+      "23": [
+        "swift"
+      ],
+      "30": [
+        "furyswipes"
+      ],
+      "37": [
+        "sandattack"
+      ]
+    },
+    "eggGroups": [
+      "field",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "sandslash": {
+    "id": 28,
+    "name": "Sandslash",
+    "types": [
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 75,
+      "attack": 100,
+      "defense": 110,
+      "spAttack": 45,
+      "spDefense": 55,
+      "speed": 65
+    },
+    "evolutions": [],
+    "catchRate": 90,
+    "expRate": "medium",
+    "abilities": [
+      "sandveil"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "poisonsting",
+        "sandattack"
+      ],
+      "17": [
+        "slash"
+      ],
+      "27": [
+        "swift"
+      ],
+      "36": [
+        "furyswipes"
+      ],
+      "47": [
+        "sandattack"
+      ]
+    },
+    "eggGroups": [
+      "field",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "nidoranf": {
+    "id": 29,
+    "name": "Nidoran♀",
+    "types": [
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 55,
+      "attack": 47,
+      "defense": 52,
+      "spAttack": 40,
+      "spDefense": 40,
+      "speed": 41
+    },
+    "evolutions": [
+      {
+        "to": "nidorina",
+        "level": 16
+      }
+    ],
+    "catchRate": 235,
+    "expRate": "medium_slow",
+    "abilities": [
+      "poisonpoint",
+      "rivalry"
+    ],
+    "moves": {
+      "1": [
+        "growl",
+        "scratch"
+      ],
+      "8": [
+        "tailwhip"
+      ],
+      "14": [
+        "poisonsting"
+      ],
+      "21": [
+        "doublekick"
+      ],
+      "29": [
+        "bite"
+      ],
+      "36": [
+        "furyattack"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "field"
+    ],
+    "genderRatio": 0,
+    "evYields": {
+      "hp": 1
+    }
+  },
+  "nidorina": {
+    "id": 30,
+    "name": "Nidorina",
+    "types": [
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 70,
+      "attack": 62,
+      "defense": 67,
+      "spAttack": 55,
+      "spDefense": 55,
+      "speed": 56
+    },
+    "evolutions": [
+      {
+        "to": "nidoqueen",
+        "item": "moonstone"
+      }
+    ],
+    "catchRate": 120,
+    "expRate": "medium_slow",
+    "abilities": [
+      "poisonpoint",
+      "rivalry"
+    ],
+    "moves": {
+      "1": [
+        "growl",
+        "scratch",
+        "tailwhip"
+      ],
+      "14": [
+        "poisonsting"
+      ],
+      "23": [
+        "doublekick"
+      ],
+      "32": [
+        "bite"
+      ],
+      "41": [
+        "furyattack"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "field"
+    ],
+    "genderRatio": 0,
+    "evYields": {
+      "hp": 2
+    }
+  },
+  "nidoqueen": {
+    "id": 31,
+    "name": "Nidoqueen",
+    "types": [
+      "poison",
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 90,
+      "attack": 92,
+      "defense": 87,
+      "spAttack": 75,
+      "spDefense": 85,
+      "speed": 76
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "poisonpoint",
+      "rivalry"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "scratch",
+        "tailwhip",
+        "doublekick"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "field"
+    ],
+    "genderRatio": 0,
+    "evYields": {
+      "defense": 3
+    }
+  },
+  "nidoranm": {
+    "id": 32,
+    "name": "Nidoran♂",
+    "types": [
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 46,
+      "attack": 57,
+      "defense": 40,
+      "spAttack": 40,
+      "spDefense": 40,
+      "speed": 50
+    },
+    "evolutions": [
+      {
+        "to": "nidorino",
+        "level": 16
+      }
+    ],
+    "catchRate": 235,
+    "expRate": "medium_slow",
+    "abilities": [
+      "poisonpoint",
+      "rivalry"
+    ],
+    "moves": {
+      "1": [
+        "leer",
+        "tackle"
+      ],
+      "8": [
+        "hornattack"
+      ],
+      "14": [
+        "poisonsting"
+      ],
+      "21": [
+        "focusenergy"
+      ],
+      "29": [
+        "furyattack"
+      ],
+      "36": [
+        "horndrill"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 100,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "nidorino": {
+    "id": 33,
+    "name": "Nidorino",
+    "types": [
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 61,
+      "attack": 72,
+      "defense": 57,
+      "spAttack": 55,
+      "spDefense": 55,
+      "speed": 65
+    },
+    "evolutions": [
+      {
+        "to": "nidoking",
+        "item": "moonstone"
+      }
+    ],
+    "catchRate": 120,
+    "expRate": "medium_slow",
+    "abilities": [
+      "poisonpoint",
+      "rivalry"
+    ],
+    "moves": {
+      "1": [
+        "leer",
+        "tackle",
+        "hornattack"
+      ],
+      "14": [
+        "poisonsting"
+      ],
+      "23": [
+        "focusenergy"
+      ],
+      "32": [
+        "furyattack"
+      ],
+      "41": [
+        "horndrill"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 100,
+    "evYields": {
+      "defense": 1,
+      "attack": 1
+    }
+  },
+  "nidoking": {
+    "id": 34,
+    "name": "Nidoking",
+    "types": [
+      "poison",
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 81,
+      "attack": 102,
+      "defense": 77,
+      "spAttack": 85,
+      "spDefense": 75,
+      "speed": 85
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "poisonpoint",
+      "rivalry"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "hornattack",
+        "doublekick",
+        "poisonsting"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "field"
+    ],
+    "genderRatio": 100,
+    "evYields": {
+      "attack": 3
+    }
+  },
+  "clefairy": {
+    "id": 35,
+    "name": "Clefairy",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 70,
+      "attack": 45,
+      "defense": 48,
+      "spAttack": 60,
+      "spDefense": 65,
+      "speed": 35
+    },
+    "evolutions": [
+      {
+        "to": "clefable",
+        "item": "moonstone"
+      }
+    ],
+    "catchRate": 150,
+    "expRate": "fast",
+    "abilities": [
+      "cutecharm",
+      "magicguard"
+    ],
+    "moves": {
+      "1": [
+        "pound",
+        "growl"
+      ],
+      "13": [
+        "sing"
+      ],
+      "18": [
+        "doubleslap"
+      ],
+      "24": [
+        "minimize"
+      ],
+      "31": [
+        "metronome"
+      ],
+      "39": [
+        "defensecurl"
+      ],
+      "48": [
+        "lightscreen"
+      ]
+    },
+    "eggGroups": [
+      "fairy"
+    ],
+    "genderRatio": 25,
+    "evYields": {
+      "hp": 2
+    }
+  },
+  "clefable": {
+    "id": 36,
+    "name": "Clefable",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 95,
+      "attack": 70,
+      "defense": 73,
+      "spAttack": 95,
+      "spDefense": 90,
+      "speed": 60
+    },
+    "evolutions": [],
+    "catchRate": 25,
+    "expRate": "fast",
+    "abilities": [
+      "cutecharm",
+      "magicguard"
+    ],
+    "moves": {
+      "1": [
+        "sing",
+        "doubleslap",
+        "metronome"
+      ]
+    },
+    "eggGroups": [
+      "fairy"
+    ],
+    "genderRatio": 25,
+    "evYields": {
+      "hp": 3
+    }
+  },
+  "vulpix": {
+    "id": 37,
+    "name": "Vulpix",
+    "types": [
+      "fire"
+    ],
+    "baseStats": {
+      "hp": 38,
+      "attack": 41,
+      "defense": 40,
+      "spAttack": 50,
+      "spDefense": 65,
+      "speed": 65
+    },
+    "evolutions": [
+      {
+        "to": "ninetales",
+        "item": "firestone"
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "flashfire"
+    ],
+    "moves": {
+      "1": [
+        "ember",
+        "tailwhip"
+      ],
+      "16": [
+        "quickattack"
+      ],
+      "21": [
+        "roar"
+      ],
+      "28": [
+        "confuseray"
+      ],
+      "35": [
+        "flamethrower"
+      ],
+      "42": [
+        "firespin"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 25,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "ninetales": {
+    "id": 38,
+    "name": "Ninetales",
+    "types": [
+      "fire"
+    ],
+    "baseStats": {
+      "hp": 73,
+      "attack": 76,
+      "defense": 75,
+      "spAttack": 81,
+      "spDefense": 100,
+      "speed": 100
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "flashfire"
+    ],
+    "moves": {
+      "1": [
+        "ember",
+        "quickattack",
+        "confuseray",
+        "flamethrower"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 25,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "jigglypuff": {
+    "id": 39,
+    "name": "Jigglypuff",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 115,
+      "attack": 45,
+      "defense": 20,
+      "spAttack": 45,
+      "spDefense": 25,
+      "speed": 20
+    },
+    "evolutions": [
+      {
+        "to": "wigglytuff",
+        "item": "moonstone"
+      }
+    ],
+    "catchRate": 170,
+    "expRate": "fast",
+    "abilities": [
+      "cutecharm",
+      "competitive"
+    ],
+    "moves": {
+      "1": [
+        "sing"
+      ],
+      "9": [
+        "pound"
+      ],
+      "14": [
+        "doubleslap"
+      ],
+      "19": [
+        "disable"
+      ],
+      "24": [
+        "defensecurl"
+      ],
+      "29": [
+        "bodyslam"
+      ],
+      "34": [
+        "rest"
+      ]
+    },
+    "eggGroups": [
+      "fairy"
+    ],
+    "genderRatio": 25,
+    "evYields": {
+      "hp": 2
+    }
+  },
+  "wigglytuff": {
+    "id": 40,
+    "name": "Wigglytuff",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 140,
+      "attack": 70,
+      "defense": 45,
+      "spAttack": 85,
+      "spDefense": 50,
+      "speed": 45
+    },
+    "evolutions": [],
+    "catchRate": 50,
+    "expRate": "fast",
+    "abilities": [
+      "cutecharm",
+      "competitive"
+    ],
+    "moves": {
+      "1": [
+        "sing",
+        "disable",
+        "pound",
+        "doubleslap"
+      ]
+    },
+    "eggGroups": [
+      "fairy"
+    ],
+    "genderRatio": 25,
+    "evYields": {
+      "hp": 3
+    }
+  },
+  "zubat": {
+    "id": 41,
+    "name": "Zubat",
+    "types": [
+      "poison",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 45,
+      "defense": 35,
+      "spAttack": 30,
+      "spDefense": 40,
+      "speed": 55
+    },
+    "evolutions": [
+      {
+        "to": "golbat",
+        "level": 22
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium",
+    "abilities": [
+      "innerfocus"
+    ],
+    "moves": {
+      "1": [
+        "leechlife"
+      ],
+      "10": [
+        "supersonic"
+      ],
+      "15": [
+        "bite"
+      ],
+      "21": [
+        "confuseray"
+      ],
+      "28": [
+        "wingattack"
+      ],
+      "36": [
+        "haze"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "golbat": {
+    "id": 42,
+    "name": "Golbat",
+    "types": [
+      "poison",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 75,
+      "attack": 80,
+      "defense": 70,
+      "spAttack": 65,
+      "spDefense": 75,
+      "speed": 90
+    },
+    "evolutions": [],
+    "catchRate": 90,
+    "expRate": "medium",
+    "abilities": [
+      "innerfocus"
+    ],
+    "moves": {
+      "1": [
+        "leechlife",
+        "supersonic",
+        "bite"
+      ],
+      "21": [
+        "confuseray"
+      ],
+      "32": [
+        "wingattack"
+      ],
+      "43": [
+        "haze"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "oddish": {
+    "id": 43,
+    "name": "Oddish",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 45,
+      "attack": 50,
+      "defense": 55,
+      "spAttack": 75,
+      "spDefense": 65,
+      "speed": 30
+    },
+    "evolutions": [
+      {
+        "to": "gloom",
+        "level": 21
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium_slow",
+    "abilities": [
+      "chlorophyll"
+    ],
+    "moves": {
+      "1": [
+        "absorb"
+      ],
+      "15": [
+        "poisonpowder"
+      ],
+      "17": [
+        "stunspore"
+      ],
+      "19": [
+        "sleeppowder"
+      ],
+      "24": [
+        "acid"
+      ],
+      "33": [
+        "petaldance"
+      ],
+      "46": [
+        "solarbeam"
+      ]
+    },
+    "eggGroups": [
+      "grass"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 1
+    }
+  },
+  "gloom": {
+    "id": 44,
+    "name": "Gloom",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 65,
+      "defense": 70,
+      "spAttack": 85,
+      "spDefense": 75,
+      "speed": 40
+    },
+    "evolutions": [
+      {
+        "to": "vileplume",
+        "item": "leafstone"
+      }
+    ],
+    "catchRate": 120,
+    "expRate": "medium_slow",
+    "abilities": [
+      "chlorophyll"
+    ],
+    "moves": {
+      "1": [
+        "absorb",
+        "poisonpowder"
+      ],
+      "17": [
+        "stunspore"
+      ],
+      "19": [
+        "sleeppowder"
+      ],
+      "28": [
+        "acid"
+      ],
+      "38": [
+        "petaldance"
+      ],
+      "52": [
+        "solarbeam"
+      ]
+    },
+    "eggGroups": [
+      "grass"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 2
+    }
+  },
+  "vileplume": {
+    "id": 45,
+    "name": "Vileplume",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 75,
+      "attack": 80,
+      "defense": 85,
+      "spAttack": 110,
+      "spDefense": 90,
+      "speed": 50
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "chlorophyll"
+    ],
+    "moves": {
+      "1": [
+        "absorb",
+        "petaldance",
+        "acid",
+        "solarbeam"
+      ]
+    },
+    "eggGroups": [
+      "grass"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 3
+    }
+  },
+  "paras": {
+    "id": 46,
+    "name": "Paras",
+    "types": [
+      "bug",
+      "grass"
+    ],
+    "baseStats": {
+      "hp": 35,
+      "attack": 70,
+      "defense": 55,
+      "spAttack": 45,
+      "spDefense": 55,
+      "speed": 25
+    },
+    "evolutions": [
+      {
+        "to": "parasect",
+        "level": 24
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "effectspore",
+      "dryskin"
+    ],
+    "moves": {
+      "1": [
+        "scratch"
+      ],
+      "13": [
+        "stunspore"
+      ],
+      "20": [
+        "leechlife"
+      ],
+      "27": [
+        "spore"
+      ],
+      "34": [
+        "slash"
+      ],
+      "41": [
+        "growth"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "parasect": {
+    "id": 47,
+    "name": "Parasect",
+    "types": [
+      "bug",
+      "grass"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 95,
+      "defense": 80,
+      "spAttack": 60,
+      "spDefense": 80,
+      "speed": 30
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "effectspore",
+      "dryskin"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "stunspore"
+      ],
+      "20": [
+        "leechlife"
+      ],
+      "30": [
+        "spore"
+      ],
+      "39": [
+        "slash"
+      ],
+      "48": [
+        "growth"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "venonat": {
+    "id": 48,
+    "name": "Venonat",
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 55,
+      "defense": 50,
+      "spAttack": 40,
+      "spDefense": 55,
+      "speed": 45
+    },
+    "evolutions": [
+      {
+        "to": "venomoth",
+        "level": 31
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "compoundeyes",
+      "tintedlens"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "disable"
+      ],
+      "11": [
+        "stunspore"
+      ],
+      "19": [
+        "sleeppowder"
+      ],
+      "22": [
+        "leechlife"
+      ],
+      "27": [
+        "confusion"
+      ],
+      "35": [
+        "psybeam"
+      ],
+      "41": [
+        "psychic"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "venomoth": {
+    "id": 49,
+    "name": "Venomoth",
+    "types": [
+      "bug",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 70,
+      "attack": 65,
+      "defense": 60,
+      "spAttack": 90,
+      "spDefense": 75,
+      "speed": 90
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "compoundeyes",
+      "tintedlens"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "disable",
+        "stunspore"
+      ],
+      "22": [
+        "leechlife"
+      ],
+      "27": [
+        "confusion"
+      ],
+      "38": [
+        "psybeam"
+      ],
+      "46": [
+        "psychic"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1,
+      "defense": 1
+    }
+  },
+  "diglett": {
+    "id": 50,
+    "name": "Diglett",
+    "types": [
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 10,
+      "attack": 55,
+      "defense": 25,
+      "spAttack": 35,
+      "spDefense": 45,
+      "speed": 95
+    },
+    "evolutions": [
+      {
+        "to": "dugtrio",
+        "level": 26
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium",
+    "abilities": [
+      "sandveil",
+      "arenaveil"
+    ],
+    "moves": {
+      "1": [
+        "scratch"
+      ],
+      "15": [
+        "growl"
+      ],
+      "19": [
+        "dig"
+      ],
+      "24": [
+        "sandattack"
+      ],
+      "31": [
+        "slash"
+      ],
+      "40": [
+        "earthquake"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "dugtrio": {
+    "id": 51,
+    "name": "Dugtrio",
+    "types": [
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 35,
+      "attack": 100,
+      "defense": 50,
+      "spAttack": 50,
+      "spDefense": 70,
+      "speed": 120
+    },
+    "evolutions": [],
+    "catchRate": 50,
+    "expRate": "medium",
+    "abilities": [
+      "sandveil",
+      "arenaveil"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "growl",
+        "dig"
+      ],
+      "24": [
+        "sandattack"
+      ],
+      "35": [
+        "slash"
+      ],
+      "47": [
+        "earthquake"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "meowth": {
+    "id": 52,
+    "name": "Meowth",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 45,
+      "defense": 35,
+      "spAttack": 40,
+      "spDefense": 40,
+      "speed": 90
+    },
+    "evolutions": [
+      {
+        "to": "persian",
+        "level": 28
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium",
+    "abilities": [
+      "pickup",
+      "technician"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "growl"
+      ],
+      "12": [
+        "bite"
+      ],
+      "17": [
+        "payday"
+      ],
+      "24": [
+        "screech"
+      ],
+      "33": [
+        "furyswipes"
+      ],
+      "44": [
+        "slash"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "persian": {
+    "id": 53,
+    "name": "Persian",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 70,
+      "defense": 60,
+      "spAttack": 65,
+      "spDefense": 65,
+      "speed": 115
+    },
+    "evolutions": [],
+    "catchRate": 90,
+    "expRate": "medium",
+    "abilities": [
+      "pickup",
+      "technician"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "growl",
+        "bite"
+      ],
+      "17": [
+        "payday"
+      ],
+      "27": [
+        "screech"
+      ],
+      "38": [
+        "furyswipes"
+      ],
+      "51": [
+        "slash"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "psyduck": {
+    "id": 54,
+    "name": "Psyduck",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 50,
+      "attack": 52,
+      "defense": 48,
+      "spAttack": 65,
+      "spDefense": 50,
+      "speed": 55
+    },
+    "evolutions": [
+      {
+        "to": "golduck",
+        "level": 33
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "damp",
+      "cloudnine"
+    ],
+    "moves": {
+      "1": [
+        "scratch"
+      ],
+      "5": [
+        "tailwhip"
+      ],
+      "10": [
+        "disable"
+      ],
+      "16": [
+        "confusion"
+      ],
+      "23": [
+        "furyswipes"
+      ],
+      "31": [
+        "hydropump"
+      ],
+      "40": [
+        "amnesia"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 1
+    }
+  },
+  "golduck": {
+    "id": 55,
+    "name": "Golduck",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 80,
+      "attack": 82,
+      "defense": 78,
+      "spAttack": 95,
+      "spDefense": 80,
+      "speed": 85
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "damp",
+      "cloudnine"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "tailwhip",
+        "disable"
+      ],
+      "16": [
+        "confusion"
+      ],
+      "27": [
+        "furyswipes"
+      ],
+      "37": [
+        "hydropump"
+      ],
+      "48": [
+        "amnesia"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 2
+    }
+  },
+  "mankey": {
+    "id": 56,
+    "name": "Mankey",
+    "types": [
+      "fighting"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 80,
+      "defense": 35,
+      "spAttack": 35,
+      "spDefense": 45,
+      "speed": 70
+    },
+    "evolutions": [
+      {
+        "to": "primeape",
+        "level": 28
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "vitalheart",
+      "angerpoint"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "leer"
+      ],
+      "15": [
+        "furyswipes"
+      ],
+      "20": [
+        "focusenergy"
+      ],
+      "25": [
+        "seismictoss"
+      ],
+      "33": [
+        "thrash"
+      ],
+      "41": [
+        "submission"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "primeape": {
+    "id": 57,
+    "name": "Primeape",
+    "types": [
+      "fighting"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 105,
+      "defense": 60,
+      "spAttack": 60,
+      "spDefense": 70,
+      "speed": 95
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "vitalheart",
+      "angerpoint"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "leer",
+        "furyswipes"
+      ],
+      "20": [
+        "focusenergy"
+      ],
+      "28": [
+        "seismictoss"
+      ],
+      "37": [
+        "thrash"
+      ],
+      "46": [
+        "submission"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "growlithe": {
+    "id": 58,
+    "name": "Growlithe",
+    "types": [
+      "fire"
+    ],
+    "baseStats": {
+      "hp": 55,
+      "attack": 70,
+      "defense": 45,
+      "spAttack": 70,
+      "spDefense": 50,
+      "speed": 60
+    },
+    "evolutions": [
+      {
+        "to": "arcanine",
+        "item": "firestone"
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "slow",
+    "abilities": [
+      "intimidate",
+      "flashfire"
+    ],
+    "moves": {
+      "1": [
+        "bite",
+        "roar"
+      ],
+      "18": [
+        "ember"
+      ],
+      "23": [
+        "leer"
+      ],
+      "30": [
+        "takedown"
+      ],
+      "39": [
+        "flamethrower"
+      ],
+      "50": [
+        "fireblast"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "arcanine": {
+    "id": 59,
+    "name": "Arcanine",
+    "types": [
+      "fire"
+    ],
+    "baseStats": {
+      "hp": 90,
+      "attack": 110,
+      "defense": 80,
+      "spAttack": 100,
+      "spDefense": 80,
+      "speed": 95
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "slow",
+    "abilities": [
+      "intimidate",
+      "flashfire"
+    ],
+    "moves": {
+      "1": [
+        "bite",
+        "roar",
+        "ember",
+        "flamethrower"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "poliwag": {
+    "id": 60,
+    "name": "Poliwag",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 50,
+      "defense": 40,
+      "spAttack": 40,
+      "spDefense": 40,
+      "speed": 90
+    },
+    "evolutions": [
+      {
+        "to": "poliwhirl",
+        "level": 25
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium_slow",
+    "abilities": [
+      "waterabsorb",
+      "damp"
+    ],
+    "moves": {
+      "1": [
+        "bubble"
+      ],
+      "16": [
+        "hypnosis"
+      ],
+      "19": [
+        "watergun"
+      ],
+      "26": [
+        "doubleslap"
+      ],
+      "33": [
+        "bodyslam"
+      ],
+      "41": [
+        "amnesia"
+      ],
+      "49": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "water1"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "poliwhirl": {
+    "id": 61,
+    "name": "Poliwhirl",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 65,
+      "defense": 65,
+      "spAttack": 50,
+      "spDefense": 50,
+      "speed": 90
+    },
+    "evolutions": [
+      {
+        "to": "poliwrath",
+        "item": "waterstone"
+      }
+    ],
+    "catchRate": 120,
+    "expRate": "medium_slow",
+    "abilities": [
+      "waterabsorb",
+      "damp"
+    ],
+    "moves": {
+      "1": [
+        "bubble",
+        "hypnosis"
+      ],
+      "19": [
+        "watergun"
+      ],
+      "28": [
+        "doubleslap"
+      ],
+      "36": [
+        "bodyslam"
+      ],
+      "45": [
+        "amnesia"
+      ],
+      "54": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "water1"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "poliwrath": {
+    "id": 62,
+    "name": "Poliwrath",
+    "types": [
+      "water",
+      "fighting"
+    ],
+    "baseStats": {
+      "hp": 90,
+      "attack": 95,
+      "defense": 95,
+      "spAttack": 70,
+      "spDefense": 90,
+      "speed": 70
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "waterabsorb",
+      "damp"
+    ],
+    "moves": {
+      "1": [
+        "hypnosis",
+        "watergun",
+        "doubleslap",
+        "submission"
+      ]
+    },
+    "eggGroups": [
+      "water1"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 3
+    }
+  },
+  "abra": {
+    "id": 63,
+    "name": "Abra",
+    "types": [
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 25,
+      "attack": 20,
+      "defense": 15,
+      "spAttack": 105,
+      "spDefense": 55,
+      "speed": 90
+    },
+    "evolutions": [
+      {
+        "to": "kadabra",
+        "level": 16
+      }
+    ],
+    "catchRate": 200,
+    "expRate": "medium_slow",
+    "abilities": [
+      "synchronize",
+      "innerfocus"
+    ],
+    "moves": {
+      "1": [
+        "teleport"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "spAttack": 1
+    }
+  },
+  "kadabra": {
+    "id": 64,
+    "name": "Kadabra",
+    "types": [
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 35,
+      "defense": 30,
+      "spAttack": 120,
+      "spDefense": 70,
+      "speed": 105
+    },
+    "evolutions": [
+      {
+        "to": "alakazam",
+        "trade": true
+      }
+    ],
+    "catchRate": 100,
+    "expRate": "medium_slow",
+    "abilities": [
+      "synchronize",
+      "innerfocus"
+    ],
+    "moves": {
+      "1": [
+        "teleport",
+        "confusion"
+      ],
+      "16": [
+        "kinesis"
+      ],
+      "21": [
+        "disable"
+      ],
+      "26": [
+        "psybeam"
+      ],
+      "31": [
+        "recover"
+      ],
+      "38": [
+        "psychic"
+      ],
+      "45": [
+        "reflect"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "spAttack": 2
+    }
+  },
+  "alakazam": {
+    "id": 65,
+    "name": "Alakazam",
+    "types": [
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 55,
+      "attack": 50,
+      "defense": 45,
+      "spAttack": 135,
+      "spDefense": 95,
+      "speed": 120
+    },
+    "evolutions": [],
+    "catchRate": 50,
+    "expRate": "medium_slow",
+    "abilities": [
+      "synchronize",
+      "innerfocus"
+    ],
+    "moves": {
+      "1": [
+        "teleport",
+        "confusion",
+        "kinesis"
+      ],
+      "21": [
+        "disable"
+      ],
+      "26": [
+        "psybeam"
+      ],
+      "31": [
+        "recover"
+      ],
+      "38": [
+        "psychic"
+      ],
+      "45": [
+        "reflect"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "spAttack": 3
+    }
+  },
+  "machop": {
+    "id": 66,
+    "name": "Machop",
+    "types": [
+      "fighting"
+    ],
+    "baseStats": {
+      "hp": 70,
+      "attack": 80,
+      "defense": 50,
+      "spAttack": 35,
+      "spDefense": 35,
+      "speed": 35
+    },
+    "evolutions": [
+      {
+        "to": "machoke",
+        "level": 28
+      }
+    ],
+    "catchRate": 180,
+    "expRate": "medium_slow",
+    "abilities": [
+      "guts",
+      "noguard"
+    ],
+    "moves": {
+      "1": [
+        "karatechop"
+      ],
+      "10": [
+        "lowkick"
+      ],
+      "16": [
+        "leer"
+      ],
+      "22": [
+        "focusenergy"
+      ],
+      "29": [
+        "seismictoss"
+      ],
+      "37": [
+        "submission"
+      ],
+      "46": [
+        "rockslide"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "machoke": {
+    "id": 67,
+    "name": "Machoke",
+    "types": [
+      "fighting"
+    ],
+    "baseStats": {
+      "hp": 80,
+      "attack": 100,
+      "defense": 70,
+      "spAttack": 50,
+      "spDefense": 60,
+      "speed": 45
+    },
+    "evolutions": [
+      {
+        "to": "machamp",
+        "trade": true
+      }
+    ],
+    "catchRate": 90,
+    "expRate": "medium_slow",
+    "abilities": [
+      "guts",
+      "noguard"
+    ],
+    "moves": {
+      "1": [
+        "karatechop",
+        "lowkick",
+        "leer"
+      ],
+      "22": [
+        "focusenergy"
+      ],
+      "32": [
+        "seismictoss"
+      ],
+      "41": [
+        "submission"
+      ],
+      "52": [
+        "rockslide"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "machamp": {
+    "id": 68,
+    "name": "Machamp",
+    "types": [
+      "fighting"
+    ],
+    "baseStats": {
+      "hp": 90,
+      "attack": 130,
+      "defense": 80,
+      "spAttack": 65,
+      "spDefense": 85,
+      "speed": 55
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "guts",
+      "noguard"
+    ],
+    "moves": {
+      "1": [
+        "karatechop",
+        "lowkick",
+        "leer",
+        "focusenergy"
+      ],
+      "32": [
+        "seismictoss"
+      ],
+      "41": [
+        "submission"
+      ],
+      "52": [
+        "rockslide"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "attack": 3
+    }
+  },
+  "bellsprout": {
+    "id": 69,
+    "name": "Bellsprout",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 50,
+      "attack": 75,
+      "defense": 35,
+      "spAttack": 70,
+      "spDefense": 30,
+      "speed": 40
+    },
+    "evolutions": [
+      {
+        "to": "weepinbell",
+        "level": 21
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium_slow",
+    "abilities": [
+      "chlorophyll"
+    ],
+    "moves": {
+      "1": [
+        "vinewhip",
+        "growth"
+      ],
+      "13": [
+        "wrap"
+      ],
+      "15": [
+        "poisonpowder"
+      ],
+      "18": [
+        "sleeppowder"
+      ],
+      "21": [
+        "stunspore"
+      ],
+      "26": [
+        "acid"
+      ],
+      "33": [
+        "razorleaf"
+      ],
+      "42": [
+        "slam"
+      ]
+    },
+    "eggGroups": [
+      "grass"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "weepinbell": {
+    "id": 70,
+    "name": "Weepinbell",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 90,
+      "defense": 50,
+      "spAttack": 85,
+      "spDefense": 45,
+      "speed": 55
+    },
+    "evolutions": [
+      {
+        "to": "victreebel",
+        "item": "leafstone"
+      }
+    ],
+    "catchRate": 120,
+    "expRate": "medium_slow",
+    "abilities": [
+      "chlorophyll"
+    ],
+    "moves": {
+      "1": [
+        "vinewhip",
+        "growth",
+        "wrap"
+      ],
+      "15": [
+        "poisonpowder"
+      ],
+      "18": [
+        "sleeppowder"
+      ],
+      "24": [
+        "stunspore"
+      ],
+      "30": [
+        "acid"
+      ],
+      "38": [
+        "razorleaf"
+      ],
+      "48": [
+        "slam"
+      ]
+    },
+    "eggGroups": [
+      "grass"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 3
+    }
+  },
+  "victreebel": {
+    "id": 71,
+    "name": "Victreebel",
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 80,
+      "attack": 105,
+      "defense": 65,
+      "spAttack": 100,
+      "spDefense": 70,
+      "speed": 70
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "chlorophyll"
+    ],
+    "moves": {
+      "1": [
+        "vinewhip",
+        "sleeppowder",
+        "razorleaf",
+        "acid"
+      ]
+    },
+    "eggGroups": [
+      "grass"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 3
+    }
+  },
+  "tentacool": {
+    "id": 72,
+    "name": "Tentacool",
+    "types": [
+      "water",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 40,
+      "defense": 35,
+      "spAttack": 50,
+      "spDefense": 100,
+      "speed": 70
+    },
+    "evolutions": [
+      {
+        "to": "tentacruel",
+        "level": 30
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "slow",
+    "abilities": [
+      "clearbody",
+      "liquidooze"
+    ],
+    "moves": {
+      "1": [
+        "acid"
+      ],
+      "7": [
+        "supersonic"
+      ],
+      "13": [
+        "wrap"
+      ],
+      "18": [
+        "poisonsting"
+      ],
+      "22": [
+        "bubblebeam"
+      ],
+      "27": [
+        "constrict"
+      ],
+      "33": [
+        "screech"
+      ],
+      "40": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "water3"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spDefense": 1
+    }
+  },
+  "tentacruel": {
+    "id": 73,
+    "name": "Tentacruel",
+    "types": [
+      "water",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 80,
+      "attack": 70,
+      "defense": 65,
+      "spAttack": 80,
+      "spDefense": 120,
+      "speed": 100
+    },
+    "evolutions": [],
+    "catchRate": 60,
+    "expRate": "slow",
+    "abilities": [
+      "clearbody",
+      "liquidooze"
+    ],
+    "moves": {
+      "1": [
+        "acid",
+        "supersonic",
+        "wrap"
+      ],
+      "18": [
+        "poisonsting"
+      ],
+      "22": [
+        "bubblebeam"
+      ],
+      "30": [
+        "constrict"
+      ],
+      "38": [
+        "screech"
+      ],
+      "47": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "water3"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spDefense": 2
+    }
+  },
+  "geodude": {
+    "id": 74,
+    "name": "Geodude",
+    "types": [
+      "rock",
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 80,
+      "defense": 100,
+      "spAttack": 30,
+      "spDefense": 30,
+      "speed": 20
+    },
+    "evolutions": [
+      {
+        "to": "graveler",
+        "level": 25
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "medium_slow",
+    "abilities": [
+      "rockhead",
+      "sturdy"
+    ],
+    "moves": {
+      "1": [
+        "tackle"
+      ],
+      "11": [
+        "defensecurl"
+      ],
+      "16": [
+        "rockthrow"
+      ],
+      "21": [
+        "harden"
+      ],
+      "26": [
+        "magnitude"
+      ],
+      "31": [
+        "selfdestruct"
+      ],
+      "36": [
+        "earthquake"
+      ],
+      "41": [
+        "explosion"
+      ]
+    },
+    "eggGroups": [
+      "mineral"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "graveler": {
+    "id": 75,
+    "name": "Graveler",
+    "types": [
+      "rock",
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 55,
+      "attack": 95,
+      "defense": 115,
+      "spAttack": 45,
+      "spDefense": 45,
+      "speed": 35
+    },
+    "evolutions": [
+      {
+        "to": "golem",
+        "trade": true
+      }
+    ],
+    "catchRate": 120,
+    "expRate": "medium_slow",
+    "abilities": [
+      "rockhead",
+      "sturdy"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "defensecurl",
+        "rockthrow"
+      ],
+      "21": [
+        "harden"
+      ],
+      "29": [
+        "magnitude"
+      ],
+      "36": [
+        "selfdestruct"
+      ],
+      "43": [
+        "earthquake"
+      ],
+      "50": [
+        "explosion"
+      ]
+    },
+    "eggGroups": [
+      "mineral"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "golem": {
+    "id": 76,
+    "name": "Golem",
+    "types": [
+      "rock",
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 80,
+      "attack": 120,
+      "defense": 130,
+      "spAttack": 55,
+      "spDefense": 65,
+      "speed": 45
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "rockhead",
+      "sturdy"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "defensecurl",
+        "rockthrow",
+        "harden"
+      ],
+      "29": [
+        "magnitude"
+      ],
+      "36": [
+        "selfdestruct"
+      ],
+      "43": [
+        "earthquake"
+      ],
+      "50": [
+        "explosion"
+      ]
+    },
+    "eggGroups": [
+      "mineral"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 3
+    }
+  },
+  "ponyta": {
+    "id": 77,
+    "name": "Ponyta",
+    "types": [
+      "fire"
+    ],
+    "baseStats": {
+      "hp": 50,
+      "attack": 85,
+      "defense": 55,
+      "spAttack": 65,
+      "spDefense": 65,
+      "speed": 90
+    },
+    "evolutions": [
+      {
+        "to": "rapidash",
+        "level": 40
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "runaway",
+      "flashfire"
+    ],
+    "moves": {
+      "1": [
+        "ember"
+      ],
+      "14": [
+        "tailwhip"
+      ],
+      "19": [
+        "stomp"
+      ],
+      "25": [
+        "firespin"
+      ],
+      "31": [
+        "takedown"
+      ],
+      "38": [
+        "agility"
+      ],
+      "44": [
+        "fireblast"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "rapidash": {
+    "id": 78,
+    "name": "Rapidash",
+    "types": [
+      "fire"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 100,
+      "defense": 70,
+      "spAttack": 80,
+      "spDefense": 80,
+      "speed": 105
+    },
+    "evolutions": [],
+    "catchRate": 60,
+    "expRate": "medium",
+    "abilities": [
+      "runaway",
+      "flashfire"
+    ],
+    "moves": {
+      "1": [
+        "ember",
+        "tailwhip",
+        "stomp",
+        "firespin"
+      ],
+      "31": [
+        "takedown"
+      ],
+      "40": [
+        "agility"
+      ],
+      "47": [
+        "fireblast"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "slowpoke": {
+    "id": 79,
+    "name": "Slowpoke",
+    "types": [
+      "water",
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 90,
+      "attack": 65,
+      "defense": 65,
+      "spAttack": 40,
+      "spDefense": 40,
+      "speed": 15
+    },
+    "evolutions": [
+      {
+        "to": "slowbro",
+        "level": 37
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "oblivious",
+      "owntempo"
+    ],
+    "moves": {
+      "1": [
+        "confusion"
+      ],
+      "18": [
+        "disable"
+      ],
+      "22": [
+        "headbutt"
+      ],
+      "27": [
+        "growl"
+      ],
+      "33": [
+        "watergun"
+      ],
+      "40": [
+        "amnesia"
+      ],
+      "48": [
+        "psychic"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "water1"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "hp": 1
+    }
+  },
+  "slowbro": {
+    "id": 80,
+    "name": "Slowbro",
+    "types": [
+      "water",
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 95,
+      "attack": 75,
+      "defense": 110,
+      "spAttack": 100,
+      "spDefense": 80,
+      "speed": 30
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "oblivious",
+      "owntempo"
+    ],
+    "moves": {
+      "1": [
+        "confusion",
+        "disable"
+      ],
+      "22": [
+        "headbutt"
+      ],
+      "27": [
+        "growl"
+      ],
+      "33": [
+        "watergun"
+      ],
+      "44": [
+        "amnesia"
+      ],
+      "55": [
+        "psychic"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "water1"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "magnemite": {
+    "id": 81,
+    "name": "Magnemite",
+    "types": [
+      "electric"
+    ],
+    "baseStats": {
+      "hp": 25,
+      "attack": 35,
+      "defense": 70,
+      "spAttack": 95,
+      "spDefense": 55,
+      "speed": 45
+    },
+    "evolutions": [
+      {
+        "to": "magneton",
+        "level": 30
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "sturdy",
+      "magnetpull"
+    ],
+    "moves": {
+      "1": [
+        "tackle"
+      ],
+      "6": [
+        "sonicboom"
+      ],
+      "11": [
+        "thundershock"
+      ],
+      "16": [
+        "supersonic"
+      ],
+      "21": [
+        "thunderwave"
+      ],
+      "26": [
+        "swift"
+      ],
+      "32": [
+        "thunderbolt"
+      ],
+      "38": [
+        "lightscreen"
+      ]
+    },
+    "eggGroups": [
+      "mineral"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 1
+    }
+  },
+  "magneton": {
+    "id": 82,
+    "name": "Magneton",
+    "types": [
+      "electric"
+    ],
+    "baseStats": {
+      "hp": 50,
+      "attack": 60,
+      "defense": 95,
+      "spAttack": 120,
+      "spDefense": 70,
+      "speed": 70
+    },
+    "evolutions": [],
+    "catchRate": 60,
+    "expRate": "medium",
+    "abilities": [
+      "sturdy",
+      "magnetpull"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "sonicboom",
+        "thundershock"
+      ],
+      "16": [
+        "supersonic"
+      ],
+      "21": [
+        "thunderwave"
+      ],
+      "26": [
+        "swift"
+      ],
+      "35": [
+        "thunderbolt"
+      ],
+      "44": [
+        "lightscreen"
+      ]
+    },
+    "eggGroups": [
+      "mineral"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 2
+    }
+  },
+  "farfetchd": {
+    "id": 83,
+    "name": "Farfetch'd",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 52,
+      "attack": 90,
+      "defense": 55,
+      "spAttack": 58,
+      "spDefense": 62,
+      "speed": 60
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "keeneye",
+      "innerfocus"
+    ],
+    "moves": {
+      "1": [
+        "tackle"
+      ],
+      "7": [
+        "sandattack"
+      ],
+      "13": [
+        "leer"
+      ],
+      "19": [
+        "furyattack"
+      ],
+      "25": [
+        "swordsdance"
+      ],
+      "31": [
+        "agility"
+      ],
+      "37": [
+        "slash"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "doduo": {
+    "id": 84,
+    "name": "Doduo",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 35,
+      "attack": 85,
+      "defense": 45,
+      "spAttack": 35,
+      "spDefense": 35,
+      "speed": 75
+    },
+    "evolutions": [
+      {
+        "to": "dodrio",
+        "level": 31
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "runaway",
+      "earlybird"
+    ],
+    "moves": {
+      "1": [
+        "peck"
+      ],
+      "20": [
+        "quickattack"
+      ],
+      "24": [
+        "rage"
+      ],
+      "30": [
+        "furysattack"
+      ],
+      "36": [
+        "drillpeck"
+      ],
+      "40": [
+        "agility"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "dodrio": {
+    "id": 85,
+    "name": "Dodrio",
+    "types": [
+      "normal",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 110,
+      "defense": 70,
+      "spAttack": 60,
+      "spDefense": 60,
+      "speed": 110
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "runaway",
+      "earlybird"
+    ],
+    "moves": {
+      "1": [
+        "peck",
+        "quickattack",
+        "rage"
+      ],
+      "30": [
+        "furysattack"
+      ],
+      "39": [
+        "drillpeck"
+      ],
+      "45": [
+        "agility"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "seel": {
+    "id": 86,
+    "name": "Seel",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 45,
+      "defense": 55,
+      "spAttack": 45,
+      "spDefense": 70,
+      "speed": 45
+    },
+    "evolutions": [
+      {
+        "to": "dewgong",
+        "level": 34
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "thickfat",
+      "hydration"
+    ],
+    "moves": {
+      "1": [
+        "headbutt"
+      ],
+      "15": [
+        "growl"
+      ],
+      "21": [
+        "aurorabeam"
+      ],
+      "27": [
+        "rest"
+      ],
+      "35": [
+        "watergun"
+      ],
+      "41": [
+        "icebeam"
+      ],
+      "47": [
+        "blizzard"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 1
+    }
+  },
+  "dewgong": {
+    "id": 87,
+    "name": "Dewgong",
+    "types": [
+      "water",
+      "ice"
+    ],
+    "baseStats": {
+      "hp": 90,
+      "attack": 70,
+      "defense": 80,
+      "spAttack": 70,
+      "spDefense": 95,
+      "speed": 70
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "thickfat",
+      "hydration"
+    ],
+    "moves": {
+      "1": [
+        "headbutt",
+        "growl",
+        "aurorabeam"
+      ],
+      "27": [
+        "rest"
+      ],
+      "37": [
+        "watergun"
+      ],
+      "45": [
+        "icebeam"
+      ],
+      "53": [
+        "blizzard"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 2
+    }
+  },
+  "grimer": {
+    "id": 88,
+    "name": "Grimer",
+    "types": [
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 80,
+      "attack": 80,
+      "defense": 50,
+      "spAttack": 40,
+      "spDefense": 50,
+      "speed": 25
+    },
+    "evolutions": [
+      {
+        "to": "muk",
+        "level": 38
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "stench",
+      "stickyhold"
+    ],
+    "moves": {
+      "1": [
+        "poisongas",
+        "pound"
+      ],
+      "7": [
+        "harden"
+      ],
+      "13": [
+        "disable"
+      ],
+      "20": [
+        "sludge"
+      ],
+      "26": [
+        "minimize"
+      ],
+      "33": [
+        "screech"
+      ],
+      "40": [
+        "acidarmor"
+      ]
+    },
+    "eggGroups": [
+      "amorphous"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "muk": {
+    "id": 89,
+    "name": "Muk",
+    "types": [
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 105,
+      "attack": 105,
+      "defense": 75,
+      "spAttack": 65,
+      "spDefense": 100,
+      "speed": 50
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "stench",
+      "stickyhold"
+    ],
+    "moves": {
+      "1": [
+        "poisongas",
+        "pound",
+        "harden"
+      ],
+      "20": [
+        "sludge"
+      ],
+      "28": [
+        "minimize"
+      ],
+      "37": [
+        "screech"
+      ],
+      "46": [
+        "acidarmor"
+      ]
+    },
+    "eggGroups": [
+      "amorphous"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "shellder": {
+    "id": 90,
+    "name": "Shellder",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 30,
+      "attack": 65,
+      "defense": 100,
+      "spAttack": 45,
+      "spDefense": 25,
+      "speed": 40
+    },
+    "evolutions": [
+      {
+        "to": "cloyster",
+        "item": "waterstone"
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "slow",
+    "abilities": [
+      "shellarmor",
+      "skilllink"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "withdraw"
+      ],
+      "18": [
+        "supersonic"
+      ],
+      "24": [
+        "clamp"
+      ],
+      "30": [
+        "aurorabeam"
+      ],
+      "36": [
+        "leer"
+      ],
+      "42": [
+        "icebeam"
+      ]
+    },
+    "eggGroups": [
+      "water3"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "cloyster": {
+    "id": 91,
+    "name": "Cloyster",
+    "types": [
+      "water",
+      "ice"
+    ],
+    "baseStats": {
+      "hp": 50,
+      "attack": 95,
+      "defense": 180,
+      "spAttack": 85,
+      "spDefense": 45,
+      "speed": 70
+    },
+    "evolutions": [],
+    "catchRate": 60,
+    "expRate": "slow",
+    "abilities": [
+      "shellarmor",
+      "skilllink"
+    ],
+    "moves": {
+      "1": [
+        "withdraw",
+        "supersonic",
+        "clamp",
+        "aurorabeam"
+      ]
+    },
+    "eggGroups": [
+      "water3"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "gastly": {
+    "id": 92,
+    "name": "Gastly",
+    "types": [
+      "ghost",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 30,
+      "attack": 35,
+      "defense": 30,
+      "spAttack": 100,
+      "spDefense": 35,
+      "speed": 80
+    },
+    "evolutions": [
+      {
+        "to": "haunter",
+        "level": 25
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium_slow",
+    "abilities": [
+      "levitate"
+    ],
+    "moves": {
+      "1": [
+        "confuseray",
+        "lick"
+      ],
+      "13": [
+        "nightshade"
+      ],
+      "16": [
+        "haze"
+      ],
+      "21": [
+        "hypnosis"
+      ],
+      "28": [
+        "dreameater"
+      ],
+      "36": [
+        "psychic"
+      ]
+    },
+    "eggGroups": [
+      "amorphous"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 1
+    }
+  },
+  "haunter": {
+    "id": 93,
+    "name": "Haunter",
+    "types": [
+      "ghost",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 45,
+      "attack": 50,
+      "defense": 45,
+      "spAttack": 115,
+      "spDefense": 55,
+      "speed": 95
+    },
+    "evolutions": [
+      {
+        "to": "gengar",
+        "trade": true
+      }
+    ],
+    "catchRate": 90,
+    "expRate": "medium_slow",
+    "abilities": [
+      "levitate"
+    ],
+    "moves": {
+      "1": [
+        "confuseray",
+        "lick",
+        "nightshade"
+      ],
+      "16": [
+        "haze"
+      ],
+      "21": [
+        "hypnosis"
+      ],
+      "31": [
+        "dreameater"
+      ],
+      "42": [
+        "psychic"
+      ]
+    },
+    "eggGroups": [
+      "amorphous"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 2
+    }
+  },
+  "gengar": {
+    "id": 94,
+    "name": "Gengar",
+    "types": [
+      "ghost",
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 65,
+      "defense": 60,
+      "spAttack": 130,
+      "spDefense": 75,
+      "speed": 110
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "levitate"
+    ],
+    "moves": {
+      "1": [
+        "confuseray",
+        "lick",
+        "nightshade",
+        "haze"
+      ],
+      "21": [
+        "hypnosis"
+      ],
+      "31": [
+        "dreameater"
+      ],
+      "42": [
+        "psychic"
+      ]
+    },
+    "eggGroups": [
+      "amorphous"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 3
+    }
+  },
+  "onix": {
+    "id": 95,
+    "name": "Onix",
+    "types": [
+      "rock",
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 35,
+      "attack": 45,
+      "defense": 160,
+      "spAttack": 30,
+      "spDefense": 45,
+      "speed": 70
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "rockhead",
+      "sturdy"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "screech"
+      ],
+      "10": [
+        "bind"
+      ],
+      "14": [
+        "rockthrow"
+      ],
+      "23": [
+        "harden"
+      ],
+      "27": [
+        "rage"
+      ],
+      "32": [
+        "slam"
+      ],
+      "36": [
+        "dig"
+      ],
+      "40": [
+        "earthquake"
+      ]
+    },
+    "eggGroups": [
+      "mineral"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "drowzee": {
+    "id": 96,
+    "name": "Drowzee",
+    "types": [
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 48,
+      "defense": 45,
+      "spAttack": 43,
+      "spDefense": 90,
+      "speed": 42
+    },
+    "evolutions": [
+      {
+        "to": "hypno",
+        "level": 26
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "insomnia",
+      "forewarn"
+    ],
+    "moves": {
+      "1": [
+        "hypnosis",
+        "pound"
+      ],
+      "12": [
+        "disable"
+      ],
+      "17": [
+        "confusion"
+      ],
+      "24": [
+        "headbutt"
+      ],
+      "29": [
+        "poisongas"
+      ],
+      "32": [
+        "psychic"
+      ],
+      "37": [
+        "meditate"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spDefense": 1
+    }
+  },
+  "hypno": {
+    "id": 97,
+    "name": "Hypno",
+    "types": [
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 85,
+      "attack": 73,
+      "defense": 70,
+      "spAttack": 73,
+      "spDefense": 115,
+      "speed": 67
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "insomnia",
+      "forewarn"
+    ],
+    "moves": {
+      "1": [
+        "hypnosis",
+        "pound",
+        "disable"
+      ],
+      "17": [
+        "confusion"
+      ],
+      "24": [
+        "headbutt"
+      ],
+      "33": [
+        "poisongas"
+      ],
+      "40": [
+        "psychic"
+      ],
+      "49": [
+        "meditate"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spDefense": 2
+    }
+  },
+  "krabby": {
+    "id": 98,
+    "name": "Krabby",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 30,
+      "attack": 105,
+      "defense": 90,
+      "spAttack": 25,
+      "spDefense": 25,
+      "speed": 50
+    },
+    "evolutions": [
+      {
+        "to": "kingler",
+        "level": 28
+      }
+    ],
+    "catchRate": 225,
+    "expRate": "medium",
+    "abilities": [
+      "hypercutter",
+      "shellarmor"
+    ],
+    "moves": {
+      "1": [
+        "bubble",
+        "leer"
+      ],
+      "10": [
+        "vicegrip"
+      ],
+      "15": [
+        "harden"
+      ],
+      "25": [
+        "stomp"
+      ],
+      "32": [
+        "crabhammer"
+      ],
+      "39": [
+        "guillotine"
+      ]
+    },
+    "eggGroups": [
+      "water3"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "kingler": {
+    "id": 99,
+    "name": "Kingler",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 55,
+      "attack": 130,
+      "defense": 115,
+      "spAttack": 50,
+      "spDefense": 50,
+      "speed": 75
+    },
+    "evolutions": [],
+    "catchRate": 60,
+    "expRate": "medium",
+    "abilities": [
+      "hypercutter",
+      "shellarmor"
+    ],
+    "moves": {
+      "1": [
+        "bubble",
+        "leer",
+        "vicegrip"
+      ],
+      "15": [
+        "harden"
+      ],
+      "25": [
+        "stomp"
+      ],
+      "34": [
+        "crabhammer"
+      ],
+      "42": [
+        "guillotine"
+      ]
+    },
+    "eggGroups": [
+      "water3"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "voltorb": {
+    "id": 100,
+    "name": "Voltorb",
+    "types": [
+      "electric"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 30,
+      "defense": 50,
+      "spAttack": 55,
+      "spDefense": 55,
+      "speed": 100
+    },
+    "evolutions": [
+      {
+        "to": "electrode",
+        "level": 30
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "soundproof",
+      "static"
+    ],
+    "moves": {
+      "1": [
+        "tackle"
+      ],
+      "9": [
+        "sonicboom"
+      ],
+      "17": [
+        "thundershock"
+      ],
+      "23": [
+        "selfdestruct"
+      ],
+      "30": [
+        "lightscreen"
+      ],
+      "36": [
+        "swift"
+      ],
+      "43": [
+        "explosion"
+      ]
+    },
+    "eggGroups": [
+      "mineral"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "electrode": {
+    "id": 101,
+    "name": "Electrode",
+    "types": [
+      "electric"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 50,
+      "defense": 70,
+      "spAttack": 80,
+      "spDefense": 80,
+      "speed": 150
+    },
+    "evolutions": [],
+    "catchRate": 60,
+    "expRate": "medium",
+    "abilities": [
+      "soundproof",
+      "static"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "sonicboom",
+        "thundershock"
+      ],
+      "23": [
+        "selfdestruct"
+      ],
+      "34": [
+        "lightscreen"
+      ],
+      "41": [
+        "swift"
+      ],
+      "48": [
+        "explosion"
+      ]
+    },
+    "eggGroups": [
+      "mineral"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "exeggcute": {
+    "id": 102,
+    "name": "Exeggcute",
+    "types": [
+      "grass",
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 40,
+      "defense": 80,
+      "spAttack": 60,
+      "spDefense": 45,
+      "speed": 40
+    },
+    "evolutions": [
+      {
+        "to": "exeggutor",
+        "item": "leafstone"
+      }
+    ],
+    "catchRate": 90,
+    "expRate": "slow",
+    "abilities": [
+      "chlorophyll"
+    ],
+    "moves": {
+      "1": [
+        "barrage",
+        "hypnosis"
+      ],
+      "13": [
+        "stunspore"
+      ],
+      "18": [
+        "poisonpowder"
+      ],
+      "22": [
+        "leechseed"
+      ],
+      "27": [
+        "confusion"
+      ],
+      "33": [
+        "sleeppowder"
+      ],
+      "38": [
+        "solarbeam"
+      ]
+    },
+    "eggGroups": [
+      "plant"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "exeggutor": {
+    "id": 103,
+    "name": "Exeggutor",
+    "types": [
+      "grass",
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 95,
+      "attack": 95,
+      "defense": 85,
+      "spAttack": 125,
+      "spDefense": 75,
+      "speed": 55
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "slow",
+    "abilities": [
+      "chlorophyll"
+    ],
+    "moves": {
+      "1": [
+        "barrage",
+        "hypnosis",
+        "confusion",
+        "stunspore"
+      ]
+    },
+    "eggGroups": [
+      "plant"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "cubone": {
+    "id": 104,
+    "name": "Cubone",
+    "types": [
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 50,
+      "attack": 50,
+      "defense": 95,
+      "spAttack": 40,
+      "spDefense": 50,
+      "speed": 35
+    },
+    "evolutions": [
+      {
+        "to": "marowak",
+        "level": 28
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "rockhead",
+      "lightningrod"
+    ],
+    "moves": {
+      "1": [
+        "boneclub",
+        "growl"
+      ],
+      "10": [
+        "leer"
+      ],
+      "18": [
+        "rage"
+      ],
+      "25": [
+        "focusenergy"
+      ],
+      "31": [
+        "bonemerang"
+      ],
+      "38": [
+        "thrash"
+      ],
+      "46": [
+        "boneclub"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "marowak": {
+    "id": 105,
+    "name": "Marowak",
+    "types": [
+      "ground"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 80,
+      "defense": 110,
+      "spAttack": 50,
+      "spDefense": 80,
+      "speed": 45
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "rockhead",
+      "lightningrod"
+    ],
+    "moves": {
+      "1": [
+        "boneclub",
+        "growl",
+        "leer"
+      ],
+      "18": [
+        "rage"
+      ],
+      "25": [
+        "focusenergy"
+      ],
+      "33": [
+        "bonemerang"
+      ],
+      "41": [
+        "thrash"
+      ],
+      "49": [
+        "boneclub"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "hitmonlee": {
+    "id": 106,
+    "name": "Hitmonlee",
+    "types": [
+      "fighting"
+    ],
+    "baseStats": {
+      "hp": 50,
+      "attack": 120,
+      "defense": 53,
+      "spAttack": 35,
+      "spDefense": 110,
+      "speed": 87
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "limber",
+      "reckless"
+    ],
+    "moves": {
+      "1": [
+        "doublekick",
+        "meditate"
+      ],
+      "16": [
+        "rollingkick"
+      ],
+      "21": [
+        "hijumpkick"
+      ],
+      "26": [
+        "focusenergy"
+      ],
+      "31": [
+        "jumpkick"
+      ],
+      "36": [
+        "mimic"
+      ],
+      "41": [
+        "agility"
+      ],
+      "46": [
+        "submission"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 100,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "hitmonchan": {
+    "id": 107,
+    "name": "Hitmonchan",
+    "types": [
+      "fighting"
+    ],
+    "baseStats": {
+      "hp": 50,
+      "attack": 105,
+      "defense": 79,
+      "spAttack": 35,
+      "spDefense": 110,
+      "speed": 76
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "keeneye",
+      "ironfist"
+    ],
+    "moves": {
+      "1": [
+        "cometpunch",
+        "agility"
+      ],
+      "16": [
+        "firepunch"
+      ],
+      "21": [
+        "icepunch"
+      ],
+      "26": [
+        "thunderpunch"
+      ],
+      "31": [
+        "megapunch"
+      ],
+      "36": [
+        "mimic"
+      ],
+      "41": [
+        "counter"
+      ],
+      "46": [
+        "submission"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "spDefense": 2
+    }
+  },
+  "lickitung": {
+    "id": 108,
+    "name": "Lickitung",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 90,
+      "attack": 55,
+      "defense": 75,
+      "spAttack": 60,
+      "spDefense": 75,
+      "speed": 30
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "owntempo",
+      "oblivious"
+    ],
+    "moves": {
+      "1": [
+        "lick"
+      ],
+      "7": [
+        "wrap"
+      ],
+      "12": [
+        "stomp"
+      ],
+      "18": [
+        "disable"
+      ],
+      "23": [
+        "defensecurl"
+      ],
+      "29": [
+        "slam"
+      ],
+      "34": [
+        "screech"
+      ],
+      "40": [
+        "mimic"
+      ]
+    },
+    "eggGroups": [
+      "monster"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "hp": 2
+    }
+  },
+  "koffing": {
+    "id": 109,
+    "name": "Koffing",
+    "types": [
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 65,
+      "defense": 95,
+      "spAttack": 60,
+      "spDefense": 45,
+      "speed": 35
+    },
+    "evolutions": [
+      {
+        "to": "weezing",
+        "level": 35
+      }
+    ],
+    "catchRate": 190,
+    "expRate": "medium",
+    "abilities": [
+      "levitate"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "smog"
+      ],
+      "12": [
+        "sludge"
+      ],
+      "17": [
+        "smokescreen"
+      ],
+      "21": [
+        "selfdestruct"
+      ],
+      "27": [
+        "haze"
+      ],
+      "32": [
+        "explosion"
+      ],
+      "37": [
+        "sludge"
+      ]
+    },
+    "eggGroups": [
+      "amorphous",
+      "plant"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spDefense": 1
+    }
+  },
+  "weezing": {
+    "id": 110,
+    "name": "Weezing",
+    "types": [
+      "poison"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 90,
+      "defense": 120,
+      "spAttack": 85,
+      "spDefense": 70,
+      "speed": 60
+    },
+    "evolutions": [],
+    "catchRate": 60,
+    "expRate": "medium",
+    "abilities": [
+      "levitate"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "smog",
+        "sludge"
+      ],
+      "17": [
+        "smokescreen"
+      ],
+      "24": [
+        "selfdestruct"
+      ],
+      "31": [
+        "haze"
+      ],
+      "38": [
+        "explosion"
+      ],
+      "45": [
+        "sludge"
+      ]
+    },
+    "eggGroups": [
+      "amorphous",
+      "plant"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spDefense": 2
+    }
+  },
+  "rhyhorn": {
+    "id": 111,
+    "name": "Rhyhorn",
+    "types": [
+      "ground",
+      "rock"
+    ],
+    "baseStats": {
+      "hp": 80,
+      "attack": 85,
+      "defense": 95,
+      "spAttack": 30,
+      "spDefense": 30,
+      "speed": 25
+    },
+    "evolutions": [
+      {
+        "to": "rhydon",
+        "level": 42
+      }
+    ],
+    "catchRate": 120,
+    "expRate": "slow",
+    "abilities": [
+      "lightningrod",
+      "rockhead"
+    ],
+    "moves": {
+      "1": [
+        "hornattack"
+      ],
+      "20": [
+        "stomp"
+      ],
+      "25": [
+        "tailwhip"
+      ],
+      "30": [
+        "furyattack"
+      ],
+      "35": [
+        "horndrill"
+      ],
+      "40": [
+        "leer"
+      ],
+      "45": [
+        "earthquake"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "rhydon": {
+    "id": 112,
+    "name": "Rhydon",
+    "types": [
+      "ground",
+      "rock"
+    ],
+    "baseStats": {
+      "hp": 105,
+      "attack": 130,
+      "defense": 120,
+      "spAttack": 45,
+      "spDefense": 45,
+      "speed": 40
+    },
+    "evolutions": [],
+    "catchRate": 60,
+    "expRate": "slow",
+    "abilities": [
+      "lightningrod",
+      "rockhead"
+    ],
+    "moves": {
+      "1": [
+        "hornattack",
+        "stomp",
+        "tailwhip"
+      ],
+      "30": [
+        "furyattack"
+      ],
+      "37": [
+        "horndrill"
+      ],
+      "44": [
+        "leer"
+      ],
+      "51": [
+        "earthquake"
+      ]
+    },
+    "eggGroups": [
+      "monster",
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "chansey": {
+    "id": 113,
+    "name": "Chansey",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 250,
+      "attack": 5,
+      "defense": 5,
+      "spAttack": 35,
+      "spDefense": 105,
+      "speed": 50
+    },
+    "evolutions": [],
+    "catchRate": 30,
+    "expRate": "fast",
+    "abilities": [
+      "naturalcure",
+      "serenegrace"
+    ],
+    "moves": {
+      "1": [
+        "pound",
+        "doubleslap"
+      ],
+      "12": [
+        "tailwhip"
+      ],
+      "16": [
+        "softboiled"
+      ],
+      "20": [
+        "growl"
+      ],
+      "24": [
+        "sing"
+      ],
+      "30": [
+        "minimize"
+      ],
+      "38": [
+        "defensecurl"
+      ],
+      "44": [
+        "lightscreen"
+      ],
+      "48": [
+        "doubleedge"
+      ]
+    },
+    "eggGroups": [
+      "fairy"
+    ],
+    "genderRatio": 25,
+    "evYields": {
+      "hp": 2
+    }
+  },
+  "tangela": {
+    "id": 114,
+    "name": "Tangela",
+    "types": [
+      "grass"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 55,
+      "defense": 115,
+      "spAttack": 100,
+      "spDefense": 40,
+      "speed": 60
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "chlorophyll",
+      "leafguard"
+    ],
+    "moves": {
+      "1": [
+        "constrict"
+      ],
+      "4": [
+        "sleeppowder"
+      ],
+      "10": [
+        "absorb"
+      ],
+      "13": [
+        "poisonpowder"
+      ],
+      "19": [
+        "vinewhip"
+      ],
+      "25": [
+        "bind"
+      ],
+      "31": [
+        "megadrain"
+      ],
+      "34": [
+        "stunspore"
+      ],
+      "40": [
+        "slam"
+      ],
+      "46": [
+        "growth"
+      ]
+    },
+    "eggGroups": [
+      "grass"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "kangaskhan": {
+    "id": 115,
+    "name": "Kangaskhan",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 105,
+      "attack": 95,
+      "defense": 80,
+      "spAttack": 40,
+      "spDefense": 80,
+      "speed": 90
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "earlybird",
+      "scrappy"
+    ],
+    "moves": {
+      "1": [
+        "cometpunch",
+        "rage"
+      ],
+      "7": [
+        "bite"
+      ],
+      "13": [
+        "tailwhip"
+      ],
+      "19": [
+        "megaplunch"
+      ],
+      "25": [
+        "leer"
+      ],
+      "31": [
+        "dizzypunch"
+      ],
+      "37": [
+        "rest"
+      ],
+      "43": [
+        "submission"
+      ]
+    },
+    "eggGroups": [
+      "monster"
+    ],
+    "genderRatio": 0,
+    "evYields": {
+      "hp": 2
+    }
+  },
+  "horsea": {
+    "id": 116,
+    "name": "Horsea",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 30,
+      "attack": 40,
+      "defense": 70,
+      "spAttack": 70,
+      "spDefense": 25,
+      "speed": 60
+    },
+    "evolutions": [
+      {
+        "to": "seadra",
+        "level": 32
+      }
+    ],
+    "catchRate": 225,
+    "expRate": "medium",
+    "abilities": [
+      "swiftswim",
+      "sniper"
+    ],
+    "moves": {
+      "1": [
+        "bubble"
+      ],
+      "10": [
+        "smokescreen"
+      ],
+      "15": [
+        "leer"
+      ],
+      "22": [
+        "watergun"
+      ],
+      "25": [
+        "agility"
+      ],
+      "30": [
+        "hydropump"
+      ],
+      "38": [
+        "icebeam"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 1
+    }
+  },
+  "seadra": {
+    "id": 117,
+    "name": "Seadra",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 55,
+      "attack": 65,
+      "defense": 95,
+      "spAttack": 95,
+      "spDefense": 45,
+      "speed": 85
+    },
+    "evolutions": [],
+    "catchRate": 75,
+    "expRate": "medium",
+    "abilities": [
+      "swiftswim",
+      "sniper"
+    ],
+    "moves": {
+      "1": [
+        "bubble",
+        "smokescreen"
+      ],
+      "15": [
+        "leer"
+      ],
+      "22": [
+        "watergun"
+      ],
+      "25": [
+        "agility"
+      ],
+      "32": [
+        "hydropump"
+      ],
+      "41": [
+        "icebeam"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spAttack": 1,
+      "spDefense": 1
+    }
+  },
+  "goldeen": {
+    "id": 118,
+    "name": "Goldeen",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 45,
+      "attack": 67,
+      "defense": 60,
+      "spAttack": 35,
+      "spDefense": 50,
+      "speed": 63
+    },
+    "evolutions": [
+      {
+        "to": "seaking",
+        "level": 33
+      }
+    ],
+    "catchRate": 225,
+    "expRate": "medium",
+    "abilities": [
+      "swiftswim",
+      "waterveil"
+    ],
+    "moves": {
+      "1": [
+        "peck",
+        "tailwhip"
+      ],
+      "13": [
+        "supersonic"
+      ],
+      "19": [
+        "hornattack"
+      ],
+      "26": [
+        "furyattack"
+      ],
+      "34": [
+        "waterfall"
+      ],
+      "40": [
+        "horndrill"
+      ],
+      "46": [
+        "agility"
+      ]
+    },
+    "eggGroups": [
+      "water2"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "seaking": {
+    "id": 119,
+    "name": "Seaking",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 80,
+      "attack": 92,
+      "defense": 65,
+      "spAttack": 65,
+      "spDefense": 80,
+      "speed": 68
+    },
+    "evolutions": [],
+    "catchRate": 60,
+    "expRate": "medium",
+    "abilities": [
+      "swiftswim",
+      "waterveil"
+    ],
+    "moves": {
+      "1": [
+        "peck",
+        "tailwhip",
+        "supersonic"
+      ],
+      "19": [
+        "hornattack"
+      ],
+      "30": [
+        "furyattack"
+      ],
+      "39": [
+        "waterfall"
+      ],
+      "48": [
+        "horndrill"
+      ],
+      "54": [
+        "agility"
+      ]
+    },
+    "eggGroups": [
+      "water2"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "staryu": {
+    "id": 120,
+    "name": "Staryu",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 30,
+      "attack": 45,
+      "defense": 55,
+      "spAttack": 70,
+      "spDefense": 55,
+      "speed": 85
+    },
+    "evolutions": [
+      {
+        "to": "starmie",
+        "item": "waterstone"
+      }
+    ],
+    "catchRate": 225,
+    "expRate": "slow",
+    "abilities": [
+      "naturalcure",
+      "illuminate"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "harden"
+      ],
+      "10": [
+        "watergun"
+      ],
+      "17": [
+        "minimize"
+      ],
+      "22": [
+        "recover"
+      ],
+      "27": [
+        "bubblebeam"
+      ],
+      "33": [
+        "lightscreen"
+      ],
+      "40": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "water3"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "starmie": {
+    "id": 121,
+    "name": "Starmie",
+    "types": [
+      "water",
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 75,
+      "defense": 85,
+      "spAttack": 100,
+      "spDefense": 85,
+      "speed": 115
+    },
+    "evolutions": [],
+    "catchRate": 60,
+    "expRate": "slow",
+    "abilities": [
+      "naturalcure",
+      "illuminate"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "watergun",
+        "harden",
+        "recover"
+      ]
+    },
+    "eggGroups": [
+      "water3"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "mrmime": {
+    "id": 122,
+    "name": "Mr. Mime",
+    "types": [
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 40,
+      "attack": 45,
+      "defense": 65,
+      "spAttack": 100,
+      "spDefense": 120,
+      "speed": 90
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "soundproof",
+      "filter"
+    ],
+    "moves": {
+      "1": [
+        "confusion",
+        "barrier"
+      ],
+      "15": [
+        "lightscreen"
+      ],
+      "19": [
+        "doubleslap"
+      ],
+      "23": [
+        "reflect"
+      ],
+      "27": [
+        "metronome"
+      ],
+      "31": [
+        "psybeam"
+      ],
+      "39": [
+        "psychic"
+      ],
+      "47": [
+        "substitute"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "spDefense": 2
+    }
+  },
+  "scyther": {
+    "id": 123,
+    "name": "Scyther",
+    "types": [
+      "bug",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 70,
+      "attack": 110,
+      "defense": 80,
+      "spAttack": 55,
+      "spDefense": 80,
+      "speed": 105
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "swarm",
+      "technician"
+    ],
+    "moves": {
+      "1": [
+        "quickattack"
+      ],
+      "10": [
+        "leer"
+      ],
+      "17": [
+        "focusenergy"
+      ],
+      "20": [
+        "doubleteam"
+      ],
+      "24": [
+        "slash"
+      ],
+      "29": [
+        "swordsdance"
+      ],
+      "34": [
+        "agility"
+      ],
+      "39": [
+        "wingattack"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "jynx": {
+    "id": 124,
+    "name": "Jynx",
+    "types": [
+      "ice",
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 50,
+      "defense": 35,
+      "spAttack": 115,
+      "spDefense": 95,
+      "speed": 95
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "oblivious",
+      "forewarn"
+    ],
+    "moves": {
+      "1": [
+        "pound",
+        "lick"
+      ],
+      "13": [
+        "lovelykiss"
+      ],
+      "18": [
+        "powdersnow"
+      ],
+      "23": [
+        "doubleslap"
+      ],
+      "28": [
+        "sing"
+      ],
+      "33": [
+        "icepunch"
+      ],
+      "39": [
+        "psychic"
+      ],
+      "44": [
+        "blizzard"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 25,
+    "evYields": {
+      "spAttack": 2
+    }
+  },
+  "electabuzz": {
+    "id": 125,
+    "name": "Electabuzz",
+    "types": [
+      "electric"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 83,
+      "defense": 57,
+      "spAttack": 95,
+      "spDefense": 85,
+      "speed": 105
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "static",
+      "vitalheart"
+    ],
+    "moves": {
+      "1": [
+        "quickattack",
+        "leer"
+      ],
+      "11": [
+        "thundershock"
+      ],
+      "17": [
+        "lightscreen"
+      ],
+      "22": [
+        "swift"
+      ],
+      "27": [
+        "thunderpunch"
+      ],
+      "33": [
+        "thunderwave"
+      ],
+      "39": [
+        "agility"
+      ],
+      "45": [
+        "thunderbolt"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "spAttack": 2
+    }
+  },
+  "magmar": {
+    "id": 126,
+    "name": "Magmar",
+    "types": [
+      "fire"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 95,
+      "defense": 57,
+      "spAttack": 100,
+      "spDefense": 85,
+      "speed": 93
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "flamebody",
+      "vitalheart"
+    ],
+    "moves": {
+      "1": [
+        "ember"
+      ],
+      "15": [
+        "leer"
+      ],
+      "21": [
+        "smog"
+      ],
+      "25": [
+        "firepunch"
+      ],
+      "31": [
+        "smokescreen"
+      ],
+      "37": [
+        "flamethrower"
+      ],
+      "43": [
+        "confuseray"
+      ],
+      "49": [
+        "fireblast"
+      ]
+    },
+    "eggGroups": [
+      "humanlike"
+    ],
+    "genderRatio": 75,
+    "evYields": {
+      "spAttack": 2
+    }
+  },
+  "pinsir": {
+    "id": 127,
+    "name": "Pinsir",
+    "types": [
+      "bug"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 125,
+      "defense": 100,
+      "spAttack": 55,
+      "spDefense": 70,
+      "speed": 85
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "slow",
+    "abilities": [
+      "hypercutter",
+      "moldbreaker"
+    ],
+    "moves": {
+      "1": [
+        "vicegrip"
+      ],
+      "10": [
+        "harden"
+      ],
+      "15": [
+        "seismictoss"
+      ],
+      "21": [
+        "guillotine"
+      ],
+      "26": [
+        "focusenergy"
+      ],
+      "31": [
+        "slash"
+      ],
+      "36": [
+        "swordsdance"
+      ],
+      "41": [
+        "submission"
+      ]
+    },
+    "eggGroups": [
+      "bug"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "tauros": {
+    "id": 128,
+    "name": "Tauros",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 75,
+      "attack": 100,
+      "defense": 95,
+      "spAttack": 40,
+      "spDefense": 70,
+      "speed": 110
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "slow",
+    "abilities": [
+      "intimidate",
+      "angerpoint"
+    ],
+    "moves": {
+      "1": [
+        "tackle"
+      ],
+      "13": [
+        "stomp"
+      ],
+      "18": [
+        "tailwhip"
+      ],
+      "24": [
+        "leer"
+      ],
+      "29": [
+        "rage"
+      ],
+      "35": [
+        "takeedown"
+      ],
+      "40": [
+        "thrash"
+      ],
+      "46": [
+        "rest"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1,
+      "defense": 1
+    }
+  },
+  "magikarp": {
+    "id": 129,
+    "name": "Magikarp",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 20,
+      "attack": 10,
+      "defense": 55,
+      "spAttack": 15,
+      "spDefense": 20,
+      "speed": 80
+    },
+    "evolutions": [
+      {
+        "to": "gyarados",
+        "level": 20
+      }
+    ],
+    "catchRate": 255,
+    "expRate": "slow",
+    "abilities": [
+      "swiftswim"
+    ],
+    "moves": {
+      "1": [
+        "splash"
+      ],
+      "15": [
+        "tackle"
+      ]
+    },
+    "eggGroups": [
+      "water2"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "speed": 1
+    }
+  },
+  "gyarados": {
+    "id": 130,
+    "name": "Gyarados",
+    "types": [
+      "water",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 95,
+      "attack": 125,
+      "defense": 79,
+      "spAttack": 60,
+      "spDefense": 100,
+      "speed": 81
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "slow",
+    "abilities": [
+      "intimidate"
+    ],
+    "moves": {
+      "1": [
+        "bite",
+        "leer"
+      ],
+      "20": [
+        "dragonrage"
+      ],
+      "25": [
+        "hydropump"
+      ],
+      "32": [
+        "hyperbeam"
+      ],
+      "41": [
+        "thrash"
+      ]
+    },
+    "eggGroups": [
+      "water2"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "lapras": {
+    "id": 131,
+    "name": "Lapras",
+    "types": [
+      "water",
+      "ice"
+    ],
+    "baseStats": {
+      "hp": 130,
+      "attack": 85,
+      "defense": 80,
+      "spAttack": 85,
+      "spDefense": 95,
+      "speed": 60
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "slow",
+    "abilities": [
+      "waterabsorb",
+      "shellarmor"
+    ],
+    "moves": {
+      "1": [
+        "watergun",
+        "growl"
+      ],
+      "10": [
+        "sing"
+      ],
+      "15": [
+        "mist"
+      ],
+      "20": [
+        "bodyslam"
+      ],
+      "25": [
+        "confuseray"
+      ],
+      "31": [
+        "icebeam"
+      ],
+      "37": [
+        "hydropump"
+      ],
+      "46": [
+        "blizzard"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "amorphous"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "hp": 2
+    }
+  },
+  "ditto": {
+    "id": 132,
+    "name": "Ditto",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 48,
+      "attack": 48,
+      "defense": 48,
+      "spAttack": 48,
+      "spDefense": 48,
+      "speed": 48
+    },
+    "evolutions": [],
+    "catchRate": 35,
+    "expRate": "medium",
+    "abilities": [
+      "limber"
+    ],
+    "moves": {
+      "1": [
+        "transform"
+      ]
+    },
+    "eggGroups": [
+      "ditto"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "hp": 1
+    }
+  },
+  "eevee": {
+    "id": 133,
+    "name": "Eevee",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 55,
+      "attack": 55,
+      "defense": 50,
+      "spAttack": 45,
+      "spDefense": 65,
+      "speed": 55
+    },
+    "evolutions": [
+      {
+        "to": "vaporeon",
+        "item": "waterstone"
+      },
+      {
+        "to": "jolteon",
+        "item": "thunderstone"
+      },
+      {
+        "to": "flareon",
+        "item": "firestone"
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "runaway",
+      "adaptability"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "tailwhip"
+      ],
+      "8": [
+        "sandattack"
+      ],
+      "16": [
+        "growl"
+      ],
+      "23": [
+        "quickattack"
+      ],
+      "30": [
+        "bite"
+      ],
+      "36": [
+        "focusenergy"
+      ],
+      "42": [
+        "takedown"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "spDefense": 1
+    }
+  },
+  "vaporeon": {
+    "id": 134,
+    "name": "Vaporeon",
+    "types": [
+      "water"
+    ],
+    "baseStats": {
+      "hp": 130,
+      "attack": 65,
+      "defense": 60,
+      "spAttack": 110,
+      "spDefense": 95,
+      "speed": 65
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "waterabsorb"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "tailwhip",
+        "sandattack",
+        "watergun"
+      ],
+      "16": [
+        "growl"
+      ],
+      "23": [
+        "quickattack"
+      ],
+      "30": [
+        "bite"
+      ],
+      "36": [
+        "aurorabeam"
+      ],
+      "42": [
+        "haze"
+      ],
+      "47": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "hp": 2
+    }
+  },
+  "jolteon": {
+    "id": 135,
+    "name": "Jolteon",
+    "types": [
+      "electric"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 65,
+      "defense": 60,
+      "spAttack": 110,
+      "spDefense": 95,
+      "speed": 130
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "voltabsorb"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "tailwhip",
+        "sandattack",
+        "thundershock"
+      ],
+      "16": [
+        "growl"
+      ],
+      "23": [
+        "quickattack"
+      ],
+      "30": [
+        "bite"
+      ],
+      "36": [
+        "doublekick"
+      ],
+      "42": [
+        "pinmissile"
+      ],
+      "47": [
+        "thunderbolt"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "flareon": {
+    "id": 136,
+    "name": "Flareon",
+    "types": [
+      "fire"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 130,
+      "defense": 60,
+      "spAttack": 95,
+      "spDefense": 110,
+      "speed": 65
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "flashfire"
+    ],
+    "moves": {
+      "1": [
+        "tackle",
+        "tailwhip",
+        "sandattack",
+        "ember"
+      ],
+      "16": [
+        "growl"
+      ],
+      "23": [
+        "quickattack"
+      ],
+      "30": [
+        "bite"
+      ],
+      "36": [
+        "leer"
+      ],
+      "42": [
+        "flamethrower"
+      ],
+      "47": [
+        "fireblast"
+      ]
+    },
+    "eggGroups": [
+      "field"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "porygon": {
+    "id": 137,
+    "name": "Porygon",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 65,
+      "attack": 60,
+      "defense": 70,
+      "spAttack": 85,
+      "spDefense": 75,
+      "speed": 40
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "trace",
+      "download"
+    ],
+    "moves": {
+      "1": [
+        "conversion",
+        "tackle"
+      ],
+      "9": [
+        "sharpen"
+      ],
+      "12": [
+        "psybeam"
+      ],
+      "20": [
+        "agility"
+      ],
+      "24": [
+        "recover"
+      ],
+      "32": [
+        "triattack"
+      ],
+      "36": [
+        "psychic"
+      ]
+    },
+    "eggGroups": [
+      "mineral"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "spDefense": 1
+    }
+  },
+  "omanyte": {
+    "id": 138,
+    "name": "Omanyte",
+    "types": [
+      "rock",
+      "water"
+    ],
+    "baseStats": {
+      "hp": 35,
+      "attack": 40,
+      "defense": 100,
+      "spAttack": 90,
+      "spDefense": 55,
+      "speed": 35
+    },
+    "evolutions": [
+      {
+        "to": "omastar",
+        "level": 40
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "swiftswim",
+      "shellarmor"
+    ],
+    "moves": {
+      "1": [
+        "watergun",
+        "withdraw"
+      ],
+      "16": [
+        "bite"
+      ],
+      "20": [
+        "harden"
+      ],
+      "26": [
+        "leer"
+      ],
+      "37": [
+        "hydropump"
+      ],
+      "46": [
+        "icebeam"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "water3"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "omastar": {
+    "id": 139,
+    "name": "Omastar",
+    "types": [
+      "rock",
+      "water"
+    ],
+    "baseStats": {
+      "hp": 70,
+      "attack": 60,
+      "defense": 125,
+      "spAttack": 115,
+      "spDefense": 70,
+      "speed": 55
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "swiftswim",
+      "shellarmor"
+    ],
+    "moves": {
+      "1": [
+        "watergun",
+        "withdraw",
+        "bite"
+      ],
+      "20": [
+        "harden"
+      ],
+      "26": [
+        "leer"
+      ],
+      "42": [
+        "hydropump"
+      ],
+      "53": [
+        "icebeam"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "water3"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "kabuto": {
+    "id": 140,
+    "name": "Kabuto",
+    "types": [
+      "rock",
+      "water"
+    ],
+    "baseStats": {
+      "hp": 30,
+      "attack": 80,
+      "defense": 90,
+      "spAttack": 55,
+      "spDefense": 45,
+      "speed": 55
+    },
+    "evolutions": [
+      {
+        "to": "kabutops",
+        "level": 40
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "swiftswim",
+      "battlearmor"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "harden"
+      ],
+      "15": [
+        "absorb"
+      ],
+      "21": [
+        "leer"
+      ],
+      "25": [
+        "sandattack"
+      ],
+      "34": [
+        "slash"
+      ],
+      "42": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "water3"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "defense": 1
+    }
+  },
+  "kabutops": {
+    "id": 141,
+    "name": "Kabutops",
+    "types": [
+      "rock",
+      "water"
+    ],
+    "baseStats": {
+      "hp": 60,
+      "attack": 115,
+      "defense": 105,
+      "spAttack": 65,
+      "spDefense": 70,
+      "speed": 80
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium",
+    "abilities": [
+      "swiftswim",
+      "battlearmor"
+    ],
+    "moves": {
+      "1": [
+        "scratch",
+        "harden",
+        "absorb"
+      ],
+      "21": [
+        "leer"
+      ],
+      "25": [
+        "sandattack"
+      ],
+      "40": [
+        "slash"
+      ],
+      "48": [
+        "hydropump"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "water3"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "defense": 2
+    }
+  },
+  "aerodactyl": {
+    "id": 142,
+    "name": "Aerodactyl",
+    "types": [
+      "rock",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 80,
+      "attack": 105,
+      "defense": 65,
+      "spAttack": 60,
+      "spDefense": 75,
+      "speed": 130
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "slow",
+    "abilities": [
+      "rockhead",
+      "pressure"
+    ],
+    "moves": {
+      "1": [
+        "wingattack",
+        "bite"
+      ],
+      "9": [
+        "roar"
+      ],
+      "17": [
+        "agility"
+      ],
+      "25": [
+        "supersonic"
+      ],
+      "33": [
+        "hyperbeam"
+      ],
+      "41": [
+        "takedown"
+      ],
+      "49": [
+        "skyattack"
+      ]
+    },
+    "eggGroups": [
+      "flying"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "speed": 2
+    }
+  },
+  "snorlax": {
+    "id": 143,
+    "name": "Snorlax",
+    "types": [
+      "normal"
+    ],
+    "baseStats": {
+      "hp": 160,
+      "attack": 110,
+      "defense": 65,
+      "spAttack": 65,
+      "spDefense": 110,
+      "speed": 30
+    },
+    "evolutions": [],
+    "catchRate": 25,
+    "expRate": "slow",
+    "abilities": [
+      "immunity",
+      "thickfat"
+    ],
+    "moves": {
+      "1": [
+        "tackle"
+      ],
+      "8": [
+        "amnesia"
+      ],
+      "15": [
+        "rest"
+      ],
+      "22": [
+        "bodyslam"
+      ],
+      "29": [
+        "bite"
+      ],
+      "36": [
+        "headbutt"
+      ],
+      "43": [
+        "hyperbeam"
+      ],
+      "50": [
+        "doubleedge"
+      ]
+    },
+    "eggGroups": [
+      "monster"
+    ],
+    "genderRatio": 87.5,
+    "evYields": {
+      "hp": 2
+    }
+  },
+  "articuno": {
+    "id": 144,
+    "name": "Articuno",
+    "types": [
+      "ice",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 90,
+      "attack": 85,
+      "defense": 100,
+      "spAttack": 95,
+      "spDefense": 125,
+      "speed": 85
+    },
+    "evolutions": [],
+    "catchRate": 3,
+    "expRate": "slow",
+    "abilities": [
+      "pressure"
+    ],
+    "moves": {
+      "1": [
+        "gust"
+      ],
+      "13": [
+        "mist"
+      ],
+      "21": [
+        "aurorabeam"
+      ],
+      "29": [
+        "agility"
+      ],
+      "37": [
+        "icebeam"
+      ],
+      "45": [
+        "reflect"
+      ],
+      "53": [
+        "blizzard"
+      ]
+    },
+    "eggGroups": [
+      "noegg"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "spDefense": 3
+    }
+  },
+  "zapdos": {
+    "id": 145,
+    "name": "Zapdos",
+    "types": [
+      "electric",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 90,
+      "attack": 90,
+      "defense": 85,
+      "spAttack": 125,
+      "spDefense": 90,
+      "speed": 100
+    },
+    "evolutions": [],
+    "catchRate": 3,
+    "expRate": "slow",
+    "abilities": [
+      "pressure"
+    ],
+    "moves": {
+      "1": [
+        "thundershock"
+      ],
+      "13": [
+        "drillpeck"
+      ],
+      "21": [
+        "thunderwave"
+      ],
+      "29": [
+        "agility"
+      ],
+      "37": [
+        "thunderbolt"
+      ],
+      "45": [
+        "lightscreen"
+      ],
+      "53": [
+        "thunder"
+      ]
+    },
+    "eggGroups": [
+      "noegg"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "spAttack": 3
+    }
+  },
+  "moltres": {
+    "id": 146,
+    "name": "Moltres",
+    "types": [
+      "fire",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 90,
+      "attack": 100,
+      "defense": 90,
+      "spAttack": 125,
+      "spDefense": 85,
+      "speed": 90
+    },
+    "evolutions": [],
+    "catchRate": 3,
+    "expRate": "slow",
+    "abilities": [
+      "pressure"
+    ],
+    "moves": {
+      "1": [
+        "peck"
+      ],
+      "13": [
+        "firespin"
+      ],
+      "21": [
+        "leer"
+      ],
+      "29": [
+        "agility"
+      ],
+      "37": [
+        "flamethrower"
+      ],
+      "45": [
+        "reflect"
+      ],
+      "53": [
+        "fireblast"
+      ]
+    },
+    "eggGroups": [
+      "noegg"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "attack": 3
+    }
+  },
+  "dratini": {
+    "id": 147,
+    "name": "Dratini",
+    "types": [
+      "dragon"
+    ],
+    "baseStats": {
+      "hp": 41,
+      "attack": 64,
+      "defense": 45,
+      "spAttack": 50,
+      "spDefense": 50,
+      "speed": 50
+    },
+    "evolutions": [
+      {
+        "to": "dragonair",
+        "level": 30
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "slow",
+    "abilities": [
+      "shedskin"
+    ],
+    "moves": {
+      "1": [
+        "wrap",
+        "leer"
+      ],
+      "10": [
+        "thunderwave"
+      ],
+      "20": [
+        "agility"
+      ],
+      "30": [
+        "slam"
+      ],
+      "40": [
+        "dragonrage"
+      ],
+      "50": [
+        "hyperbeam"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 1
+    }
+  },
+  "dragonair": {
+    "id": 148,
+    "name": "Dragonair",
+    "types": [
+      "dragon"
+    ],
+    "baseStats": {
+      "hp": 61,
+      "attack": 84,
+      "defense": 65,
+      "spAttack": 70,
+      "spDefense": 70,
+      "speed": 70
+    },
+    "evolutions": [
+      {
+        "to": "dragonite",
+        "level": 55
+      }
+    ],
+    "catchRate": 45,
+    "expRate": "slow",
+    "abilities": [
+      "shedskin"
+    ],
+    "moves": {
+      "1": [
+        "wrap",
+        "leer",
+        "thunderwave"
+      ],
+      "20": [
+        "agility"
+      ],
+      "35": [
+        "slam"
+      ],
+      "45": [
+        "dragonrage"
+      ],
+      "55": [
+        "hyperbeam"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 2
+    }
+  },
+  "dragonite": {
+    "id": 149,
+    "name": "Dragonite",
+    "types": [
+      "dragon",
+      "flying"
+    ],
+    "baseStats": {
+      "hp": 91,
+      "attack": 134,
+      "defense": 95,
+      "spAttack": 100,
+      "spDefense": 100,
+      "speed": 80
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "slow",
+    "abilities": [
+      "innerfocus"
+    ],
+    "moves": {
+      "1": [
+        "wrap",
+        "leer",
+        "thunderwave",
+        "agility"
+      ],
+      "35": [
+        "slam"
+      ],
+      "45": [
+        "dragonrage"
+      ],
+      "60": [
+        "hyperbeam"
+      ]
+    },
+    "eggGroups": [
+      "water1",
+      "dragon"
+    ],
+    "genderRatio": 50,
+    "evYields": {
+      "attack": 3
+    }
+  },
+  "mewtwo": {
+    "id": 150,
+    "name": "Mewtwo",
+    "types": [
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 106,
+      "attack": 110,
+      "defense": 90,
+      "spAttack": 154,
+      "spDefense": 90,
+      "speed": 130
+    },
+    "evolutions": [],
+    "catchRate": 3,
+    "expRate": "slow",
+    "abilities": [
+      "pressure"
+    ],
+    "moves": {
+      "1": [
+        "confusion",
+        "disable"
+      ],
+      "11": [
+        "barrier"
+      ],
+      "22": [
+        "swift"
+      ],
+      "33": [
+        "psychic"
+      ],
+      "44": [
+        "recover"
+      ],
+      "55": [
+        "mist"
+      ],
+      "66": [
+        "amnesia"
+      ],
+      "77": [
+        "hyperbeam"
+      ]
+    },
+    "eggGroups": [
+      "noegg"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "spAttack": 3
+    }
+  },
+  "mew": {
+    "id": 151,
+    "name": "Mew",
+    "types": [
+      "psychic"
+    ],
+    "baseStats": {
+      "hp": 100,
+      "attack": 100,
+      "defense": 100,
+      "spAttack": 100,
+      "spDefense": 100,
+      "speed": 100
+    },
+    "evolutions": [],
+    "catchRate": 45,
+    "expRate": "medium_slow",
+    "abilities": [
+      "synchronize"
+    ],
+    "moves": {
+      "1": [
+        "pound"
+      ],
+      "10": [
+        "transform"
+      ],
+      "20": [
+        "megapunch"
+      ],
+      "30": [
+        "metronome"
+      ],
+      "40": [
+        "psychic"
+      ],
+      "50": [
+        "ancientpower"
+      ],
+      "60": [
+        "amnesia"
+      ],
+      "70": [
+        "hyperbeam"
+      ]
+    },
+    "eggGroups": [
+      "noegg"
+    ],
+    "genderRatio": null,
+    "evYields": {
+      "hp": 3
+    }
+  }
+}

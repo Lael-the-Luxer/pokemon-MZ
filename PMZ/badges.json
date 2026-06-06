@@ -1,0 +1,12 @@
+{
+  "badges": [
+    { "key": "boulder", "name": "Roca", "leader": "Brock", "city": "Ciudad Plateada", "type": "rock", "levelCap": 20, "hm": "cut", "reward": 1200 },
+    { "key": "cascade", "name": "Cascada", "leader": "Misty", "city": "Ciudad Celeste", "type": "water", "levelCap": 30, "hm": "fly", "reward": 1800 },
+    { "key": "thunder", "name": "Trueno", "leader": "Lt. Surge", "city": "Ciudad Carmín", "type": "electric", "levelCap": 40, "hm": "surf", "reward": 2400 },
+    { "key": "rainbow", "name": "Arcoíris", "leader": "Erika", "city": "Ciudad Azafrán", "type": "grass", "levelCap": 50, "hm": "strength", "reward": 3000 },
+    { "key": "soul", "name": "Alma", "leader": "Koga", "city": "Ciudad Fucsia", "type": "poison", "levelCap": 60, "hm": "flash", "reward": 3600 },
+    { "key": "marsh", "name": "Pantano", "leader": "Sabrina", "city": "Ciudad Azafrán", "type": "psychic", "levelCap": 70, "hm": "waterfall", "reward": 4200 },
+    { "key": "volcano", "name": "Volcán", "leader": "Blaine", "city": "Isla Canela", "type": "fire", "levelCap": 80, "hm": "rock_smash", "reward": 4800 },
+    { "key": "earth", "name": "Tierra", "leader": "Giovanni", "city": "Ciudad Verde", "type": "ground", "levelCap": 100, "hm": "", "reward": 5400 }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "mechanics": [
+    {
+      "key": "mega",
+      "name": "Mega Evolución",
+      "trigger": "holdItem",
+      "triggerItemEffect": "mega",
+      "maxPerBattle": 1,
+      "statBoost": 0.5,
+      "stats": ["hp", "attack", "defense", "spAttack", "spDefense", "speed"],
+      "overrideTypes": true,
+      "typesField": "megaTypes",
+      "suffixField": "megaSuffix",
+      "suffixSprite": true,
+      "suffixIcon": true,
+      "description": "Transformación que potencia al Pokémon.",
+      "message": "{name} ha mega evolucionado!"
+    },
+    {
+      "key": "primal",
+      "name": "Retorno Primigenio",
+      "trigger": "holdItem",
+      "triggerItemEffect": "primal",
+      "maxPerBattle": 1,
+      "statBoost": 0.6,
+      "stats": ["hp", "attack", "defense", "spAttack", "spDefense", "speed"],
+      "overrideTypes": true,
+      "typesField": "primalTypes",
+      "suffixField": "primalSuffix",
+      "suffixSprite": true,
+      "suffixIcon": true,
+      "description": "Retorna al Pokémon a su forma primigenia.",
+      "message": "{name} ha recuperado su forma primigenia!"
+    }
+  ]
+}

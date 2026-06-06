@@ -1,0 +1,318 @@
+{
+  "regionMap": {
+    "1": "grass_early",
+    "2": "grass_mid",
+    "3": "grass_late",
+    "4": "cave_basic",
+    "5": "cave_advanced",
+    "6": "water_surf",
+    "7": "water_fish",
+    "8": "beach",
+    "9": "forest",
+    "10": "mountain"
+  },
+  "byType": {
+    "grass_early": {
+      "pokemon": [
+        { "species": "rattata", "minLevel": 2, "maxLevel": 4, "rate": 40 },
+        { "species": "pidgey", "minLevel": 2, "maxLevel": 5, "rate": 30 },
+        { "species": "caterpie", "minLevel": 2, "maxLevel": 3, "rate": 15 },
+        { "species": "weedle", "minLevel": 2, "maxLevel": 3, "rate": 15 }
+      ]
+    },
+    "grass_mid": {
+      "pokemon": [
+        { "species": "ekans", "minLevel": 10, "maxLevel": 14, "rate": 30 },
+        { "species": "nidoranm", "minLevel": 10, "maxLevel": 14, "rate": 20 },
+        { "species": "nidoranf", "minLevel": 10, "maxLevel": 14, "rate": 20 },
+        { "species": "mankey", "minLevel": 12, "maxLevel": 15, "rate": 15 },
+        { "species": "meowth", "minLevel": 10, "maxLevel": 14, "rate": 15 }
+      ]
+    },
+    "grass_late": {
+      "pokemon": [
+        { "species": "gloom", "minLevel": 22, "maxLevel": 26, "rate": 25 },
+        { "species": "weepinbell", "minLevel": 22, "maxLevel": 26, "rate": 25 },
+        { "species": "venonat", "minLevel": 20, "maxLevel": 24, "rate": 20 },
+        { "species": "drowzee", "minLevel": 20, "maxLevel": 24, "rate": 15 },
+        { "species": "exeggcute", "minLevel": 22, "maxLevel": 26, "rate": 15 }
+      ]
+    },
+    "cave_basic": {
+      "pokemon": [
+        { "species": "zubat", "minLevel": 5, "maxLevel": 10, "rate": 60 },
+        { "species": "geodude", "minLevel": 5, "maxLevel": 10, "rate": 30 },
+        { "species": "clefairy", "minLevel": 8, "maxLevel": 12, "rate": 10 }
+      ]
+    },
+    "cave_advanced": {
+      "pokemon": [
+        { "species": "golbat", "minLevel": 20, "maxLevel": 28, "rate": 40 },
+        { "species": "graveler", "minLevel": 22, "maxLevel": 28, "rate": 30 },
+        { "species": "onix", "minLevel": 24, "maxLevel": 30, "rate": 20 },
+        { "species": "machoke", "minLevel": 24, "maxLevel": 30, "rate": 10 }
+      ]
+    },
+    "water_surf": {
+      "pokemon": [
+        { "species": "tentacool", "minLevel": 5, "maxLevel": 15, "rate": 60 },
+        { "species": "horsea", "minLevel": 10, "maxLevel": 20, "rate": 20 },
+        { "species": "goldeen", "minLevel": 10, "maxLevel": 20, "rate": 20 }
+      ]
+    },
+    "water_fish": {
+      "pokemon": [
+        { "species": "magikarp", "minLevel": 5, "maxLevel": 10, "rate": 70 },
+        { "species": "goldeen", "minLevel": 10, "maxLevel": 20, "rate": 20 },
+        { "species": "poliwag", "minLevel": 5, "maxLevel": 15, "rate": 10 }
+      ]
+    },
+    "beach": {
+      "pokemon": [
+        { "species": "sandshrew", "minLevel": 8, "maxLevel": 14, "rate": 40 },
+        { "species": "diglett", "minLevel": 10, "maxLevel": 16, "rate": 30 },
+        { "species": "ekans", "minLevel": 10, "maxLevel": 15, "rate": 30 }
+      ]
+    },
+    "forest": {
+      "pokemon": [
+        { "species": "oddish", "minLevel": 10, "maxLevel": 15, "rate": 30 },
+        { "species": "bellsprout", "minLevel": 10, "maxLevel": 15, "rate": 30 },
+        { "species": "paras", "minLevel": 8, "maxLevel": 13, "rate": 20 },
+        { "species": "venonat", "minLevel": 10, "maxLevel": 14, "rate": 20 }
+      ]
+    },
+    "mountain": {
+      "pokemon": [
+        { "species": "geodude", "minLevel": 15, "maxLevel": 22, "rate": 40 },
+        { "species": "machop", "minLevel": 15, "maxLevel": 22, "rate": 25 },
+        { "species": "rhyhorn", "minLevel": 18, "maxLevel": 24, "rate": 20 },
+        { "species": "cubone", "minLevel": 16, "maxLevel": 22, "rate": 15 }
+      ]
+    },
+    "safari_grass": {
+      "pokemon": [
+        { "species": "nidoranm", "minLevel": 12, "maxLevel": 16, "rate": 25 },
+        { "species": "nidoranf", "minLevel": 12, "maxLevel": 16, "rate": 25 },
+        { "species": "exeggcute", "minLevel": 15, "maxLevel": 20, "rate": 20 },
+        { "species": "paras", "minLevel": 10, "maxLevel": 18, "rate": 15 },
+        { "species": "venonat", "minLevel": 10, "maxLevel": 18, "rate": 15 }
+      ]
+    },
+    "safari_water": {
+      "pokemon": [
+        { "species": "psyduck", "minLevel": 15, "maxLevel": 25, "rate": 30 },
+        { "species": "slowpoke", "minLevel": 15, "maxLevel": 25, "rate": 25 },
+        { "species": "krabby", "minLevel": 15, "maxLevel": 25, "rate": 25 },
+        { "species": "magikarp", "minLevel": 5, "maxLevel": 15, "rate": 20 }
+      ]
+    }
+  },
+  "byMap": {
+    "Route 1": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 2, "maxLevel": 4, "rate": 40 },
+        { "species": "rattata", "minLevel": 2, "maxLevel": 4, "rate": 40 },
+        { "species": "spearow", "minLevel": 3, "maxLevel": 5, "rate": 20 }
+      ]
+    },
+    "Ruta 1": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 2, "maxLevel": 4, "rate": 40 },
+        { "species": "rattata", "minLevel": 2, "maxLevel": 4, "rate": 40 },
+        { "species": "spearow", "minLevel": 3, "maxLevel": 5, "rate": 20 }
+      ]
+    },
+    "Route 2": {
+      "pokemon": [
+        { "species": "caterpie", "minLevel": 3, "maxLevel": 5, "rate": 30 },
+        { "species": "weedle", "minLevel": 3, "maxLevel": 5, "rate": 30 },
+        { "species": "pidgey", "minLevel": 3, "maxLevel": 6, "rate": 20 },
+        { "species": "rattata", "minLevel": 3, "maxLevel": 6, "rate": 20 }
+      ]
+    },
+    "Ruta 2": {
+      "pokemon": [
+        { "species": "caterpie", "minLevel": 3, "maxLevel": 5, "rate": 30 },
+        { "species": "weedle", "minLevel": 3, "maxLevel": 5, "rate": 30 },
+        { "species": "pidgey", "minLevel": 3, "maxLevel": 6, "rate": 20 },
+        { "species": "rattata", "minLevel": 3, "maxLevel": 6, "rate": 20 }
+      ]
+    },
+    "Ruta 3": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 5, "maxLevel": 9, "rate": 30 },
+        { "species": "rattata", "minLevel": 5, "maxLevel": 9, "rate": 25 },
+        { "species": "spearow", "minLevel": 6, "maxLevel": 9, "rate": 20 },
+        { "species": "jigglypuff", "minLevel": 5, "maxLevel": 8, "rate": 15 },
+        { "species": "mankey", "minLevel": 7, "maxLevel": 9, "rate": 10 }
+      ]
+    },
+    "Ruta 4": {
+      "pokemon": [
+        { "species": "rattata", "minLevel": 8, "maxLevel": 12, "rate": 30 },
+        { "species": "spearow", "minLevel": 8, "maxLevel": 12, "rate": 25 },
+        { "species": "ekans", "minLevel": 8, "maxLevel": 11, "rate": 20 },
+        { "species": "sandshrew", "minLevel": 8, "maxLevel": 11, "rate": 15 },
+        { "species": "mankey", "minLevel": 9, "maxLevel": 12, "rate": 10 }
+      ]
+    },
+    "Ruta 5": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 10, "maxLevel": 14, "rate": 30 },
+        { "species": "rattata", "minLevel": 10, "maxLevel": 14, "rate": 25 },
+        { "species": "meowth", "minLevel": 10, "maxLevel": 13, "rate": 20 },
+        { "species": "oddish", "minLevel": 11, "maxLevel": 14, "rate": 15 },
+        { "species": "bellsprout", "minLevel": 11, "maxLevel": 14, "rate": 10 }
+      ]
+    },
+    "Ruta 6": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 12, "maxLevel": 16, "rate": 25 },
+        { "species": "rattata", "minLevel": 12, "maxLevel": 16, "rate": 25 },
+        { "species": "meowth", "minLevel": 12, "maxLevel": 15, "rate": 20 },
+        { "species": "oddish", "minLevel": 13, "maxLevel": 16, "rate": 15 },
+        { "species": "bellsprout", "minLevel": 13, "maxLevel": 16, "rate": 15 }
+      ]
+    },
+    "Ruta 7": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 17, "maxLevel": 20, "rate": 25 },
+        { "species": "rattata", "minLevel": 17, "maxLevel": 20, "rate": 20 },
+        { "species": "meowth", "minLevel": 17, "maxLevel": 19, "rate": 20 },
+        { "species": "growlithe", "minLevel": 18, "maxLevel": 20, "rate": 20 },
+        { "species": "vulpix", "minLevel": 18, "maxLevel": 20, "rate": 15 }
+      ]
+    },
+    "Ruta 8": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 18, "maxLevel": 22, "rate": 25 },
+        { "species": "rattata", "minLevel": 18, "maxLevel": 22, "rate": 20 },
+        { "species": "meowth", "minLevel": 18, "maxLevel": 21, "rate": 20 },
+        { "species": "growlithe", "minLevel": 19, "maxLevel": 22, "rate": 20 },
+        { "species": "ekans", "minLevel": 19, "maxLevel": 22, "rate": 15 }
+      ]
+    },
+    "Ruta 9": {
+      "pokemon": [
+        { "species": "rattata", "minLevel": 14, "maxLevel": 17, "rate": 30 },
+        { "species": "spearow", "minLevel": 14, "maxLevel": 17, "rate": 25 },
+        { "species": "ekans", "minLevel": 14, "maxLevel": 17, "rate": 20 },
+        { "species": "sandshrew", "minLevel": 14, "maxLevel": 16, "rate": 15 },
+        { "species": "nidoranm", "minLevel": 15, "maxLevel": 17, "rate": 10 }
+      ]
+    },
+    "Ruta 10": {
+      "pokemon": [
+        { "species": "rattata", "minLevel": 16, "maxLevel": 20, "rate": 25 },
+        { "species": "spearow", "minLevel": 16, "maxLevel": 20, "rate": 20 },
+        { "species": "ekans", "minLevel": 16, "maxLevel": 19, "rate": 20 },
+        { "species": "machop", "minLevel": 17, "maxLevel": 20, "rate": 15 },
+        { "species": "voltorb", "minLevel": 17, "maxLevel": 20, "rate": 20 }
+      ]
+    },
+    "Ruta 11": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 12, "maxLevel": 15, "rate": 30 },
+        { "species": "rattata", "minLevel": 12, "maxLevel": 15, "rate": 25 },
+        { "species": "drowzee", "minLevel": 12, "maxLevel": 15, "rate": 20 },
+        { "species": "hypno", "minLevel": 13, "maxLevel": 16, "rate": 15 },
+        { "species": "magnemite", "minLevel": 12, "maxLevel": 15, "rate": 10 }
+      ]
+    },
+    "Ruta 12": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 22, "maxLevel": 26, "rate": 25 },
+        { "species": "gloom", "minLevel": 22, "maxLevel": 26, "rate": 20 },
+        { "species": "weepinbell", "minLevel": 22, "maxLevel": 26, "rate": 20 },
+        { "species": "venonat", "minLevel": 22, "maxLevel": 25, "rate": 20 },
+        { "species": "snorlax", "minLevel": 30, "maxLevel": 30, "rate": 5 }
+      ]
+    },
+    "Ruta 13": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 23, "maxLevel": 27, "rate": 25 },
+        { "species": "gloom", "minLevel": 23, "maxLevel": 27, "rate": 20 },
+        { "species": "weepinbell", "minLevel": 23, "maxLevel": 27, "rate": 20 },
+        { "species": "venonat", "minLevel": 23, "maxLevel": 26, "rate": 20 },
+        { "species": "ditto", "minLevel": 24, "maxLevel": 27, "rate": 15 }
+      ]
+    },
+    "Ruta 14": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 24, "maxLevel": 28, "rate": 20 },
+        { "species": "gloom", "minLevel": 24, "maxLevel": 28, "rate": 20 },
+        { "species": "weepinbell", "minLevel": 24, "maxLevel": 28, "rate": 20 },
+        { "species": "venonat", "minLevel": 24, "maxLevel": 27, "rate": 20 },
+        { "species": "ditto", "minLevel": 25, "maxLevel": 28, "rate": 20 }
+      ]
+    },
+    "Ruta 15": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 24, "maxLevel": 28, "rate": 25 },
+        { "species": "gloom", "minLevel": 24, "maxLevel": 28, "rate": 20 },
+        { "species": "weepinbell", "minLevel": 24, "maxLevel": 28, "rate": 20 },
+        { "species": "venonat", "minLevel": 24, "maxLevel": 27, "rate": 20 },
+        { "species": "ditto", "minLevel": 25, "maxLevel": 28, "rate": 15 }
+      ]
+    },
+    "Ruta 16": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 24, "maxLevel": 27, "rate": 25 },
+        { "species": "rattata", "minLevel": 24, "maxLevel": 27, "rate": 20 },
+        { "species": "meowth", "minLevel": 24, "maxLevel": 27, "rate": 20 },
+        { "species": "spearow", "minLevel": 24, "maxLevel": 27, "rate": 20 },
+        { "species": "doduo", "minLevel": 25, "maxLevel": 28, "rate": 15 }
+      ]
+    },
+    "Ruta 17": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 25, "maxLevel": 29, "rate": 20 },
+        { "species": "spearow", "minLevel": 25, "maxLevel": 29, "rate": 20 },
+        { "species": "doduo", "minLevel": 26, "maxLevel": 29, "rate": 25 },
+        { "species": "meowth", "minLevel": 25, "maxLevel": 28, "rate": 20 },
+        { "species": "fearow", "minLevel": 27, "maxLevel": 30, "rate": 15 }
+      ]
+    },
+    "Ruta 18": {
+      "pokemon": [
+        { "species": "pidgey", "minLevel": 25, "maxLevel": 29, "rate": 25 },
+        { "species": "spearow", "minLevel": 25, "maxLevel": 29, "rate": 20 },
+        { "species": "doduo", "minLevel": 26, "maxLevel": 29, "rate": 20 },
+        { "species": "meowth", "minLevel": 25, "maxLevel": 28, "rate": 20 },
+        { "species": "rattata", "minLevel": 25, "maxLevel": 28, "rate": 15 }
+      ]
+    },
+    "Pueblo Palette": {
+      "pokemon": []
+    },
+    "Bosque Verde": {
+      "pokemon": [
+        { "species": "caterpie", "minLevel": 4, "maxLevel": 7, "rate": 30 },
+        { "species": "metapod", "minLevel": 5, "maxLevel": 8, "rate": 25 },
+        { "species": "weedle", "minLevel": 4, "maxLevel": 7, "rate": 20 },
+        { "species": "kakuna", "minLevel": 5, "maxLevel": 8, "rate": 15 },
+        { "species": "pikachu", "minLevel": 6, "maxLevel": 9, "rate": 10 }
+      ]
+    },
+    "Cueva Montana": {
+      "pokemon": [
+        { "species": "zubat", "minLevel": 8, "maxLevel": 12, "rate": 50 },
+        { "species": "geodude", "minLevel": 8, "maxLevel": 12, "rate": 40 },
+        { "species": "clefairy", "minLevel": 10, "maxLevel": 14, "rate": 10 }
+      ]
+    },
+    "Lago Safari": {
+      "pokemon": [
+        { "species": "psyduck", "minLevel": 15, "maxLevel": 25, "rate": 40 },
+        { "species": "slowpoke", "minLevel": 15, "maxLevel": 25, "rate": 30 },
+        { "species": "krabby", "minLevel": 15, "maxLevel": 25, "rate": 30 }
+      ]
+    }
+  },
+  "settings": {
+    "stepRate": 15,
+    "surfRate": 10,
+    "fishRate": 30
+  }
+}
