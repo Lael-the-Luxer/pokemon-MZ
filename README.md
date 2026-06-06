@@ -35,9 +35,3 @@ PMZ is the Pokémon Essentials equivalent for RPG Maker MZ — modern, JavaScrip
 
 **v0.9.8 Public Beta** — Functional and stable. Ready to build a full fan game.  
 Roadmap: mid-battle switch → field hazards → competitive AI → v1.0
-
----
-
-## Credits
-
-By **Lael-the-Luxer**. Pokémon © Nintendo / The Pokémon Company. Non-commercial fan project.
