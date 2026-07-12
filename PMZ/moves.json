@@ -1,4 +1,5 @@
 {
+  "_doc": "Cada movimiento requiere: id (unico), name, type, power, accuracy, pp, category (physical/special/status). \"effect\" es un objeto con type y params segun el tipo. Tipos: none, status, status_chance, fixed_damage, psywave, ohko, multi_hit, stat_stage, stat_stage_chance, stat_stage_self, drain, heal, heal_weather, recoil, crash, recoil_crash, flinch_chance, screen, weather, trap, leech_seed, protect, bide, etc. Para fixed_damage usar amount: \"level\"|\"half_hp\"|numero. Para multi_hit usar min y max. Para stat_stage usar target, stat, stages.",
   "pound": {
     "id": 1,
     "name": "Pound",
@@ -7,7 +8,9 @@
     "accuracy": 100,
     "pp": 35,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "karatechop": {
     "id": 2,
@@ -17,7 +20,9 @@
     "accuracy": 100,
     "pp": 25,
     "category": "physical",
-    "effect": "critical_high"
+    "effect": {
+      "type": "critical_high"
+    }
   },
   "doubleslap": {
     "id": 3,
@@ -27,7 +32,11 @@
     "accuracy": 85,
     "pp": 10,
     "category": "physical",
-    "effect": "multi_hit_2_5"
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5
+    }
   },
   "cometpunch": {
     "id": 4,
@@ -37,7 +46,11 @@
     "accuracy": 85,
     "pp": 15,
     "category": "physical",
-    "effect": "multi_hit_2_5"
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5
+    }
   },
   "megapunch": {
     "id": 5,
@@ -47,7 +60,9 @@
     "accuracy": 85,
     "pp": 20,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "payday": {
     "id": 6,
@@ -57,7 +72,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "physical",
-    "effect": "money"
+    "effect": {
+      "type": "money"
+    }
   },
   "firepunch": {
     "id": 7,
@@ -67,7 +84,11 @@
     "accuracy": 100,
     "pp": 15,
     "category": "physical",
-    "effect": "burn_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "burn",
+      "chance": 0.3
+    }
   },
   "icepunch": {
     "id": 8,
@@ -77,7 +98,11 @@
     "accuracy": 100,
     "pp": 15,
     "category": "physical",
-    "effect": "freeze_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "freeze",
+      "chance": 0.1
+    }
   },
   "thunderpunch": {
     "id": 9,
@@ -87,7 +112,11 @@
     "accuracy": 100,
     "pp": 15,
     "category": "physical",
-    "effect": "paralyze_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "paralyze",
+      "chance": 0.3
+    }
   },
   "scratch": {
     "id": 10,
@@ -97,7 +126,9 @@
     "accuracy": 100,
     "pp": 35,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "vicegrip": {
     "id": 11,
@@ -107,7 +138,9 @@
     "accuracy": 100,
     "pp": 30,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "guillotine": {
     "id": 12,
@@ -117,7 +150,9 @@
     "accuracy": 30,
     "pp": 5,
     "category": "physical",
-    "effect": "ohko"
+    "effect": {
+      "type": "ohko"
+    }
   },
   "razorwind": {
     "id": 13,
@@ -127,7 +162,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "special",
-    "effect": "charge"
+    "effect": {
+      "type": "charge"
+    }
   },
   "swordsdance": {
     "id": 14,
@@ -137,7 +174,12 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "raise_attack_2"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "attack",
+      "stages": 2
+    }
   },
   "cut": {
     "id": 15,
@@ -147,7 +189,9 @@
     "accuracy": 95,
     "pp": 30,
     "category": "physical",
-    "effect": "none",
+    "effect": {
+      "type": "none"
+    },
     "hm": true
   },
   "gust": {
@@ -158,7 +202,9 @@
     "accuracy": 100,
     "pp": 35,
     "category": "special",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "wingattack": {
     "id": 17,
@@ -168,7 +214,9 @@
     "accuracy": 100,
     "pp": 35,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "whirlwind": {
     "id": 18,
@@ -178,7 +226,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "flee"
+    "effect": {
+      "type": "flee"
+    }
   },
   "fly": {
     "id": 19,
@@ -188,7 +238,9 @@
     "accuracy": 95,
     "pp": 15,
     "category": "physical",
-    "effect": "charge",
+    "effect": {
+      "type": "charge"
+    },
     "hm": true
   },
   "bind": {
@@ -199,7 +251,11 @@
     "accuracy": 85,
     "pp": 20,
     "category": "physical",
-    "effect": "bind"
+    "effect": {
+      "type": "trap",
+      "trapType": "bind",
+      "turns": "2-4"
+    }
   },
   "slam": {
     "id": 21,
@@ -209,7 +265,9 @@
     "accuracy": 75,
     "pp": 20,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "vinewhip": {
     "id": 22,
@@ -219,7 +277,9 @@
     "accuracy": 100,
     "pp": 25,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "stomp": {
     "id": 23,
@@ -229,7 +289,10 @@
     "accuracy": 100,
     "pp": 20,
     "category": "physical",
-    "effect": "flinch_chance"
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
   },
   "doublekick": {
     "id": 24,
@@ -239,7 +302,11 @@
     "accuracy": 100,
     "pp": 30,
     "category": "physical",
-    "effect": "multi_hit_2"
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 2
+    }
   },
   "megakick": {
     "id": 25,
@@ -249,7 +316,9 @@
     "accuracy": 75,
     "pp": 5,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "jumpkick": {
     "id": 26,
@@ -259,7 +328,10 @@
     "accuracy": 95,
     "pp": 10,
     "category": "physical",
-    "effect": "crash"
+    "effect": {
+      "type": "crash",
+      "percent": 50
+    }
   },
   "rollingkick": {
     "id": 27,
@@ -269,7 +341,10 @@
     "accuracy": 85,
     "pp": 15,
     "category": "physical",
-    "effect": "flinch_chance"
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
   },
   "sandattack": {
     "id": 28,
@@ -279,7 +354,12 @@
     "accuracy": 100,
     "pp": 15,
     "category": "status",
-    "effect": "lower_accuracy"
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "accuracy",
+      "stages": -1
+    }
   },
   "headbutt": {
     "id": 29,
@@ -289,7 +369,10 @@
     "accuracy": 100,
     "pp": 15,
     "category": "physical",
-    "effect": "flinch_chance"
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
   },
   "hornattack": {
     "id": 30,
@@ -299,7 +382,9 @@
     "accuracy": 100,
     "pp": 25,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "furyattack": {
     "id": 31,
@@ -309,7 +394,11 @@
     "accuracy": 85,
     "pp": 20,
     "category": "physical",
-    "effect": "multi_hit_2_5"
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5
+    }
   },
   "horndrill": {
     "id": 32,
@@ -319,7 +408,9 @@
     "accuracy": 30,
     "pp": 5,
     "category": "physical",
-    "effect": "ohko"
+    "effect": {
+      "type": "ohko"
+    }
   },
   "tackle": {
     "id": 33,
@@ -329,7 +420,9 @@
     "accuracy": 100,
     "pp": 35,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "bodyslam": {
     "id": 34,
@@ -339,7 +432,11 @@
     "accuracy": 100,
     "pp": 15,
     "category": "physical",
-    "effect": "paralyze_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "paralyze",
+      "chance": 0.3
+    }
   },
   "wrap": {
     "id": 35,
@@ -349,7 +446,11 @@
     "accuracy": 90,
     "pp": 20,
     "category": "physical",
-    "effect": "bind"
+    "effect": {
+      "type": "trap",
+      "trapType": "bind",
+      "turns": "2-4"
+    }
   },
   "takedown": {
     "id": 36,
@@ -359,7 +460,10 @@
     "accuracy": 85,
     "pp": 20,
     "category": "physical",
-    "effect": "recoil_25"
+    "effect": {
+      "type": "recoil",
+      "percent": 25
+    }
   },
   "thrash": {
     "id": 37,
@@ -369,7 +473,10 @@
     "accuracy": 100,
     "pp": 10,
     "category": "physical",
-    "effect": "confuse_user"
+    "effect": {
+      "type": "self_status",
+      "status": "confusion"
+    }
   },
   "doubleedge": {
     "id": 38,
@@ -379,7 +486,10 @@
     "accuracy": 100,
     "pp": 15,
     "category": "physical",
-    "effect": "recoil_33"
+    "effect": {
+      "type": "recoil",
+      "percent": 33
+    }
   },
   "tailwhip": {
     "id": 39,
@@ -389,7 +499,12 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "lower_defense"
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "defense",
+      "stages": -1
+    }
   },
   "poisonsting": {
     "id": 40,
@@ -399,7 +514,11 @@
     "accuracy": 100,
     "pp": 35,
     "category": "physical",
-    "effect": "poison_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "poison",
+      "chance": 0.3
+    }
   },
   "twineedle": {
     "id": 41,
@@ -409,7 +528,12 @@
     "accuracy": 100,
     "pp": 20,
     "category": "physical",
-    "effect": "multi_hit_2_poison"
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5,
+      "subEffect": "poison_chance"
+    }
   },
   "pinmissile": {
     "id": 42,
@@ -419,7 +543,11 @@
     "accuracy": 95,
     "pp": 20,
     "category": "physical",
-    "effect": "multi_hit_2_5"
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5
+    }
   },
   "leer": {
     "id": 43,
@@ -429,7 +557,12 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "lower_defense"
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "defense",
+      "stages": -1
+    }
   },
   "bite": {
     "id": 44,
@@ -439,7 +572,10 @@
     "accuracy": 100,
     "pp": 25,
     "category": "physical",
-    "effect": "flinch_chance"
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
   },
   "growl": {
     "id": 45,
@@ -449,7 +585,12 @@
     "accuracy": 100,
     "pp": 40,
     "category": "status",
-    "effect": "lower_attack"
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "attack",
+      "stages": -1
+    }
   },
   "roar": {
     "id": 46,
@@ -459,7 +600,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "flee"
+    "effect": {
+      "type": "flee"
+    }
   },
   "sing": {
     "id": 47,
@@ -469,7 +612,10 @@
     "accuracy": 55,
     "pp": 15,
     "category": "status",
-    "effect": "sleep"
+    "effect": {
+      "type": "status",
+      "status": "sleep"
+    }
   },
   "supersonic": {
     "id": 48,
@@ -479,7 +625,10 @@
     "accuracy": 55,
     "pp": 20,
     "category": "status",
-    "effect": "confuse"
+    "effect": {
+      "type": "status",
+      "status": "confusion"
+    }
   },
   "sonicboom": {
     "id": 49,
@@ -489,7 +638,10 @@
     "accuracy": 90,
     "pp": 20,
     "category": "special",
-    "effect": "fixed_20"
+    "effect": {
+      "type": "fixed_damage",
+      "amount": 20
+    }
   },
   "disable": {
     "id": 50,
@@ -499,7 +651,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "disable"
+    "effect": {
+      "type": "disable"
+    }
   },
   "acid": {
     "id": 51,
@@ -509,7 +663,13 @@
     "accuracy": 100,
     "pp": 30,
     "category": "special",
-    "effect": "lower_defense_chance"
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "defense",
+      "stages": -1,
+      "chance": 0.3
+    }
   },
   "ember": {
     "id": 52,
@@ -519,7 +679,11 @@
     "accuracy": 100,
     "pp": 25,
     "category": "special",
-    "effect": "burn_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "burn",
+      "chance": 0.3
+    }
   },
   "flamethrower": {
     "id": 53,
@@ -529,7 +693,11 @@
     "accuracy": 100,
     "pp": 15,
     "category": "special",
-    "effect": "burn_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "burn",
+      "chance": 0.3
+    }
   },
   "mist": {
     "id": 54,
@@ -539,7 +707,11 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "mist"
+    "effect": {
+      "type": "screen",
+      "screen": "mist",
+      "turns": 5
+    }
   },
   "watergun": {
     "id": 55,
@@ -549,7 +721,9 @@
     "accuracy": 100,
     "pp": 25,
     "category": "special",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "hydropump": {
     "id": 56,
@@ -559,7 +733,9 @@
     "accuracy": 80,
     "pp": 5,
     "category": "special",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "surf": {
     "id": 57,
@@ -569,7 +745,9 @@
     "accuracy": 100,
     "pp": 15,
     "category": "special",
-    "effect": "none",
+    "effect": {
+      "type": "none"
+    },
     "hm": true
   },
   "icebeam": {
@@ -580,7 +758,11 @@
     "accuracy": 100,
     "pp": 10,
     "category": "special",
-    "effect": "freeze_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "freeze",
+      "chance": 0.1
+    }
   },
   "blizzard": {
     "id": 59,
@@ -590,7 +772,11 @@
     "accuracy": 70,
     "pp": 5,
     "category": "special",
-    "effect": "freeze_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "freeze",
+      "chance": 0.1
+    }
   },
   "psybeam": {
     "id": 60,
@@ -600,7 +786,11 @@
     "accuracy": 100,
     "pp": 20,
     "category": "special",
-    "effect": "confuse_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "confusion",
+      "chance": 0.3
+    }
   },
   "bubblebeam": {
     "id": 61,
@@ -610,7 +800,13 @@
     "accuracy": 100,
     "pp": 20,
     "category": "special",
-    "effect": "lower_speed_chance"
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "speed",
+      "stages": -1,
+      "chance": 0.3
+    }
   },
   "aurorabeam": {
     "id": 62,
@@ -620,7 +816,13 @@
     "accuracy": 100,
     "pp": 20,
     "category": "special",
-    "effect": "lower_attack_chance"
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "attack",
+      "stages": -1,
+      "chance": 0.3
+    }
   },
   "hyperbeam": {
     "id": 63,
@@ -630,7 +832,9 @@
     "accuracy": 90,
     "pp": 5,
     "category": "special",
-    "effect": "recharge"
+    "effect": {
+      "type": "recharge"
+    }
   },
   "peck": {
     "id": 64,
@@ -640,7 +844,9 @@
     "accuracy": 100,
     "pp": 35,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "drillpeck": {
     "id": 65,
@@ -650,7 +856,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "submission": {
     "id": 66,
@@ -660,7 +868,10 @@
     "accuracy": 80,
     "pp": 20,
     "category": "physical",
-    "effect": "recoil_25"
+    "effect": {
+      "type": "recoil",
+      "percent": 25
+    }
   },
   "lowkick": {
     "id": 67,
@@ -670,7 +881,9 @@
     "accuracy": 90,
     "pp": 20,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "counter": {
     "id": 68,
@@ -680,7 +893,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "physical",
-    "effect": "counter"
+    "effect": {
+      "type": "counter"
+    }
   },
   "seismictoss": {
     "id": 69,
@@ -690,7 +905,10 @@
     "accuracy": 100,
     "pp": 20,
     "category": "physical",
-    "effect": "level_damage"
+    "effect": {
+      "type": "fixed_damage",
+      "amount": "level"
+    }
   },
   "strength": {
     "id": 70,
@@ -700,7 +918,9 @@
     "accuracy": 100,
     "pp": 15,
     "category": "physical",
-    "effect": "none",
+    "effect": {
+      "type": "none"
+    },
     "hm": true
   },
   "absorb": {
@@ -711,7 +931,10 @@
     "accuracy": 100,
     "pp": 25,
     "category": "special",
-    "effect": "absorb_half"
+    "effect": {
+      "type": "drain",
+      "percent": 50
+    }
   },
   "megadrain": {
     "id": 72,
@@ -721,7 +944,10 @@
     "accuracy": 100,
     "pp": 15,
     "category": "special",
-    "effect": "absorb_half"
+    "effect": {
+      "type": "drain",
+      "percent": 50
+    }
   },
   "leechseed": {
     "id": 73,
@@ -731,7 +957,9 @@
     "accuracy": 90,
     "pp": 10,
     "category": "status",
-    "effect": "leechseed"
+    "effect": {
+      "type": "leech_seed"
+    }
   },
   "growth": {
     "id": 74,
@@ -741,7 +969,12 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "raise_sp_attack"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "spAttack",
+      "stages": 1
+    }
   },
   "razorleaf": {
     "id": 75,
@@ -751,7 +984,9 @@
     "accuracy": 95,
     "pp": 25,
     "category": "physical",
-    "effect": "critical_high"
+    "effect": {
+      "type": "critical_high"
+    }
   },
   "solarbeam": {
     "id": 76,
@@ -761,7 +996,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "special",
-    "effect": "charge"
+    "effect": {
+      "type": "charge"
+    }
   },
   "poisonpowder": {
     "id": 77,
@@ -771,7 +1008,10 @@
     "accuracy": 75,
     "pp": 35,
     "category": "status",
-    "effect": "poison"
+    "effect": {
+      "type": "status",
+      "status": "poison"
+    }
   },
   "stunspore": {
     "id": 78,
@@ -781,7 +1021,10 @@
     "accuracy": 75,
     "pp": 30,
     "category": "status",
-    "effect": "paralyze"
+    "effect": {
+      "type": "status",
+      "status": "paralyze"
+    }
   },
   "sleeppowder": {
     "id": 79,
@@ -791,7 +1034,10 @@
     "accuracy": 75,
     "pp": 15,
     "category": "status",
-    "effect": "sleep"
+    "effect": {
+      "type": "status",
+      "status": "sleep"
+    }
   },
   "petaldance": {
     "id": 80,
@@ -801,7 +1047,10 @@
     "accuracy": 100,
     "pp": 10,
     "category": "special",
-    "effect": "confuse_user"
+    "effect": {
+      "type": "self_status",
+      "status": "confusion"
+    }
   },
   "stringshot": {
     "id": 81,
@@ -811,7 +1060,12 @@
     "accuracy": 95,
     "pp": 40,
     "category": "status",
-    "effect": "lower_speed_2"
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "speed",
+      "stages": -2
+    }
   },
   "dragonrage": {
     "id": 82,
@@ -821,7 +1075,10 @@
     "accuracy": 100,
     "pp": 10,
     "category": "special",
-    "effect": "fixed_40"
+    "effect": {
+      "type": "fixed_damage",
+      "amount": 40
+    }
   },
   "firespin": {
     "id": 83,
@@ -831,7 +1088,11 @@
     "accuracy": 85,
     "pp": 15,
     "category": "special",
-    "effect": "bind"
+    "effect": {
+      "type": "trap",
+      "trapType": "bind",
+      "turns": "2-4"
+    }
   },
   "thundershock": {
     "id": 84,
@@ -841,7 +1102,11 @@
     "accuracy": 100,
     "pp": 30,
     "category": "special",
-    "effect": "paralyze_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "paralyze",
+      "chance": 0.3
+    }
   },
   "thunderbolt": {
     "id": 85,
@@ -851,7 +1116,11 @@
     "accuracy": 100,
     "pp": 15,
     "category": "special",
-    "effect": "paralyze_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "paralyze",
+      "chance": 0.3
+    }
   },
   "thunderwave": {
     "id": 86,
@@ -861,7 +1130,10 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "paralyze"
+    "effect": {
+      "type": "status",
+      "status": "paralyze"
+    }
   },
   "thunder": {
     "id": 87,
@@ -871,7 +1143,11 @@
     "accuracy": 70,
     "pp": 10,
     "category": "special",
-    "effect": "paralyze_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "paralyze",
+      "chance": 0.3
+    }
   },
   "rockthrow": {
     "id": 88,
@@ -881,7 +1157,9 @@
     "accuracy": 90,
     "pp": 15,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "earthquake": {
     "id": 89,
@@ -891,7 +1169,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "fissure": {
     "id": 90,
@@ -901,7 +1181,9 @@
     "accuracy": 30,
     "pp": 5,
     "category": "physical",
-    "effect": "ohko"
+    "effect": {
+      "type": "ohko"
+    }
   },
   "dig": {
     "id": 91,
@@ -911,7 +1193,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "physical",
-    "effect": "charge"
+    "effect": {
+      "type": "charge"
+    }
   },
   "toxic": {
     "id": 92,
@@ -921,7 +1205,10 @@
     "accuracy": 85,
     "pp": 10,
     "category": "status",
-    "effect": "toxic"
+    "effect": {
+      "type": "status",
+      "status": "toxic"
+    }
   },
   "confusion": {
     "id": 93,
@@ -931,7 +1218,11 @@
     "accuracy": 100,
     "pp": 25,
     "category": "special",
-    "effect": "confuse_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "confusion",
+      "chance": 0.3
+    }
   },
   "psychic": {
     "id": 94,
@@ -941,7 +1232,12 @@
     "accuracy": 100,
     "pp": 10,
     "category": "special",
-    "effect": "lower_sp_defense"
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "spDefense",
+      "stages": -1
+    }
   },
   "hypnosis": {
     "id": 95,
@@ -951,7 +1247,10 @@
     "accuracy": 60,
     "pp": 20,
     "category": "status",
-    "effect": "sleep"
+    "effect": {
+      "type": "status",
+      "status": "sleep"
+    }
   },
   "meditate": {
     "id": 96,
@@ -961,7 +1260,12 @@
     "accuracy": 100,
     "pp": 40,
     "category": "status",
-    "effect": "raise_attack"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "attack",
+      "stages": 1
+    }
   },
   "agility": {
     "id": 97,
@@ -971,7 +1275,12 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "raise_speed_2"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "speed",
+      "stages": 2
+    }
   },
   "quickattack": {
     "id": 98,
@@ -981,7 +1290,9 @@
     "accuracy": 100,
     "pp": 30,
     "category": "physical",
-    "effect": "priority"
+    "effect": {
+      "type": "priority"
+    }
   },
   "rage": {
     "id": 99,
@@ -991,7 +1302,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "physical",
-    "effect": "rage"
+    "effect": {
+      "type": "rage"
+    }
   },
   "teleport": {
     "id": 100,
@@ -1001,7 +1314,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "flee"
+    "effect": {
+      "type": "flee"
+    }
   },
   "nightshade": {
     "id": 101,
@@ -1011,7 +1326,10 @@
     "accuracy": 100,
     "pp": 15,
     "category": "special",
-    "effect": "level_damage"
+    "effect": {
+      "type": "fixed_damage",
+      "amount": "level"
+    }
   },
   "mimic": {
     "id": 102,
@@ -1021,7 +1339,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "status",
-    "effect": "mimic"
+    "effect": {
+      "type": "mimic"
+    }
   },
   "screech": {
     "id": 103,
@@ -1031,7 +1351,12 @@
     "accuracy": 85,
     "pp": 40,
     "category": "status",
-    "effect": "lower_defense_2"
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "defense",
+      "stages": -2
+    }
   },
   "doubleteam": {
     "id": 104,
@@ -1041,7 +1366,12 @@
     "accuracy": 100,
     "pp": 15,
     "category": "status",
-    "effect": "raise_evasion"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "evasion",
+      "stages": 1
+    }
   },
   "recover": {
     "id": 105,
@@ -1051,7 +1381,10 @@
     "accuracy": 100,
     "pp": 10,
     "category": "status",
-    "effect": "heal_half"
+    "effect": {
+      "type": "heal",
+      "percent": 50
+    }
   },
   "harden": {
     "id": 106,
@@ -1061,7 +1394,12 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "raise_defense"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "defense",
+      "stages": 1
+    }
   },
   "minimize": {
     "id": 107,
@@ -1071,7 +1409,12 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "raise_evasion"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "evasion",
+      "stages": 1
+    }
   },
   "smokescreen": {
     "id": 108,
@@ -1081,7 +1424,12 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "lower_accuracy"
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "accuracy",
+      "stages": -1
+    }
   },
   "confuseray": {
     "id": 109,
@@ -1091,7 +1439,10 @@
     "accuracy": 100,
     "pp": 10,
     "category": "status",
-    "effect": "confuse"
+    "effect": {
+      "type": "status",
+      "status": "confusion"
+    }
   },
   "withdraw": {
     "id": 110,
@@ -1101,7 +1452,12 @@
     "accuracy": 100,
     "pp": 40,
     "category": "status",
-    "effect": "raise_defense"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "defense",
+      "stages": 1
+    }
   },
   "defensecurl": {
     "id": 111,
@@ -1111,7 +1467,12 @@
     "accuracy": 100,
     "pp": 40,
     "category": "status",
-    "effect": "raise_defense"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "defense",
+      "stages": 1
+    }
   },
   "barrier": {
     "id": 112,
@@ -1121,7 +1482,12 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "raise_defense_2"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "defense",
+      "stages": 2
+    }
   },
   "lightscreen": {
     "id": 113,
@@ -1131,7 +1497,11 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "light_screen"
+    "effect": {
+      "type": "screen",
+      "screen": "light_screen",
+      "turns": 5
+    }
   },
   "haze": {
     "id": 114,
@@ -1141,7 +1511,9 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "reset_stats"
+    "effect": {
+      "type": "reset_stats"
+    }
   },
   "reflect": {
     "id": 115,
@@ -1151,7 +1523,11 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "reflect"
+    "effect": {
+      "type": "screen",
+      "screen": "reflect",
+      "turns": 5
+    }
   },
   "focusenergy": {
     "id": 116,
@@ -1161,7 +1537,9 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "focus_energy"
+    "effect": {
+      "type": "focus_energy"
+    }
   },
   "bide": {
     "id": 117,
@@ -1171,7 +1549,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "physical",
-    "effect": "bide"
+    "effect": {
+      "type": "bide"
+    }
   },
   "metronome": {
     "id": 118,
@@ -1181,7 +1561,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "status",
-    "effect": "metronome"
+    "effect": {
+      "type": "metronome"
+    }
   },
   "mirrormove": {
     "id": 119,
@@ -1191,7 +1573,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "mirror_move"
+    "effect": {
+      "type": "mirror_move"
+    }
   },
   "selfdestruct": {
     "id": 120,
@@ -1201,7 +1585,9 @@
     "accuracy": 100,
     "pp": 5,
     "category": "physical",
-    "effect": "user_faint"
+    "effect": {
+      "type": "self_faint"
+    }
   },
   "eggbomb": {
     "id": 121,
@@ -1211,7 +1597,9 @@
     "accuracy": 75,
     "pp": 10,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "lick": {
     "id": 122,
@@ -1221,7 +1609,11 @@
     "accuracy": 100,
     "pp": 30,
     "category": "physical",
-    "effect": "paralyze_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "paralyze",
+      "chance": 0.3
+    }
   },
   "smog": {
     "id": 123,
@@ -1231,7 +1623,11 @@
     "accuracy": 70,
     "pp": 20,
     "category": "special",
-    "effect": "poison_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "poison",
+      "chance": 0.3
+    }
   },
   "sludge": {
     "id": 124,
@@ -1241,7 +1637,11 @@
     "accuracy": 100,
     "pp": 20,
     "category": "special",
-    "effect": "poison_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "poison",
+      "chance": 0.3
+    }
   },
   "boneclub": {
     "id": 125,
@@ -1251,7 +1651,10 @@
     "accuracy": 85,
     "pp": 20,
     "category": "physical",
-    "effect": "flinch_chance"
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
   },
   "fireblast": {
     "id": 126,
@@ -1261,7 +1664,11 @@
     "accuracy": 85,
     "pp": 5,
     "category": "special",
-    "effect": "burn_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "burn",
+      "chance": 0.3
+    }
   },
   "waterfall": {
     "id": 127,
@@ -1271,7 +1678,9 @@
     "accuracy": 100,
     "pp": 15,
     "category": "physical",
-    "effect": "none",
+    "effect": {
+      "type": "none"
+    },
     "hm": true
   },
   "clamp": {
@@ -1282,7 +1691,11 @@
     "accuracy": 85,
     "pp": 15,
     "category": "physical",
-    "effect": "bind"
+    "effect": {
+      "type": "trap",
+      "trapType": "bind",
+      "turns": "2-4"
+    }
   },
   "swift": {
     "id": 129,
@@ -1293,7 +1706,9 @@
     "neverMiss": true,
     "pp": 20,
     "category": "special",
-    "effect": "never_miss"
+    "effect": {
+      "type": "never_miss"
+    }
   },
   "skullbash": {
     "id": 130,
@@ -1303,7 +1718,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "physical",
-    "effect": "charge"
+    "effect": {
+      "type": "charge"
+    }
   },
   "spikecannon": {
     "id": 131,
@@ -1313,7 +1730,11 @@
     "accuracy": 100,
     "pp": 15,
     "category": "physical",
-    "effect": "multi_hit_2_5"
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5
+    }
   },
   "constrict": {
     "id": 132,
@@ -1323,7 +1744,13 @@
     "accuracy": 100,
     "pp": 35,
     "category": "physical",
-    "effect": "lower_speed_chance"
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "speed",
+      "stages": -1,
+      "chance": 0.3
+    }
   },
   "amnesia": {
     "id": 133,
@@ -1333,7 +1760,12 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "raise_sp_defense_2"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "spDefense",
+      "stages": 2
+    }
   },
   "kinesis": {
     "id": 134,
@@ -1343,7 +1775,12 @@
     "accuracy": 80,
     "pp": 15,
     "category": "status",
-    "effect": "lower_accuracy"
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "accuracy",
+      "stages": -1
+    }
   },
   "softboiled": {
     "id": 135,
@@ -1353,7 +1790,10 @@
     "accuracy": 100,
     "pp": 10,
     "category": "status",
-    "effect": "heal_half"
+    "effect": {
+      "type": "heal",
+      "percent": 50
+    }
   },
   "hijumpkick": {
     "id": 136,
@@ -1363,7 +1803,10 @@
     "accuracy": 90,
     "pp": 10,
     "category": "physical",
-    "effect": "crash"
+    "effect": {
+      "type": "crash",
+      "percent": 50
+    }
   },
   "glare": {
     "id": 137,
@@ -1373,7 +1816,10 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "paralyze"
+    "effect": {
+      "type": "status",
+      "status": "paralyze"
+    }
   },
   "dreameater": {
     "id": 138,
@@ -1383,7 +1829,9 @@
     "accuracy": 100,
     "pp": 15,
     "category": "special",
-    "effect": "sleep_absorb"
+    "effect": {
+      "type": "sleep_absorb"
+    }
   },
   "poisongas": {
     "id": 139,
@@ -1393,7 +1841,10 @@
     "accuracy": 90,
     "pp": 40,
     "category": "status",
-    "effect": "poison"
+    "effect": {
+      "type": "status",
+      "status": "poison"
+    }
   },
   "barrage": {
     "id": 140,
@@ -1403,7 +1854,11 @@
     "accuracy": 85,
     "pp": 20,
     "category": "physical",
-    "effect": "multi_hit_2_5"
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5
+    }
   },
   "leechlife": {
     "id": 141,
@@ -1413,7 +1868,10 @@
     "accuracy": 100,
     "pp": 15,
     "category": "physical",
-    "effect": "absorb_half"
+    "effect": {
+      "type": "drain",
+      "percent": 50
+    }
   },
   "lovelykiss": {
     "id": 142,
@@ -1423,7 +1881,10 @@
     "accuracy": 75,
     "pp": 10,
     "category": "status",
-    "effect": "sleep"
+    "effect": {
+      "type": "status",
+      "status": "sleep"
+    }
   },
   "skyattack": {
     "id": 143,
@@ -1433,7 +1894,9 @@
     "accuracy": 90,
     "pp": 5,
     "category": "physical",
-    "effect": "charge"
+    "effect": {
+      "type": "charge"
+    }
   },
   "transform": {
     "id": 144,
@@ -1443,7 +1906,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "status",
-    "effect": "transform"
+    "effect": {
+      "type": "transform"
+    }
   },
   "bubble": {
     "id": 145,
@@ -1453,7 +1918,13 @@
     "accuracy": 100,
     "pp": 30,
     "category": "special",
-    "effect": "lower_speed_chance"
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "speed",
+      "stages": -1,
+      "chance": 0.3
+    }
   },
   "dizzypunch": {
     "id": 146,
@@ -1463,7 +1934,11 @@
     "accuracy": 100,
     "pp": 10,
     "category": "physical",
-    "effect": "confuse_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "confusion",
+      "chance": 0.3
+    }
   },
   "spore": {
     "id": 147,
@@ -1473,7 +1948,10 @@
     "accuracy": 100,
     "pp": 15,
     "category": "status",
-    "effect": "sleep"
+    "effect": {
+      "type": "status",
+      "status": "sleep"
+    }
   },
   "flash": {
     "id": 148,
@@ -1483,7 +1961,12 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "lower_accuracy",
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "accuracy",
+      "stages": -1
+    },
     "hm": true
   },
   "psywave": {
@@ -1494,7 +1977,9 @@
     "accuracy": 100,
     "pp": 15,
     "category": "special",
-    "effect": "psywave"
+    "effect": {
+      "type": "psywave"
+    }
   },
   "splash": {
     "id": 150,
@@ -1504,7 +1989,9 @@
     "accuracy": 100,
     "pp": 40,
     "category": "status",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "acidarmor": {
     "id": 151,
@@ -1514,7 +2001,12 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "raise_defense_2"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "defense",
+      "stages": 2
+    }
   },
   "crabhammer": {
     "id": 152,
@@ -1524,7 +2016,9 @@
     "accuracy": 90,
     "pp": 10,
     "category": "physical",
-    "effect": "critical_high"
+    "effect": {
+      "type": "critical_high"
+    }
   },
   "explosion": {
     "id": 153,
@@ -1534,7 +2028,9 @@
     "accuracy": 100,
     "pp": 5,
     "category": "physical",
-    "effect": "user_faint"
+    "effect": {
+      "type": "self_faint"
+    }
   },
   "furyswipes": {
     "id": 154,
@@ -1544,7 +2040,11 @@
     "accuracy": 80,
     "pp": 15,
     "category": "physical",
-    "effect": "multi_hit_2_5"
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5
+    }
   },
   "bonemerang": {
     "id": 155,
@@ -1554,7 +2054,11 @@
     "accuracy": 90,
     "pp": 10,
     "category": "physical",
-    "effect": "multi_hit_2"
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 2
+    }
   },
   "rest": {
     "id": 156,
@@ -1564,7 +2068,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "status",
-    "effect": "rest"
+    "effect": {
+      "type": "rest"
+    }
   },
   "rockslide": {
     "id": 157,
@@ -1574,7 +2080,10 @@
     "accuracy": 90,
     "pp": 10,
     "category": "physical",
-    "effect": "flinch_chance"
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
   },
   "hyperfang": {
     "id": 158,
@@ -1584,7 +2093,10 @@
     "accuracy": 90,
     "pp": 15,
     "category": "physical",
-    "effect": "flinch_chance"
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
   },
   "sharpen": {
     "id": 159,
@@ -1594,7 +2106,12 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "raise_attack"
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "attack",
+      "stages": 1
+    }
   },
   "conversion": {
     "id": 160,
@@ -1604,7 +2121,9 @@
     "accuracy": 100,
     "pp": 30,
     "category": "status",
-    "effect": "conversion"
+    "effect": {
+      "type": "conversion"
+    }
   },
   "triattack": {
     "id": 161,
@@ -1614,7 +2133,14 @@
     "accuracy": 100,
     "pp": 10,
     "category": "special",
-    "effect": "tri_status"
+    "effect": {
+      "type": "random_status",
+      "statuses": [
+        "poison",
+        "burn",
+        "paralyze"
+      ]
+    }
   },
   "superfang": {
     "id": 162,
@@ -1624,7 +2150,10 @@
     "accuracy": 90,
     "pp": 10,
     "category": "physical",
-    "effect": "half_hp"
+    "effect": {
+      "type": "fixed_damage",
+      "amount": "half_hp"
+    }
   },
   "slash": {
     "id": 163,
@@ -1634,7 +2163,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "physical",
-    "effect": "critical_high"
+    "effect": {
+      "type": "critical_high"
+    }
   },
   "substitute": {
     "id": 164,
@@ -1644,7 +2175,9 @@
     "accuracy": 100,
     "pp": 10,
     "category": "status",
-    "effect": "substitute"
+    "effect": {
+      "type": "substitute"
+    }
   },
   "raindance": {
     "id": 166,
@@ -1654,7 +2187,11 @@
     "accuracy": 100,
     "pp": 5,
     "category": "status",
-    "effect": "weather_rain"
+    "effect": {
+      "type": "weather",
+      "weather": "rain",
+      "turns": 5
+    }
   },
   "sunnyday": {
     "id": 167,
@@ -1664,7 +2201,11 @@
     "accuracy": 100,
     "pp": 5,
     "category": "status",
-    "effect": "weather_sun"
+    "effect": {
+      "type": "weather",
+      "weather": "sun",
+      "turns": 5
+    }
   },
   "sandstorm": {
     "id": 168,
@@ -1674,7 +2215,11 @@
     "accuracy": 100,
     "pp": 5,
     "category": "status",
-    "effect": "weather_sandstorm"
+    "effect": {
+      "type": "weather",
+      "weather": "sandstorm",
+      "turns": 5
+    }
   },
   "hail": {
     "id": 169,
@@ -1684,7 +2229,11 @@
     "accuracy": 100,
     "pp": 5,
     "category": "status",
-    "effect": "weather_hail"
+    "effect": {
+      "type": "weather",
+      "weather": "hail",
+      "turns": 5
+    }
   },
   "struggle": {
     "id": 165,
@@ -1694,7 +2243,10 @@
     "accuracy": 100,
     "pp": 1,
     "category": "physical",
-    "effect": "recoil_25"
+    "effect": {
+      "type": "recoil",
+      "percent": 25
+    }
   },
   "charm": {
     "id": 170,
@@ -1704,7 +2256,12 @@
     "accuracy": 100,
     "pp": 20,
     "category": "status",
-    "effect": "lower_attack_2"
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "attack",
+      "stages": -2
+    }
   },
   "secretpower": {
     "id": 171,
@@ -1714,7 +2271,9 @@
     "accuracy": 100,
     "pp": 20,
     "category": "physical",
-    "effect": "secret_power"
+    "effect": {
+      "type": "secret_power"
+    }
   },
   "thief": {
     "id": 172,
@@ -1724,7 +2283,9 @@
     "accuracy": 100,
     "pp": 25,
     "category": "physical",
-    "effect": "thief"
+    "effect": {
+      "type": "thief"
+    }
   },
   "magnitude": {
     "id": 173,
@@ -1734,7 +2295,9 @@
     "accuracy": 100,
     "pp": 30,
     "category": "physical",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "powdersnow": {
     "id": 174,
@@ -1744,7 +2307,11 @@
     "accuracy": 100,
     "pp": 25,
     "category": "special",
-    "effect": "freeze_chance"
+    "effect": {
+      "type": "status_chance",
+      "status": "freeze",
+      "chance": 0.1
+    }
   },
   "ancientpower": {
     "id": 175,
@@ -1754,7 +2321,9 @@
     "accuracy": 100,
     "pp": 5,
     "category": "special",
-    "effect": "none"
+    "effect": {
+      "type": "none"
+    }
   },
   "magicalleaf": {
     "id": 176,
@@ -1764,7 +2333,1858 @@
     "accuracy": 0,
     "pp": 20,
     "category": "special",
-    "effect": "none",
+    "effect": {
+      "type": "none"
+    },
     "neverMiss": true
+  },
+  "synthesis": {
+    "id": 177,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "grass",
+    "name": "Synthesis",
+    "effect": {
+      "type": "heal_weather",
+      "base": 50,
+      "sun": 67,
+      "rain": 25,
+      "sand": 25,
+      "hail": 25
+    },
+    "pp": 5
+  },
+  "moonlight": {
+    "id": 178,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "fairy",
+    "name": "Moonlight",
+    "effect": {
+      "type": "heal_weather",
+      "base": 50,
+      "sun": 67,
+      "rain": 25,
+      "sand": 25,
+      "hail": 25
+    },
+    "pp": 5
+  },
+  "morningsun": {
+    "id": 179,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Morning Sun",
+    "effect": {
+      "type": "heal_weather",
+      "base": 50,
+      "sun": 67,
+      "rain": 25,
+      "sand": 25,
+      "hail": 25
+    },
+    "pp": 5
+  },
+  "crunch": {
+    "id": 180,
+    "power": 80,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "dark",
+    "name": "Crunch",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "defense",
+      "stages": -1,
+      "chance": 0.3
+    },
+    "pp": 15
+  },
+  "spark": {
+    "id": 181,
+    "power": 65,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "electric",
+    "name": "Spark",
+    "effect": {
+      "type": "status_chance",
+      "status": "paralyze",
+      "chance": 0.3
+    },
+    "pp": 20
+  },
+  "furycutter": {
+    "id": 182,
+    "power": 40,
+    "accuracy": 95,
+    "category": "physical",
+    "type": "bug",
+    "name": "Fury Cutter",
+    "effect": {
+      "type": "none"
+    },
+    "pp": 20
+  },
+  "rollout": {
+    "id": 183,
+    "power": 30,
+    "accuracy": 90,
+    "category": "physical",
+    "type": "rock",
+    "name": "Rollout",
+    "effect": {
+      "type": "rollout"
+    },
+    "pp": 20
+  },
+  "mudslap": {
+    "id": 184,
+    "power": 20,
+    "accuracy": 100,
+    "category": "special",
+    "type": "ground",
+    "name": "Mud-Slap",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "accuracy",
+      "stages": -1,
+      "chance": 0.3
+    },
+    "pp": 10
+  },
+  "rocksmash": {
+    "id": 185,
+    "power": 40,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "fighting",
+    "name": "Rock Smash",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "defense",
+      "stages": -1,
+      "chance": 0.3
+    },
+    "pp": 15
+  },
+  "pursuit": {
+    "id": 186,
+    "power": 40,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "dark",
+    "name": "Pursuit",
+    "effect": {
+      "type": "none"
+    },
+    "pp": 20
+  },
+  "rapidspin": {
+    "id": 187,
+    "power": 20,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "normal",
+    "name": "Rapid Spin",
+    "effect": {
+      "type": "none"
+    },
+    "pp": 40
+  },
+  "feintattack": {
+    "id": 188,
+    "type": "dark",
+    "effect": {
+      "type": "none"
+    },
+    "category": "physical",
+    "neverMiss": true,
+    "name": "Feint Attack",
+    "pp": 20,
+    "power": 60,
+    "accuracy": 0
+  },
+  "beatup": {
+    "id": 189,
+    "power": 10,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "dark",
+    "name": "Beat Up",
+    "effect": {
+      "type": "none"
+    },
+    "pp": 10
+  },
+  "hiddenpower": {
+    "id": 190,
+    "power": 60,
+    "accuracy": 100,
+    "category": "special",
+    "type": "normal",
+    "name": "Hidden Power",
+    "effect": {
+      "type": "none"
+    },
+    "pp": 15
+  },
+  "protect": {
+    "id": 191,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Protect",
+    "effect": {
+      "type": "protect"
+    },
+    "pp": 10
+  },
+  "endure": {
+    "id": 192,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Endure",
+    "effect": {
+      "type": "endure"
+    },
+    "pp": 10
+  },
+  "safeguard": {
+    "id": 193,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Safeguard",
+    "effect": {
+      "type": "screen",
+      "screen": "safeguard",
+      "turns": 5
+    },
+    "pp": 25
+  },
+  "return": {
+    "id": 194,
+    "power": 102,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "normal",
+    "name": "Return",
+    "effect": {
+      "type": "none"
+    },
+    "pp": 20
+  },
+  "frustration": {
+    "id": 195,
+    "power": 102,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "normal",
+    "name": "Frustration",
+    "effect": {
+      "type": "none"
+    },
+    "pp": 20
+  },
+  "shadowball": {
+    "id": 196,
+    "power": 80,
+    "accuracy": 100,
+    "category": "special",
+    "type": "ghost",
+    "name": "Shadow Ball",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "spDefense",
+      "stages": -1,
+      "chance": 0.3
+    },
+    "pp": 15
+  },
+  "brickbreak": {
+    "id": 197,
+    "power": 75,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "fighting",
+    "name": "Brick Break",
+    "effect": {
+      "type": "none"
+    },
+    "pp": 15
+  },
+  "dragondance": {
+    "id": 198,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "dragon",
+    "name": "Dragon Dance",
+    "effect": {
+      "type": "dragon_dance"
+    },
+    "pp": 20
+  },
+  "willowisp": {
+    "id": 199,
+    "power": 0,
+    "accuracy": 85,
+    "category": "status",
+    "type": "fire",
+    "name": "Will-O-Wisp",
+    "effect": {
+      "type": "status",
+      "status": "burn"
+    },
+    "pp": 15
+  },
+  "gigadrain": {
+    "id": 200,
+    "power": 75,
+    "accuracy": 100,
+    "category": "special",
+    "type": "grass",
+    "name": "Giga Drain",
+    "effect": {
+      "type": "drain",
+      "percent": 50
+    },
+    "pp": 10
+  },
+  "sleeptalk": {
+    "id": 201,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Sleep Talk",
+    "effect": {
+      "type": "sleep_talk"
+    },
+    "pp": 10
+  },
+  "curse": {
+    "id": 202,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "ghost",
+    "name": "Curse",
+    "effect": {
+      "type": "curse"
+    },
+    "pp": 10
+  },
+  "spite": {
+    "id": 203,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "ghost",
+    "name": "Spite",
+    "effect": {
+      "type": "spite"
+    },
+    "pp": 10
+  },
+  "scaryface": {
+    "id": 204,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Scary Face",
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "speed",
+      "stages": -2
+    },
+    "pp": 10
+  },
+  "swagger": {
+    "id": 205,
+    "power": 0,
+    "accuracy": 90,
+    "category": "status",
+    "type": "normal",
+    "name": "Swagger",
+    "effect": {
+      "type": "swagger"
+    },
+    "pp": 15
+  },
+  "attract": {
+    "id": 206,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Attract",
+    "effect": {
+      "type": "attract"
+    },
+    "pp": 15
+  },
+  "sweetscent": {
+    "id": 207,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Sweet Scent",
+    "effect": {
+      "type": "sweet_scent"
+    },
+    "pp": 20
+  },
+  "milkdrink": {
+    "id": 208,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Milk Drink",
+    "effect": {
+      "type": "heal",
+      "percent": 50
+    },
+    "pp": 10
+  },
+  "outrage": {
+    "id": 209,
+    "power": 120,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "dragon",
+    "name": "Outrage",
+    "effect": {
+      "type": "self_status",
+      "status": "confusion"
+    },
+    "pp": 10
+  },
+  "crosschop": {
+    "id": 210,
+    "power": 100,
+    "accuracy": 80,
+    "category": "physical",
+    "type": "fighting",
+    "name": "Cross Chop",
+    "effect": {
+      "type": "critical_high"
+    },
+    "pp": 5
+  },
+  "dynamicpunch": {
+    "id": 211,
+    "power": 100,
+    "accuracy": 50,
+    "category": "physical",
+    "type": "fighting",
+    "name": "Dynamic Punch",
+    "effect": {
+      "type": "status_chance",
+      "status": "confusion",
+      "chance": 0.3
+    },
+    "pp": 5
+  },
+  "metalclaw": {
+    "id": 212,
+    "power": 50,
+    "accuracy": 95,
+    "category": "physical",
+    "type": "steel",
+    "name": "Metal Claw",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "self",
+      "stat": "attack",
+      "stages": 1,
+      "chance": 0.1
+    },
+    "pp": 35
+  },
+  "irontail": {
+    "id": 213,
+    "power": 100,
+    "accuracy": 75,
+    "category": "physical",
+    "type": "steel",
+    "name": "Iron Tail",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "defense",
+      "stages": -1,
+      "chance": 0.3
+    },
+    "pp": 15
+  },
+  "extremespeed": {
+    "id": 214,
+    "power": 80,
+    "accuracy": 100,
+    "category": "physical",
+    "type": "normal",
+    "name": "Extreme Speed",
+    "effect": {
+      "type": "none"
+    },
+    "pp": 5
+  },
+  "psychup": {
+    "id": 215,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Psych Up",
+    "effect": {
+      "type": "psych_up"
+    },
+    "pp": 10
+  },
+  "snore": {
+    "id": 216,
+    "power": 50,
+    "accuracy": 100,
+    "category": "special",
+    "type": "normal",
+    "name": "Snore",
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    },
+    "pp": 15
+  },
+  "icywind": {
+    "id": 217,
+    "power": 55,
+    "accuracy": 95,
+    "category": "special",
+    "type": "ice",
+    "name": "Icy Wind",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "speed",
+      "stages": -1,
+      "chance": 0.3
+    },
+    "pp": 15
+  },
+  "signalbeam": {
+    "id": 218,
+    "power": 75,
+    "accuracy": 100,
+    "category": "special",
+    "type": "bug",
+    "name": "Signal Beam",
+    "effect": {
+      "type": "status_chance",
+      "status": "confusion",
+      "chance": 0.3
+    },
+    "pp": 15
+  },
+  "twister": {
+    "id": 219,
+    "power": 40,
+    "accuracy": 100,
+    "category": "special",
+    "type": "dragon",
+    "name": "Twister",
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    },
+    "pp": 20
+  },
+  "aeroblast": {
+    "id": 220,
+    "power": 100,
+    "accuracy": 95,
+    "category": "special",
+    "type": "flying",
+    "name": "Aeroblast",
+    "effect": {
+      "type": "critical_high"
+    },
+    "pp": 5
+  },
+  "sacredfire": {
+    "id": 221,
+    "power": 100,
+    "accuracy": 95,
+    "category": "physical",
+    "type": "fire",
+    "name": "Sacred Fire",
+    "effect": {
+      "type": "status_chance",
+      "status": "burn",
+      "chance": 0.3
+    },
+    "pp": 5
+  },
+  "rainbowdance": {
+    "id": 222,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "flying",
+    "name": "Rainbow Dance",
+    "effect": {
+      "type": "heal_bell"
+    },
+    "pp": 5
+  },
+  "healbell": {
+    "id": 223,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Heal Bell",
+    "effect": {
+      "type": "heal_bell"
+    },
+    "pp": 5
+  },
+  "octazooka": {
+    "id": 224,
+    "power": 65,
+    "accuracy": 85,
+    "category": "special",
+    "type": "water",
+    "name": "Octazooka",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "accuracy",
+      "stages": -1,
+      "chance": 0.3
+    },
+    "pp": 10
+  },
+  "zapcannon": {
+    "id": 225,
+    "power": 120,
+    "accuracy": 50,
+    "category": "special",
+    "type": "electric",
+    "name": "Zap Cannon",
+    "effect": {
+      "type": "status",
+      "status": "paralyze"
+    },
+    "pp": 5
+  },
+  "meanlook": {
+    "id": 226,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Mean Look",
+    "effect": {
+      "type": "mean_look"
+    },
+    "pp": 5
+  },
+  "present": {
+    "id": 227,
+    "power": 1,
+    "accuracy": 90,
+    "category": "physical",
+    "type": "normal",
+    "name": "Present",
+    "effect": {
+      "type": "present"
+    },
+    "pp": 15
+  },
+  "destinybond": {
+    "id": 228,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "ghost",
+    "name": "Destiny Bond",
+    "effect": {
+      "type": "destiny_bond"
+    },
+    "pp": 5
+  },
+  "painsplit": {
+    "id": 229,
+    "power": 0,
+    "accuracy": 100,
+    "category": "status",
+    "type": "normal",
+    "name": "Pain Split",
+    "effect": {
+      "type": "pain_split"
+    },
+    "pp": 20
+  },
+  "flamewheel": {
+    "id": 230,
+    "name": "Flame Wheel",
+    "type": "fire",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 25,
+    "category": "physical",
+    "effect": {
+      "type": "status_chance",
+      "status": "burn",
+      "chance": 0.3
+    }
+  },
+  "icefang": {
+    "id": 231,
+    "name": "Ice Fang",
+    "type": "ice",
+    "power": 65,
+    "accuracy": 95,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "status_chance",
+      "status": "freeze",
+      "chance": 0.1
+    }
+  },
+  "foresight": {
+    "id": 232,
+    "name": "Foresight",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40,
+    "category": "status",
+    "effect": {
+      "type": "foresight"
+    }
+  },
+  "echoedvoice": {
+    "id": 233,
+    "name": "Echoed Voice",
+    "type": "normal",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "special",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "airslash": {
+    "id": 234,
+    "name": "Air Slash",
+    "type": "flying",
+    "power": 75,
+    "accuracy": 95,
+    "pp": 15,
+    "category": "special",
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
+  },
+  "batonpass": {
+    "id": 235,
+    "name": "Baton Pass",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40,
+    "category": "status",
+    "effect": {
+      "type": "baton_pass"
+    }
+  },
+  "nightslash": {
+    "id": 308,
+    "name": "Night Slash",
+    "type": "dark",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "critical_high"
+    }
+  },
+  "sweetkiss": {
+    "id": 237,
+    "name": "Sweet Kiss",
+    "type": "fairy",
+    "power": 0,
+    "accuracy": 75,
+    "pp": 10,
+    "category": "status",
+    "effect": {
+      "type": "status",
+      "status": "confusion"
+    }
+  },
+  "nastyplot": {
+    "id": 238,
+    "name": "Nasty Plot",
+    "type": "dark",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20,
+    "category": "status",
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "spAttack",
+      "stages": 2
+    }
+  },
+  "magiccoat": {
+    "id": 239,
+    "name": "Magic Coat",
+    "type": "psychic",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 15,
+    "category": "status",
+    "effect": {
+      "type": "magic_coat"
+    }
+  },
+  "copycat": {
+    "id": 240,
+    "name": "Copycat",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20,
+    "category": "status",
+    "effect": {
+      "type": "copycat"
+    }
+  },
+  "yawn": {
+    "id": 241,
+    "name": "Yawn",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10,
+    "category": "status",
+    "effect": {
+      "type": "yawn"
+    }
+  },
+  "futuresight": {
+    "id": 242,
+    "name": "Future Sight",
+    "type": "psychic",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10,
+    "category": "special",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "powergem": {
+    "id": 243,
+    "name": "Power Gem",
+    "type": "rock",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "special",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "helpinghand": {
+    "id": 244,
+    "name": "Helping Hand",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20,
+    "category": "status",
+    "effect": {
+      "type": "helping_hand"
+    }
+  },
+  "flail": {
+    "id": 245,
+    "name": "Flail",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "flail"
+    }
+  },
+  "stoneedge": {
+    "id": 246,
+    "name": "Stone Edge",
+    "type": "rock",
+    "power": 100,
+    "accuracy": 80,
+    "pp": 5,
+    "category": "physical",
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "crit",
+      "stages": 1
+    }
+  },
+  "perishsong": {
+    "id": 247,
+    "name": "Perish Song",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5,
+    "category": "status",
+    "effect": {
+      "type": "perish_song"
+    }
+  },
+  "bulletseed": {
+    "id": 248,
+    "name": "Bullet Seed",
+    "type": "grass",
+    "power": 25,
+    "accuracy": 100,
+    "pp": 30,
+    "category": "physical",
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5
+    }
+  },
+  "astonish": {
+    "id": 249,
+    "name": "Astonish",
+    "type": "ghost",
+    "power": 30,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
+  },
+  "mirrorcoat": {
+    "id": 250,
+    "name": "Mirror Coat",
+    "type": "psychic",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "special",
+    "effect": {
+      "type": "mirrorcoat"
+    }
+  },
+  "bugbite": {
+    "id": 251,
+    "name": "Bug Bite",
+    "type": "bug",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "physical",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "knockoff": {
+    "id": 252,
+    "name": "Knock Off",
+    "type": "dark",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "physical",
+    "effect": {
+      "type": "knockoff"
+    }
+  },
+  "spikes": {
+    "id": 253,
+    "name": "Spikes",
+    "type": "ground",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20,
+    "category": "status",
+    "effect": {
+      "type": "spikes"
+    }
+  },
+  "strugglebug": {
+    "id": 254,
+    "name": "Struggle Bug",
+    "type": "bug",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "special",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "spAttack",
+      "stages": -1,
+      "chance": 0.3
+    }
+  },
+  "powersplit": {
+    "id": 255,
+    "name": "Power Split",
+    "type": "psychic",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10,
+    "category": "status",
+    "effect": {
+      "type": "power_split"
+    }
+  },
+  "guardsplit": {
+    "id": 256,
+    "name": "Guard Split",
+    "type": "psychic",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10,
+    "category": "status",
+    "effect": {
+      "type": "guard_split"
+    }
+  },
+  "megahorn": {
+    "id": 257,
+    "name": "Megahorn",
+    "type": "bug",
+    "power": 120,
+    "accuracy": 85,
+    "pp": 10,
+    "category": "physical",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "reversal": {
+    "id": 258,
+    "name": "Reversal",
+    "type": "fighting",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "flail"
+    }
+  },
+  "shellsmash": {
+    "id": 259,
+    "name": "Shell Smash",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 15,
+    "category": "status",
+    "effect": {
+      "type": "shell_smash"
+    }
+  },
+  "odorsleuth": {
+    "id": 260,
+    "name": "Odor Sleuth",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40,
+    "category": "status",
+    "effect": {
+      "type": "foresight"
+    }
+  },
+  "icyshard": {
+    "id": 261,
+    "name": "Icy Shard",
+    "type": "ice",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30,
+    "category": "physical",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "lockon": {
+    "id": 262,
+    "name": "Lock-On",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5,
+    "category": "status",
+    "effect": {
+      "type": "lock_on"
+    }
+  },
+  "bounce": {
+    "id": 263,
+    "name": "Bounce",
+    "type": "flying",
+    "power": 85,
+    "accuracy": 85,
+    "pp": 5,
+    "category": "physical",
+    "effect": {
+      "type": "status_chance",
+      "status": "paralyze",
+      "chance": 0.3
+    }
+  },
+  "steelwing": {
+    "id": 264,
+    "name": "Steel Wing",
+    "type": "steel",
+    "power": 70,
+    "accuracy": 90,
+    "pp": 25,
+    "category": "physical",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "self",
+      "stat": "defense",
+      "stages": 1,
+      "chance": 0.1
+    }
+  },
+  "howl": {
+    "id": 265,
+    "name": "Howl",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40,
+    "category": "status",
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "attack",
+      "stages": 1
+    }
+  },
+  "sketch": {
+    "id": 266,
+    "name": "Sketch",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 1,
+    "category": "status",
+    "effect": {
+      "type": "sketch"
+    }
+  },
+  "triplekick": {
+    "id": 267,
+    "name": "Triple Kick",
+    "type": "fighting",
+    "power": 10,
+    "accuracy": 90,
+    "pp": 10,
+    "category": "physical",
+    "effect": {
+      "type": "multi_hit",
+      "min": 3,
+      "max": 3
+    }
+  },
+  "closecombat": {
+    "id": 268,
+    "name": "Close Combat",
+    "type": "fighting",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 5,
+    "category": "physical",
+    "effect": {
+      "type": "stat_stage_self",
+      "selfStat": "defense",
+      "selfStages": -1,
+      "selfStat2": "spDefense",
+      "selfStages2": -1
+    }
+  },
+  "heartstamp": {
+    "id": 269,
+    "name": "Heart Stamp",
+    "type": "psychic",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 25,
+    "category": "physical",
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
+  },
+  "gigaimpact": {
+    "id": 270,
+    "name": "Giga Impact",
+    "type": "normal",
+    "power": 150,
+    "accuracy": 90,
+    "pp": 5,
+    "category": "physical",
+    "effect": {
+      "type": "recharge"
+    }
+  },
+  "slackoff": {
+    "id": 271,
+    "name": "Slack Off",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10,
+    "category": "status",
+    "effect": {
+      "type": "heal",
+      "percent": 50
+    }
+  },
+  "machpunch": {
+    "id": 272,
+    "name": "Mach Punch",
+    "type": "fighting",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30,
+    "category": "physical",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "highjumpkick": {
+    "id": 273,
+    "name": "High Jump Kick",
+    "type": "fighting",
+    "power": 130,
+    "accuracy": 90,
+    "pp": 10,
+    "category": "physical",
+    "effect": {
+      "type": "recoil_crash"
+    }
+  },
+  "sludgebomb": {
+    "id": 274,
+    "name": "Sludge Bomb",
+    "type": "poison",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10,
+    "category": "special",
+    "effect": {
+      "type": "status_chance",
+      "status": "poison",
+      "chance": 0.3
+    }
+  },
+  "aircutter": {
+    "id": 275,
+    "name": "Air Cutter",
+    "type": "flying",
+    "power": 60,
+    "accuracy": 95,
+    "pp": 25,
+    "category": "special",
+    "effect": {
+      "type": "stat_stage",
+      "target": "self",
+      "stat": "crit",
+      "stages": 1
+    }
+  },
+  "superpower": {
+    "id": 276,
+    "name": "Superpower",
+    "type": "fighting",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 5,
+    "category": "physical",
+    "effect": {
+      "type": "stat_stage_self",
+      "selfStat": "attack",
+      "selfStages": -1,
+      "selfStat2": "defense",
+      "selfStages2": -1
+    }
+  },
+  "leafblade": {
+    "id": 277,
+    "name": "Leaf Blade",
+    "type": "grass",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "critical_high"
+    }
+  },
+  "blastburn": {
+    "id": 278,
+    "name": "Blast Burn",
+    "type": "fire",
+    "power": 150,
+    "accuracy": 90,
+    "pp": 5,
+    "category": "special",
+    "effect": {
+      "type": "recharge"
+    }
+  },
+  "hydrocannon": {
+    "id": 279,
+    "name": "Hydro Cannon",
+    "type": "water",
+    "power": 150,
+    "accuracy": 90,
+    "pp": 5,
+    "category": "special",
+    "effect": {
+      "type": "recharge"
+    }
+  },
+  "mudshot": {
+    "id": 280,
+    "name": "Mud Shot",
+    "type": "ground",
+    "power": 55,
+    "accuracy": 95,
+    "pp": 15,
+    "category": "special",
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "speed",
+      "stages": -1
+    }
+  },
+  "blazekick": {
+    "id": 281,
+    "name": "Blaze Kick",
+    "type": "fire",
+    "power": 85,
+    "accuracy": 90,
+    "pp": 10,
+    "category": "physical",
+    "effect": {
+      "type": "status_chance",
+      "status": "burn",
+      "chance": 0.1
+    }
+  },
+  "bulkup": {
+    "id": 282,
+    "name": "Bulk Up",
+    "type": "fighting",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20,
+    "category": "status",
+    "effect": {
+      "type": "stat_stage_self",
+      "selfStat": "attack",
+      "selfStages": 1,
+      "selfStat2": "defense",
+      "selfStages2": 1
+    }
+  },
+  "calmmind": {
+    "id": 283,
+    "name": "Calm Mind",
+    "type": "psychic",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20,
+    "category": "status",
+    "effect": {
+      "type": "stat_stage_self",
+      "selfStat": "spAttack",
+      "selfStages": 1,
+      "selfStat2": "spDefense",
+      "selfStages2": 1
+    }
+  },
+  "dragonclaw": {
+    "id": 284,
+    "name": "Dragon Claw",
+    "type": "dragon",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "aerialace": {
+    "id": 285,
+    "name": "Aerial Ace",
+    "type": "flying",
+    "power": 60,
+    "accuracy": 0,
+    "neverMiss": true,
+    "pp": 20,
+    "category": "physical",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "shockwave": {
+    "id": 286,
+    "name": "Shock Wave",
+    "type": "electric",
+    "power": 60,
+    "accuracy": 0,
+    "neverMiss": true,
+    "pp": 20,
+    "category": "special",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "overheat": {
+    "id": 287,
+    "name": "Overheat",
+    "type": "fire",
+    "power": 140,
+    "accuracy": 90,
+    "pp": 5,
+    "category": "special",
+    "effect": {
+      "type": "stat_stage_self",
+      "selfStat": "spAttack",
+      "selfStages": -2
+    }
+  },
+  "facade": {
+    "id": 288,
+    "name": "Facade",
+    "type": "normal",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "physical",
+    "effect": {
+      "type": "facade"
+    }
+  },
+  "featherdance": {
+    "id": 289,
+    "name": "Feather Dance",
+    "type": "flying",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "status",
+    "effect": {
+      "type": "stat_stage",
+      "target": "target",
+      "stat": "attack",
+      "stages": -2
+    }
+  },
+  "waterspout": {
+    "id": 290,
+    "name": "Water Spout",
+    "type": "water",
+    "power": 150,
+    "accuracy": 100,
+    "pp": 5,
+    "category": "special",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "eruption": {
+    "id": 291,
+    "name": "Eruption",
+    "type": "fire",
+    "power": 150,
+    "accuracy": 100,
+    "pp": 5,
+    "category": "special",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "armthrust": {
+    "id": 292,
+    "name": "Arm Thrust",
+    "type": "fighting",
+    "power": 15,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "physical",
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5
+    }
+  },
+  "fakeout": {
+    "id": 293,
+    "name": "Fake Out",
+    "type": "normal",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 10,
+    "category": "physical",
+    "effect": {
+      "type": "fake_out"
+    }
+  },
+  "covet": {
+    "id": 294,
+    "name": "Covet",
+    "type": "normal",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 40,
+    "category": "physical",
+    "effect": {
+      "type": "thief"
+    }
+  },
+  "muddywater": {
+    "id": 295,
+    "name": "Muddy Water",
+    "type": "water",
+    "power": 90,
+    "accuracy": 85,
+    "pp": 10,
+    "category": "special",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "target",
+      "stat": "accuracy",
+      "stages": -1,
+      "chance": 0.3
+    }
+  },
+  "sandtomb": {
+    "id": 296,
+    "name": "Sand Tomb",
+    "type": "ground",
+    "power": 35,
+    "accuracy": 85,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "trap",
+      "trapType": "bind",
+      "turns": "2-4"
+    }
+  },
+  "silverwind": {
+    "id": 297,
+    "name": "Silver Wind",
+    "type": "bug",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 5,
+    "category": "special",
+    "effect": {
+      "type": "silver_wind"
+    }
+  },
+  "needlearm": {
+    "id": 298,
+    "name": "Needle Arm",
+    "type": "grass",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
+  },
+  "poisonfang": {
+    "id": 299,
+    "name": "Poison Fang",
+    "type": "poison",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "status_chance",
+      "status": "toxic",
+      "chance": 0.3
+    }
+  },
+  "weatherball": {
+    "id": 300,
+    "name": "Weather Ball",
+    "type": "normal",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 10,
+    "category": "special",
+    "effect": {
+      "type": "weather_ball"
+    }
+  },
+  "meteormash": {
+    "id": 301,
+    "name": "Meteor Mash",
+    "type": "steel",
+    "power": 100,
+    "accuracy": 85,
+    "pp": 10,
+    "category": "physical",
+    "effect": {
+      "type": "stat_stage_chance",
+      "target": "self",
+      "stat": "attack",
+      "stages": 1,
+      "chance": 0.2
+    }
+  },
+  "encore": {
+    "id": 302,
+    "name": "Encore",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "category": "status",
+    "effect": {
+      "type": "encore"
+    }
+  },
+  "detect": {
+    "id": 303,
+    "name": "Detect",
+    "type": "fighting",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5,
+    "category": "status",
+    "effect": {
+      "type": "protect"
+    }
+  },
+  "dragonbreath": {
+    "id": 304,
+    "name": "Dragon Breath",
+    "type": "dragon",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "special",
+    "effect": {
+      "type": "status_chance",
+      "status": "paralyze",
+      "chance": 0.3
+    }
+  },
+  "cosmicpower": {
+    "id": 305,
+    "name": "Cosmic Power",
+    "type": "psychic",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20,
+    "category": "status",
+    "effect": {
+      "type": "stat_stage_self",
+      "selfStat": "defense",
+      "selfStages": 1,
+      "selfStat2": "spDefense",
+      "selfStages2": 1
+    }
+  },
+  "waterpulse": {
+    "id": 306,
+    "name": "Water Pulse",
+    "type": "water",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "special",
+    "effect": {
+      "type": "status_chance",
+      "status": "confusion",
+      "chance": 0.2
+    }
+  },
+  "dazzlinggleam": {
+    "id": 307,
+    "name": "Dazzling Gleam",
+    "type": "fairy",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "category": "special",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "extrasensory": {
+    "id": 309,
+    "name": "Extrasensory",
+    "type": "psychic",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "special",
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.1
+    }
+  },
+  "grudge": {
+    "id": 310,
+    "name": "Grudge",
+    "type": "ghost",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5,
+    "category": "status",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "shadowpunch": {
+    "id": 311,
+    "name": "Shadow Punch",
+    "type": "ghost",
+    "power": 60,
+    "accuracy": 0,
+    "pp": 20,
+    "category": "physical",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "foulplay": {
+    "id": 312,
+    "name": "Foul Play",
+    "type": "dark",
+    "power": 95,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "none"
+    }
+  },
+  "ironhead": {
+    "id": 313,
+    "name": "Iron Head",
+    "type": "steel",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15,
+    "category": "physical",
+    "effect": {
+      "type": "flinch_chance",
+      "chance": 0.3
+    }
+  },
+  "rockblast": {
+    "id": 314,
+    "name": "Rock Blast",
+    "type": "rock",
+    "power": 25,
+    "accuracy": 90,
+    "pp": 10,
+    "category": "physical",
+    "effect": {
+      "type": "multi_hit",
+      "min": 2,
+      "max": 5
+    }
+  },
+  "hammerarm": {
+    "id": 315,
+    "name": "Hammer Arm",
+    "type": "fighting",
+    "power": 100,
+    "accuracy": 90,
+    "pp": 10,
+    "category": "physical",
+    "effect": {
+      "type": "stat_stage_self",
+      "selfStat": "speed",
+      "selfStages": -1
+    }
+  },
+  "whirlpool": {
+    "id": 316,
+    "name": "Whirlpool",
+    "type": "water",
+    "power": 35,
+    "accuracy": 85,
+    "pp": 15,
+    "category": "special",
+    "effect": {
+      "type": "trap",
+      "trapType": "whirlpool",
+      "turns": "2-5"
+    }
+  },
+  "teeterdance": {
+    "id": 317,
+    "name": "Teeter Dance",
+    "type": "normal",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20,
+    "category": "status",
+    "effect": {
+      "type": "random_status",
+      "statuses": [
+        "confusion",
+        "confusion",
+        "confusion"
+      ]
+    }
   }
 }

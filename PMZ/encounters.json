@@ -9,7 +9,23 @@
     "7": "water_fish",
     "8": "beach",
     "9": "forest",
-    "10": "mountain"
+    "10": "mountain",
+    "11": "grass_johto_early",
+    "12": "grass_johto_mid",
+    "13": "grass_johto_late",
+    "14": "cave_johto",
+    "15": "water_johto_surf",
+    "16": "water_johto_fish",
+    "17": "grass_hoenn_early",
+    "18": "grass_hoenn_mid",
+    "19": "grass_hoenn_late",
+    "20": "grass_hoenn_safari",
+    "21": "cave_hoenn",
+    "22": "cave_hoenn_water",
+    "23": "water_hoenn_surf",
+    "24": "water_hoenn_fish",
+    "25": "water_hoenn_fish_good",
+    "26": "grass_hoenn_forest"
   },
   "byType": {
     "grass_early": {
@@ -105,6 +121,153 @@
         { "species": "slowpoke", "minLevel": 15, "maxLevel": 25, "rate": 25 },
         { "species": "krabby", "minLevel": 15, "maxLevel": 25, "rate": 25 },
         { "species": "magikarp", "minLevel": 5, "maxLevel": 15, "rate": 20 }
+      ]
+    },
+    "grass_johto_early": {
+      "pokemon": [
+        { "species": "sentret", "minLevel": 2, "maxLevel": 4, "rate": 30 },
+        { "species": "hoothoot", "minLevel": 2, "maxLevel": 4, "rate": 30 },
+        { "species": "ledyba", "minLevel": 3, "maxLevel": 5, "rate": 20 },
+        { "species": "spinarak", "minLevel": 3, "maxLevel": 5, "rate": 20 }
+      ]
+    },
+    "grass_johto_mid": {
+      "pokemon": [
+        { "species": "mareep", "minLevel": 10, "maxLevel": 14, "rate": 30 },
+        { "species": "hoppip", "minLevel": 10, "maxLevel": 13, "rate": 25 },
+        { "species": "natu", "minLevel": 12, "maxLevel": 15, "rate": 20 },
+        { "species": "sudowoodo", "minLevel": 15, "maxLevel": 20, "rate": 5 }
+      ]
+    },
+    "grass_johto_late": {
+      "pokemon": [
+        { "species": "girafarig", "minLevel": 22, "maxLevel": 26, "rate": 25 },
+        { "species": "aipom", "minLevel": 22, "maxLevel": 26, "rate": 25 },
+        { "species": "yanma", "minLevel": 24, "maxLevel": 28, "rate": 20 },
+        { "species": "dunsparce", "minLevel": 20, "maxLevel": 25, "rate": 5 }
+      ]
+    },
+    "cave_johto": {
+      "pokemon": [
+        { "species": "wooper", "minLevel": 12, "maxLevel": 16, "rate": 30 },
+        { "species": "zubat", "minLevel": 10, "maxLevel": 14, "rate": 30 },
+        { "species": "sandshrew", "minLevel": 12, "maxLevel": 16, "rate": 20 },
+        { "species": "gligar", "minLevel": 18, "maxLevel": 22, "rate": 5 }
+      ]
+    },
+    "water_johto_surf": {
+      "pokemon": [
+        { "species": "tentacool", "minLevel": 15, "maxLevel": 25, "rate": 40 },
+        { "species": "chinchou", "minLevel": 20, "maxLevel": 30, "rate": 20 },
+        { "species": "remoraid", "minLevel": 15, "maxLevel": 25, "rate": 15 },
+        { "species": "mantine", "minLevel": 25, "maxLevel": 35, "rate": 5 }
+      ]
+    },
+    "water_johto_fish": {
+      "pokemon": [
+        { "species": "magikarp", "minLevel": 5, "maxLevel": 15, "rate": 60 },
+        { "species": "goldeen", "minLevel": 10, "maxLevel": 20, "rate": 20 },
+        { "species": "qwilfish", "minLevel": 20, "maxLevel": 30, "rate": 10 },
+        { "species": "corsola", "minLevel": 20, "maxLevel": 30, "rate": 5 }
+      ]
+    },
+    "grass_hoenn_early": {
+      "pokemon": [
+        { "species": "poochyena", "minLevel": 2, "maxLevel": 5, "rate": 20 },
+        { "species": "zigzagoon", "minLevel": 2, "maxLevel": 5, "rate": 20 },
+        { "species": "wurmple", "minLevel": 2, "maxLevel": 4, "rate": 15 },
+        { "species": "lotad", "minLevel": 3, "maxLevel": 5, "rate": 10 },
+        { "species": "seedot", "minLevel": 3, "maxLevel": 5, "rate": 10 },
+        { "species": "taillow", "minLevel": 3, "maxLevel": 6, "rate": 10 },
+        { "species": "ralts", "minLevel": 3, "maxLevel": 5, "rate": 8 },
+        { "species": "shroomish", "minLevel": 3, "maxLevel": 5, "rate": 7 }
+      ]
+    },
+    "grass_hoenn_mid": {
+      "pokemon": [
+        { "species": "numel", "minLevel": 14, "maxLevel": 20, "rate": 20 },
+        { "species": "cacnea", "minLevel": 14, "maxLevel": 20, "rate": 20 },
+        { "species": "spinda", "minLevel": 14, "maxLevel": 19, "rate": 15 },
+        { "species": "swablu", "minLevel": 15, "maxLevel": 20, "rate": 15 },
+        { "species": "trapinch", "minLevel": 16, "maxLevel": 22, "rate": 10 },
+        { "species": "tropius", "minLevel": 18, "maxLevel": 22, "rate": 10 },
+        { "species": "absol", "minLevel": 18, "maxLevel": 22, "rate": 10 }
+      ]
+    },
+    "grass_hoenn_late": {
+      "pokemon": [
+        { "species": "altaria", "minLevel": 25, "maxLevel": 32, "rate": 25 },
+        { "species": "flygon", "minLevel": 27, "maxLevel": 34, "rate": 25 },
+        { "species": "manectric", "minLevel": 25, "maxLevel": 32, "rate": 20 },
+        { "species": "shiftry", "minLevel": 28, "maxLevel": 35, "rate": 15 },
+        { "species": "ludicolo", "minLevel": 28, "maxLevel": 35, "rate": 15 }
+      ]
+    },
+    "grass_hoenn_safari": {
+      "pokemon": [
+        { "species": "kecleon", "minLevel": 15, "maxLevel": 22, "rate": 25 },
+        { "species": "tropius", "minLevel": 18, "maxLevel": 25, "rate": 20 },
+        { "species": "doduo", "minLevel": 16, "maxLevel": 22, "rate": 20 },
+        { "species": "pinsir", "minLevel": 20, "maxLevel": 28, "rate": 15 },
+        { "species": "heracross", "minLevel": 20, "maxLevel": 28, "rate": 10 },
+        { "species": "chimecho", "minLevel": 22, "maxLevel": 28, "rate": 10 }
+      ]
+    },
+    "cave_hoenn": {
+      "pokemon": [
+        { "species": "aron", "minLevel": 10, "maxLevel": 16, "rate": 25 },
+        { "species": "zubat", "minLevel": 8, "maxLevel": 14, "rate": 25 },
+        { "species": "duskull", "minLevel": 10, "maxLevel": 16, "rate": 20 },
+        { "species": "sableye", "minLevel": 12, "maxLevel": 18, "rate": 10 },
+        { "species": "mawile", "minLevel": 12, "maxLevel": 18, "rate": 10 },
+        { "species": "nosepass", "minLevel": 14, "maxLevel": 20, "rate": 10 }
+      ]
+    },
+    "cave_hoenn_water": {
+      "pokemon": [
+        { "species": "goldeen", "minLevel": 10, "maxLevel": 20, "rate": 30 },
+        { "species": "magikarp", "minLevel": 5, "maxLevel": 15, "rate": 30 },
+        { "species": "barboach", "minLevel": 10, "maxLevel": 18, "rate": 20 },
+        { "species": "corphish", "minLevel": 10, "maxLevel": 18, "rate": 20 }
+      ]
+    },
+    "water_hoenn_surf": {
+      "pokemon": [
+        { "species": "wingull", "minLevel": 10, "maxLevel": 20, "rate": 30 },
+        { "species": "tentacool", "minLevel": 10, "maxLevel": 22, "rate": 30 },
+        { "species": "wailmer", "minLevel": 15, "maxLevel": 25, "rate": 20 },
+        { "species": "pelipper", "minLevel": 18, "maxLevel": 25, "rate": 20 }
+      ]
+    },
+    "water_hoenn_fish": {
+      "pokemon": [
+        { "species": "magikarp", "minLevel": 5, "maxLevel": 15, "rate": 30 },
+        { "species": "goldeen", "minLevel": 10, "maxLevel": 20, "rate": 20 },
+        { "species": "carvanha", "minLevel": 12, "maxLevel": 20, "rate": 15 },
+        { "species": "barboach", "minLevel": 10, "maxLevel": 18, "rate": 15 },
+        { "species": "feebas", "minLevel": 10, "maxLevel": 20, "rate": 10 },
+        { "species": "luvdisc", "minLevel": 15, "maxLevel": 25, "rate": 10 }
+      ]
+    },
+    "water_hoenn_fish_good": {
+      "pokemon": [
+        { "species": "sharpedo", "minLevel": 25, "maxLevel": 35, "rate": 20 },
+        { "species": "wailord", "minLevel": 30, "maxLevel": 45, "rate": 15 },
+        { "species": "magikarp", "minLevel": 15, "maxLevel": 25, "rate": 15 },
+        { "species": "goldeen", "minLevel": 15, "maxLevel": 25, "rate": 12 },
+        { "species": "carvanha", "minLevel": 20, "maxLevel": 30, "rate": 12 },
+        { "species": "barboach", "minLevel": 15, "maxLevel": 25, "rate": 10 },
+        { "species": "feebas", "minLevel": 20, "maxLevel": 30, "rate": 8 },
+        { "species": "luvdisc", "minLevel": 20, "maxLevel": 30, "rate": 8 }
+      ]
+    },
+    "grass_hoenn_forest": {
+      "pokemon": [
+        { "species": "wurmple", "minLevel": 3, "maxLevel": 6, "rate": 30 },
+        { "species": "shroomish", "minLevel": 4, "maxLevel": 7, "rate": 25 },
+        { "species": "slakoth", "minLevel": 4, "maxLevel": 7, "rate": 20 },
+        { "species": "silcoon", "minLevel": 5, "maxLevel": 8, "rate": 13 },
+        { "species": "cascoon", "minLevel": 5, "maxLevel": 8, "rate": 12 }
       ]
     }
   },

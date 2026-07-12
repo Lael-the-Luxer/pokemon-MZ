@@ -16,10 +16,61 @@
   "surfVehicle": "boat",
   "surfSpeed": 5,
   "startingMoney": 3000,
-  "starters": ["pikachu", "charmander", "bulbasaur"],
-  "martItems": ["pokeball", "greatball", "potion", "superpotion", "antidote", "paralyzeheal", "burnheal", "iceheal", "awakening", "fullheal", "revive", "repel", "escaperope", "leftovers", "choiceband", "choicespecs", "choicescarf", "lifeorb", "sitrusberry", "quickclaw", "kingsrock", "metalcoat", "blackbelt", "mysticwater", "charcoal", "magnet", "focusband", "brightpowder", "xattack", "xdefense", "xspatk", "xspdef", "xspeed"],
+  "starters": [
+    "pikachu",
+    "charmander",
+    "bulbasaur",
+    "chikorita",
+    "cyndaquil",
+    "totodile"
+  ],
+  "johtoStarters": [
+    "chikorita",
+    "cyndaquil",
+    "totodile"
+  ],
+  "martItems": [
+    "pokeball",
+    "greatball",
+    "potion",
+    "superpotion",
+    "antidote",
+    "paralyzeheal",
+    "burnheal",
+    "iceheal",
+    "awakening",
+    "fullheal",
+    "revive",
+    "repel",
+    "escaperope",
+    "leftovers",
+    "choiceband",
+    "choicespecs",
+    "choicescarf",
+    "lifeorb",
+    "sitrusberry",
+    "quickclaw",
+    "kingsrock",
+    "metalcoat",
+    "blackbelt",
+    "mysticwater",
+    "charcoal",
+    "magnet",
+    "focusband",
+    "brightpowder",
+    "xattack",
+    "xdefense",
+    "xspatk",
+    "xspdef",
+    "xspeed"
+  ],
   "textSettings": {
-    "battleCommands": ["Luchar", "Bolsa", "Pokemon", "Huir"],
+    "battleCommands": [
+      "Luchar",
+      "Bolsa",
+      "Pokemon",
+      "Huir"
+    ],
     "pokemon": "Pokemon",
     "items": "Objetos",
     "save": "Guardar",
@@ -39,5 +90,10 @@
     "giveEggPcMsg": "El huevo de {name} fue enviado al PC porque tu equipo esta lleno.",
     "eggCrackingMsg": "¡El huevo se esta agrietando!",
     "eggHatchedMsg": "¡{name} salio del huevo!"
-  }
+  },
+  "hoennStarters": [
+    "treecko",
+    "torchic",
+    "mudkip"
+  ]
 }

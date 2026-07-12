@@ -574,6 +574,7 @@ Window_PMZ_BattleHP.prototype.constructor = Window_PMZ_BattleHP;
 Window_PMZ_BattleHP.prototype.initialize = function(x, y, width, height, wild) {
     Window_Base.prototype.initialize.call(this, x, y, width, height);
     this._wild = wild;
+    this._isStatEvolution = PMZ.Config.isStatEvolution();
 };
 
 Window_PMZ_BattleHP.prototype.setPokemon = function(pkmn) {
@@ -595,7 +596,7 @@ Window_PMZ_BattleHP.prototype.refresh = function() {
 
     // Level after name
     this.changeTextColor('#f8d030');
-    var lvText = PMZ.Config.isStatEvolution() ? '???' : 'Lv' + p.level;
+    var lvText = this._isStatEvolution ? '???' : 'Lv' + p.level;
     var nameW = this.contents.measureTextWidth(p.name);
     this.drawText(lvText, 16 + nameW, 6, 60, 'left');
     this.resetTextColor();
@@ -1336,7 +1337,8 @@ Scene_PMZ_Battle.prototype.startBattle = function() {
 
 Scene_PMZ_Battle.prototype.playCry = function(pkmn) {
     if (!pkmn || !pkmn.id) return;
-    var pad = String(pkmn.id).padStart(3, '0');
+    var id = pkmn.id;
+    var pad = id < 10 ? '00' + id : id < 100 ? '0' + id : '' + id;
     AudioManager.playSe({ name: pad + 'Cry', pan: 0, pitch: 100, volume: 90 });
 };
 
@@ -1347,11 +1349,11 @@ Scene_PMZ_Battle.prototype.update = function() {
     if (this._playerHP) this._playerHP.update();
     if (this._playerHP2) this._playerHP2.update();
     if (this._msgWindow) this._msgWindow.update();
-    if (this._cmdWindow) this._cmdWindow.update();
-    if (this._fightWindow) this._fightWindow.update();
-    if (this._bagWindow) this._bagWindow.update();
-    if (this._partyWindow) this._partyWindow.update();
-    if (this._targetWindow) this._targetWindow.update();
+    if (this._cmdWindow && this._cmdWindow.visible) this._cmdWindow.update();
+    if (this._fightWindow && this._fightWindow.visible) this._fightWindow.update();
+    if (this._bagWindow && this._bagWindow.visible) this._bagWindow.update();
+    if (this._partyWindow && this._partyWindow.visible) this._partyWindow.update();
+    if (this._targetWindow && this._targetWindow.visible) this._targetWindow.update();
     if (this._currentAnimation) this._currentAnimation.update();
 
     if (this._waitCount > 0) {
@@ -1592,12 +1594,13 @@ Scene_PMZ_Battle.prototype._buildActionQueue = function() {
     }
 
     // Sort by speed (descending). Quick Claw users go first if their roll passed.
+    queue.forEach(function(q) {
+        q._speed = Math.floor(q.attacker.speed * PMZ.Status.speedMod(q.attacker) * PMZ.HoldItems.speedMultiplier(q.attacker) * PMZ.Abilities.weatherSpeedMult(q.attacker));
+    });
     queue.sort(function(a, b) {
         if (a.quickClaw && !b.quickClaw) return -1;
         if (b.quickClaw && !a.quickClaw) return 1;
-        var speedA = Math.floor(a.attacker.speed * PMZ.Status.speedMod(a.attacker) * PMZ.HoldItems.speedMultiplier(a.attacker) * PMZ.Abilities.weatherSpeedMult(a.attacker));
-        var speedB = Math.floor(b.attacker.speed * PMZ.Status.speedMod(b.attacker) * PMZ.HoldItems.speedMultiplier(b.attacker) * PMZ.Abilities.weatherSpeedMult(b.attacker));
-        if (speedA !== speedB) return speedB - speedA;
+        if (a._speed !== b._speed) return b._speed - a._speed;
         // Player goes first on tie
         if (a.isPlayer && !b.isPlayer) return -1;
         if (!a.isPlayer && b.isPlayer) return 1;
@@ -1799,13 +1802,16 @@ Scene_PMZ_Battle.prototype.updateIntro = function() {
             var wild = PMZ.Battle._wildPokemon;
             var abilityMsg = '';
 
-            if (PMZ.Abilities && wild && !PMZ.Pokemon.isFainted(wild) && PMZ.Abilities.hasEffect(wild, 'intimidate') && player && !PMZ.Pokemon.isFainted(player)) {
-                var ch = PMZ.Battle.boostStat(player, 'attack', -1);
-                if (ch < 0) abilityMsg = 'Intimidate de ' + wild.name + ' baja el Ataque!';
-            }
-            if (PMZ.Abilities && player && !PMZ.Pokemon.isFainted(player) && PMZ.Abilities.hasEffect(player, 'intimidate') && wild && !PMZ.Pokemon.isFainted(wild)) {
-                var ch2 = PMZ.Battle.boostStat(wild, 'attack', -1);
-                if (ch2 < 0) abilityMsg = (abilityMsg ? abilityMsg + ' ' : '') + 'Intimidate de ' + player.name + ' baja el Ataque!';
+            // Entry abilities via hook (Intimidate, etc.)
+            if (PMZ.Abilities && wild && player) {
+                var res = PMZ.Abilities.triggerHook('onEntry', { attacker: wild, defender: player });
+                for (var ei = 0; ei < res.length; ei++) {
+                    if (res[ei] && res[ei].msg) abilityMsg = res[ei].msg;
+                }
+                var res2 = PMZ.Abilities.triggerHook('onEntry', { attacker: player, defender: wild });
+                for (var ei2 = 0; ei2 < res2.length; ei2++) {
+                    if (res2[ei2] && res2[ei2].msg) abilityMsg = (abilityMsg ? abilityMsg + ' ' : '') + res2[ei2].msg;
+                }
             }
 
             this._introAbilityMsg = abilityMsg;
@@ -2089,9 +2095,7 @@ Scene_PMZ_Battle.prototype.updatePlayerAttack = function() {
 
         case 2:
             this._flashSprite.opacity = 0;
-            // Handle fixed-damage / OHKO moves
             var damage = 0;
-            var eff = move.effect || 'none';
             var ohkoFailed = false;
 
             // Protect check
@@ -2102,7 +2106,7 @@ Scene_PMZ_Battle.prototype.updatePlayerAttack = function() {
                 PMZ.Battle._protect[tId].turns--;
                 if (PMZ.Battle._protect[tId].turns <= 0) delete PMZ.Battle._protect[tId];
             } else {
-            // Accuracy check (data-driven: uses move.accuracy + Bright Powder evasion)
+            // Accuracy check
             if (!PMZ.Battle.checkHit(player, target, move)) {
                 this._msgWindow.setText(player.name + ' fallo el ataque!');
                 this._attackStep = 3;
@@ -2110,17 +2114,13 @@ Scene_PMZ_Battle.prototype.updatePlayerAttack = function() {
                 break;
             }
 
-            if (eff === 'fixed_20') { damage = 20; }
-            else if (eff === 'fixed_40') { damage = 40; }
-            else if (eff === 'level_damage') { damage = player.level; }
-            else if (eff === 'half_hp') { damage = Math.max(1, Math.floor(target.currentHp / 2)); }
-            else if (eff === 'psywave') { damage = Math.floor(player.level * (0.5 + Math.random() * 0.5)); }
-            else if (eff === 'ohko') {
-                if (player.level >= target.level && Math.random() < 0.3 + (player.level - target.level) * 0.01) {
-                    damage = target.currentHp;
-                } else { ohkoFailed = true; }
-            } else {
+            // Damage via EffectRegistry (handles fixed_damage, psywave, ohko)
+            damage = PMZ.Effects.computeDamage(move.effect, player, target);
+            if (damage === null) {
                 damage = PMZ.Battle.calcDamage(player, target, move);
+            } else if (damage === -1) {
+                ohkoFailed = true;
+                damage = 0;
             }
 
             if (ohkoFailed) {
@@ -2130,7 +2130,7 @@ Scene_PMZ_Battle.prototype.updatePlayerAttack = function() {
                 target.currentHp = Math.max(0, target.currentHp - damage);
                 this._getTargetHP(target).refresh();
                 var typeEff = PMZ.Battle.typeEffectiveness(move.type, target.types);
-                if (typeEff === 0 && eff !== 'fixed_20' && eff !== 'fixed_40' && eff !== 'level_damage' && eff !== 'half_hp') {
+                if (typeEff === 0) {
                     this._msgWindow.setText('No afecta a ' + target.name + '...');
                 } else if (typeEff > 1) {
                     this._msgWindow.setText('Es muy efectivo!');
@@ -2147,10 +2147,6 @@ Scene_PMZ_Battle.prototype.updatePlayerAttack = function() {
                 if (target.currentHp <= 0 && PMZ.Abilities.preventKO(target, wasFullHp1)) {
                     this._msgWindow.setText(target.name + ' aguanto gracias a Sturdy!');
                 }
-                // King's Rock / Razor Fang: chance to flinch the target
-                if (target.currentHp > 0 && PMZ.HoldItems.tryFlinchOnHit(player)) {
-                    if (!PMZ.Pokemon.isFainted(target)) PMZ.Status.setFlinch(target);
-                }
             } else {
                 this._msgWindow.setText('No afecta a ' + target.name + '...');
             }
@@ -2162,20 +2158,26 @@ Scene_PMZ_Battle.prototype.updatePlayerAttack = function() {
             // Apply move effects (status, stat changes)
             var effMsg = this.applyMoveEffects(player, target, move, damage);
             if (effMsg) this._msgWindow.setText(effMsg);
+            // King's Rock / Razor Fang: flinch chance on hit
+            if (target.currentHp > 0 && PMZ.HoldItems.tryFlinchOnHit(player)) {
+                if (!PMZ.Pokemon.isFainted(target)) PMZ.Status.setFlinch(target);
+            }
             // Life Orb recoil
             PMZ.HoldItems.afterAttack(player);
             // Record damage for counter
             this._lastDamageTaken = damage;
             this._playerHP.refresh();
 
-            // Multi-hit handling
-            if ((eff === 'multi_hit_2_5' || eff === 'multi_hit_2' || eff === 'multi_hit_2_poison') && !this._multiHitSteps) {
-                var hits = eff === 'multi_hit_2' ? 2 : (Math.random() < 0.375 ? 2 : (Math.random() < 0.5 ? 3 : (Math.random() < 0.5 ? 4 : 5)));
-                this._multiHitSteps = { total: hits, current: 1, eff: eff };
-                if (hits > 1) this._msgWindow.setText('Golpe ' + this._multiHitSteps.current + '!');
-                this._attackStep = 1;
-                this._waitCount = 20;
-                break;
+            // Multi-hit handling via EffectRegistry
+            if (!this._multiHitSteps) {
+                var mh = PMZ.Effects.getHitParams(move.effect, player);
+                if (mh) {
+                    this._multiHitSteps = { total: mh, current: 1 };
+                    this._msgWindow.setText('Golpe ' + this._multiHitSteps.current + '!');
+                    this._attackStep = 1;
+                    this._waitCount = 20;
+                    break;
+                }
             }
             if (this._multiHitSteps) {
                 this._multiHitSteps.current++;
@@ -2290,7 +2292,10 @@ Scene_PMZ_Battle.prototype.updateOpponentAttack = function() {
                 break;
             }
 
-            var availMoves = attacker.moves.filter(function(m) { return m.pp > 0; });
+            var availMoves = [];
+            for (var mi = 0; mi < attacker.moves.length; mi++) {
+                if (attacker.moves[mi].pp > 0) availMoves.push(attacker.moves[mi]);
+            }
             if (availMoves.length === 0) {
                 this._msgWindow.setText(attacker.name + ' no tiene movimientos!');
                 this._waitCount = 40;
@@ -2337,17 +2342,13 @@ Scene_PMZ_Battle.prototype.updateOpponentAttack = function() {
                 var statusMsg = this.applyMoveEffects(attacker, target, this._enemyMoveData, 0);
                 this._msgWindow.setText(statusMsg || 'Pero no paso nada...');
             } else {
-                var effEnemy = this._enemyMoveData.effect || 'none';
                 var damage = 0;
-                if (effEnemy === 'fixed_20') { damage = 20; }
-                else if (effEnemy === 'fixed_40') { damage = 40; }
-                else if (effEnemy === 'level_damage') { damage = attacker.level; }
-                else if (effEnemy === 'half_hp') { damage = Math.max(1, Math.floor(target.currentHp / 2)); }
-                else if (effEnemy === 'psywave') { damage = Math.floor(attacker.level * (0.5 + Math.random() * 0.5)); }
-                else if (effEnemy === 'ohko') {
-                    if (attacker.level >= target.level && Math.random() < 0.3) damage = target.currentHp;
-                } else {
+                // Damage via EffectRegistry (handles fixed_damage, psywave, ohko)
+                damage = PMZ.Effects.computeDamage(this._enemyMoveData.effect, attacker, target);
+                if (damage === null) {
                     damage = PMZ.Battle.calcDamage(attacker, target, this._enemyMoveData);
+                } else if (damage === -1) {
+                    damage = 0; // OHKO failed
                 }
                 if (damage > 0) {
                     var wasFullHp2 = target.currentHp >= target.maxHp;
@@ -2458,9 +2459,10 @@ Scene_PMZ_Battle.prototype.updateOpponentAttack = function() {
                     this._state = 'playerCommand';
                     break;
                 }
+                var allPoke = this._buildAllPokemonList();
                 // Weather end-of-turn damage
                 if (PMZ.Weather && PMZ.Weather._weather !== 'none') {
-                    var wMsg = this._applyWeatherDamage();
+                    var wMsg = this._applyWeatherDamage(allPoke);
                     if (wMsg) {
                         this._msgWindow.setText(wMsg);
                         this._playerHP.refresh();
@@ -2474,7 +2476,7 @@ Scene_PMZ_Battle.prototype.updateOpponentAttack = function() {
                     PMZ.Weather.tick();
                 }
                 // Leech Seed end-of-turn drain
-                var lsMsg = this._processLeechSeed();
+                var lsMsg = this._processLeechSeed(allPoke);
                 if (lsMsg) {
                     this._msgWindow.setText(lsMsg);
                     this._playerHP.refresh();
@@ -2482,13 +2484,12 @@ Scene_PMZ_Battle.prototype.updateOpponentAttack = function() {
                     if (this._playerHP2) this._playerHP2.refresh();
                     if (this._wildHP2) this._wildHP2.refresh();
                     var nextState = this._resolveEndTurnState();
-                    console.log('[PMZ][LeechHandler] msg=\'' + lsMsg + '\' -> state=' + nextState + ' _attackStep=' + this._attackStep + ' _enemyStep=' + this._enemyStep);
                     this._waitCount = 40;
                     this._state = nextState;
                     break;
                 }
                 // Bind end-of-turn damage
-                var bindMsg = this._processBindDamage();
+                var bindMsg = this._processBindDamage(allPoke);
                 if (bindMsg) {
                     this._msgWindow.setText(bindMsg);
                     this._playerHP.refresh();
@@ -2500,7 +2501,7 @@ Scene_PMZ_Battle.prototype.updateOpponentAttack = function() {
                     break;
                 }
                 // Bide end-of-turn processing
-                var bideMsg = this._processBide();
+                var bideMsg = this._processBide(allPoke);
                 if (bideMsg) {
                     this._msgWindow.setText(bideMsg);
                     this._playerHP.refresh();
@@ -2772,302 +2773,45 @@ Scene_PMZ_Battle.prototype.useHealItemOn = function(key, itemData, target) {
 // ============================================================================
 // Move effects and status application
 // ============================================================================
+// AHORA: los efectos se resuelven via PMZ.Effects.run() que despacha al handler
+// registrado segun el "type" del effect object (definidos en PMZ_Core.js).
+// ============================================================================
 Scene_PMZ_Battle.prototype.applyMoveEffects = function(attacker, defender, moveData, damage) {
     if (!moveData || !defender || PMZ.Pokemon.isFainted(defender)) return '';
 
     var msg = '';
-    var eff = moveData.effect || 'none';
-    var r = Math.random;
-    var boost = PMZ.Battle.boostStat;
-    var hasGuard = function(p) { return p._guardSpec > 0; };
-    var id = function(p) { return p._battleId; };
+    var id = function(pk) { return pk._battleId; };
     var b = PMZ.Battle;
 
     // Record last move used
     b._lastMoveUsed[id(attacker)] = moveData.key;
 
-    // --- Direct status effects ---
-    if (eff === 'poison' && PMZ.Status.apply(defender, 'poison')) msg = defender.name + ' fue envenenado!';
-    else if (eff === 'toxic' && PMZ.Status.apply(defender, 'poison')) msg = defender.name + ' fue gravemente envenenado!';
-    else if (eff === 'paralyze' && PMZ.Status.apply(defender, 'paralyze')) msg = defender.name + ' fue paralizado!';
-    else if (eff === 'sleep' && PMZ.Status.apply(defender, 'sleep')) msg = defender.name + ' se durmio!';
-    else if (eff === 'freeze' && PMZ.Status.apply(defender, 'freeze')) msg = defender.name + ' fue congelado!';
-    else if (eff === 'confuse' && PMZ.Status.apply(defender, 'confusion')) msg = defender.name + ' se confundio!';
-    else if (eff === 'burn' && PMZ.Status.apply(defender, 'burn')) msg = defender.name + ' fue quemado!';
+    // Dispatch via EffectRegistry
+    msg = PMZ.Effects.run(moveData.effect, attacker, defender, moveData, damage, this);
 
-    // --- Chance-based status ---
-    else if (eff === 'poison_chance' && r() < 0.3 && PMZ.Status.apply(defender, 'poison')) msg = defender.name + ' fue envenenado!';
-    else if (eff === 'paralyze_chance' && r() < 0.3 && PMZ.Status.apply(defender, 'paralyze')) msg = defender.name + ' fue paralizado!';
-    else if (eff === 'burn_chance' && r() < 0.3 && PMZ.Status.apply(defender, 'burn')) msg = defender.name + ' fue quemado!';
-    else if (eff === 'freeze_chance' && r() < 0.1 && PMZ.Status.apply(defender, 'freeze')) msg = defender.name + ' fue congelado!';
-    else if (eff === 'confuse_chance' && r() < 0.3 && PMZ.Status.apply(defender, 'confusion')) msg = defender.name + ' se confundio!';
-    else if (eff === 'flinch_chance' && r() < 0.3) msg = defender.name + ' retrocedio!';
-    else if (eff === 'tri_status') {
-        var st = ['poison', 'burn', 'paralyze'][Math.floor(r() * 3)];
-        if (PMZ.Status.apply(defender, st)) msg = defender.name + ' quedo ' + (st === 'burn' ? 'quemado' : st) + '!';
-    }
-
-    // --- Self status ---
-    if (eff === 'confuse_user' && PMZ.Status.apply(attacker, 'confusion')) {
-        msg = (msg ? msg + ' ' : '') + attacker.name + ' se confundio por el ataque!';
-        b._confusedUser[id(attacker)] = { turns: Math.floor(r() * 2) + 2, moveKey: moveData.key };
-    }
-    if (eff === 'user_faint') { attacker.currentHp = 0; msg = attacker.name + ' se autodestruyo!'; }
-    if (eff === 'sleep_absorb' && damage > 0 && defender.status === 'sleep') {
-        var heal = Math.floor(damage * 0.5);
-        attacker.currentHp = Math.min(attacker.maxHp, attacker.currentHp + heal);
-        msg = (msg ? msg + ' ' : '') + attacker.name + ' absorbe sueno!';
-    }
-
-    // --- Recoil ---
-    if (eff === 'recoil_25' && damage > 0) {
-        if (PMZ.Abilities.immuneRecoil(attacker)) {
-            // Rock Head: no recoil damage
-        } else {
-            var rDmg = Math.max(1, Math.floor(damage * 0.25));
-            attacker.currentHp = Math.max(1, attacker.currentHp - rDmg);
-            msg = (msg ? msg + ' ' : '') + attacker.name + ' recibe dano residual!';
-        }
-    }
-    if (eff === 'recoil_33' && damage > 0) {
-        if (PMZ.Abilities.immuneRecoil(attacker)) {
-            // Rock Head: no recoil damage
-        } else {
-            var rDmg2 = Math.max(1, Math.floor(damage * 0.33));
-            attacker.currentHp = Math.max(1, attacker.currentHp - rDmg2);
-            msg = (msg ? msg + ' ' : '') + attacker.name + ' recibe dano residual!';
-        }
-    }
-    if (eff === 'crash' && damage === 0) {
-        if (PMZ.Abilities.immuneRecoil(attacker)) {
-            // Rock Head: no crash damage
-        } else {
-            var cDmg = Math.max(1, Math.floor(attacker.maxHp * 0.5));
-            attacker.currentHp = Math.max(1, attacker.currentHp - cDmg);
-            msg = (msg ? msg + ' ' : '') + attacker.name + ' se estrello!';
-        }
-    }
-
-    // --- Drain ---
-    if (eff === 'absorb_half' && damage > 0) {
-        var heal2 = Math.floor(damage * 0.5);
-        attacker.currentHp = Math.min(attacker.maxHp, attacker.currentHp + heal2);
-        msg = (msg ? msg + ' ' : '') + attacker.name + ' absorbe energia!';
-    }
-
-    // --- Fixed damage already handled in attack flow ---
-    // (fixed_20, fixed_40, level_damage, half_hp, psywave, ohko)
-
-    // --- Substitute ---
-    if (eff === 'substitute') {
-        var subHp = Math.max(1, Math.floor(attacker.maxHp * 0.25));
-        attacker.currentHp -= subHp;
-        b._substitute[id(attacker)] = subHp;
-        msg = (msg ? msg + ' ' : '') + attacker.name + ' creo un sustituto!';
-    }
-    // If defender has substitute, damage goes to sub
-    if (damage > 0 && b._substitute[id(defender)] > 0) {
+    // --- Substitute damage absorption (universal) ---
+    if (damage > 0 && b._substitute && b._substitute[id(defender)] > 0) {
         b._substitute[id(defender)] = Math.max(0, b._substitute[id(defender)] - damage);
-        if (b._substitute[id(defender)] <= 0) msg = (msg ? msg + ' ' : '') + 'El sustituto de ' + defender.name + ' se rompio!';
-        else msg = (msg ? msg + ' ' : '') + 'El sustituto absorbe el dano!';
-    }
-
-    // --- Leech Seed ---
-    if (eff === 'leechseed') {
-        if (!b._leechSeed[id(defender)]) {
-            b._leechSeed[id(defender)] = id(attacker);
-            msg = (msg ? msg + ' ' : '') + defender.name + ' fue sembrado!';
+        if (b._substitute[id(defender)] <= 0) {
+            msg = (msg ? msg + ' ' : '') + 'El sustituto de ' + defender.name + ' se rompio!';
+        } else {
+            msg = (msg ? msg + ' ' : '') + 'El sustituto absorbe el dano!';
         }
     }
 
-    // --- Bind (trap) ---
-    if (eff === 'bind' && damage > 0) {
-        if (!b._bind[id(defender)]) {
-            b._bind[id(defender)] = { turns: Math.floor(r() * 3) + 2, attackerId: id(attacker) };
-            msg = (msg ? msg + ' ' : '') + defender.name + ' fue atrapado!';
-        }
-    }
-
-    // --- Screens ---
-    if (eff === 'reflect') { b._reflect[attacker === PMZ.Battle._playerPokemon ? 'player' : 'enemy'] = 5; msg = 'Reflect protege al equipo!'; }
-    if (eff === 'light_screen') { b._lightScreen[attacker === PMZ.Battle._playerPokemon ? 'player' : 'enemy'] = 5; msg = 'Pantalla de luz protege!'; }
-    if (eff === 'mist') { b._mist[attacker === PMZ.Battle._playerPokemon ? 'player' : 'enemy'] = 5; msg = 'Niebla protege stats!'; }
-
-    // --- Stat boosts (self) ---
-    if (eff === 'raise_attack' && !msg) { var c = boost(attacker, 'attack', 1); if (c > 0) msg = attacker.name + ' Ataque subio!'; }
-    if (eff === 'raise_attack_2' && !msg) { var c = boost(attacker, 'attack', 2); if (c > 0) msg = attacker.name + ' Ataque subio mucho!'; }
-    if (eff === 'raise_defense' && !msg) { var c = boost(attacker, 'defense', 1); if (c > 0) msg = attacker.name + ' Defensa subio!'; }
-    if (eff === 'raise_defense_2' && !msg) { var c = boost(attacker, 'defense', 2); if (c > 0) msg = attacker.name + ' Defensa subio mucho!'; }
-    if (eff === 'raise_speed_2' && !msg) { var c = boost(attacker, 'speed', 2); if (c > 0) msg = attacker.name + ' Velocidad subio mucho!'; }
-    if (eff === 'raise_evasion' && !msg) { var c = boost(attacker, 'evasion', 1); if (c > 0) msg = attacker.name + ' Evasion subio!'; }
-    if (eff === 'raise_sp_attack' && !msg) { var c = boost(attacker, 'spAttack', 1); if (c > 0) msg = attacker.name + ' At.Esp subio!'; }
-    if (eff === 'raise_sp_defense_2' && !msg) { var c = boost(attacker, 'spDefense', 2); if (c > 0) msg = attacker.name + ' Def.Esp subio mucho!'; }
-
-    // --- Stat drops (defender) ---
-    if (eff === 'lower_attack' && !msg && !hasGuard(defender)) { var c = boost(defender, 'attack', -1); if (c < 0) msg = defender.name + ' Ataque bajo!'; }
-    if (eff === 'lower_defense' && !msg && !hasGuard(defender)) { var c = boost(defender, 'defense', -1); if (c < 0) msg = defender.name + ' Defensa bajo!'; }
-    if (eff === 'lower_defense_2' && !msg && !hasGuard(defender)) { var c = boost(defender, 'defense', -2); if (c < 0) msg = defender.name + ' Defensa bajo mucho!'; }
-    if (eff === 'lower_accuracy' && !msg && !hasGuard(defender)) { var c = boost(defender, 'accuracy', -1); if (c < 0) msg = defender.name + ' Precision bajo!'; }
-    if (eff === 'lower_speed_2' && !msg && !hasGuard(defender)) { var c = boost(defender, 'speed', -2); if (c < 0) msg = defender.name + ' Velocidad bajo mucho!'; }
-    if (eff === 'lower_sp_defense' && !msg && !hasGuard(defender)) { var c = boost(defender, 'spDefense', -1); if (c < 0) msg = defender.name + ' Def.Esp bajo!'; }
-
-    // --- Chance stat drops ---
-    if (eff === 'lower_defense_chance' && r() < 0.3 && !hasGuard(defender) && !msg) { var c = boost(defender, 'defense', -1); if (c < 0) msg = defender.name + ' Defensa bajo!'; }
-    if (eff === 'lower_attack_chance' && r() < 0.3 && !hasGuard(defender) && !msg) { var c = boost(defender, 'attack', -1); if (c < 0) msg = defender.name + ' Ataque bajo!'; }
-    if (eff === 'lower_speed_chance' && r() < 0.3 && !hasGuard(defender) && !msg) { var c = boost(defender, 'speed', -1); if (c < 0) msg = defender.name + ' Velocidad bajo!'; }
-
-    // --- Reset stats ---
-    if (eff === 'reset_stats') {
-        if (attacker._statStages) {
-            for (var st in attacker._statStages) attacker._statStages[st] = 0;
-        }
-        if (defender._statStages) {
-            for (var st2 in defender._statStages) defender._statStages[st2] = 0;
-        }
-        msg = 'Todos los stats volvieron a la normalidad!';
-    }
-
-    // --- Recharge ---
-    if (eff === 'recharge') b._recharge[id(attacker)] = true;
-
-    // --- Focus Energy ---
-    if (eff === 'focus_energy') { b._focusEnergy[id(attacker)] = true; msg = attacker.name + ' concentra su energia!'; }
-
-    // --- Rage ---
-    if (eff === 'rage') b._rage[id(attacker)] = true;
-
-    // --- Disable ---
-    if (eff === 'disable' && defender.moves && defender.moves.length > 0) {
-        var lastKey = b._lastMoveUsed[id(defender)];
-        for (var di = 0; di < defender.moves.length; di++) {
-            if (defender.moves[di].key === lastKey) {
-                b._disable[id(defender)] = { moveIndex: di, turns: Math.floor(r() * 4) + 2 };
-                msg = (msg ? msg + ' ' : '') + defender.moves[di].name + ' de ' + defender.name + ' fue desactivado!';
-                break;
-            }
-        }
-    }
-
-    // --- Transform ---
-    if (eff === 'transform' && defender.moves) {
-        attacker.types = defender.types.slice();
-        attacker.moves = [];
-        for (var ti = 0; ti < Math.min(defender.moves.length, 4); ti++) {
-            attacker.moves.push({ key: defender.moves[ti].key, name: defender.moves[ti].name,
-                pp: defender.moves[ti].maxPp || 5, maxPp: defender.moves[ti].maxPp || 5,
-                power: defender.moves[ti].power || 0, type: defender.moves[ti].type || 'normal',
-                category: defender.moves[ti].category || 'status',
-                accuracy: defender.moves[ti].accuracy !== undefined ? defender.moves[ti].accuracy : 100,
-                neverMiss: !!defender.moves[ti].neverMiss,
-                effect: defender.moves[ti].effect || 'none' });
-        }
-        msg = attacker.name + ' se transformo en ' + defender.name + '!';
-    }
-
-    // --- Counter ---
-    if (eff === 'counter' && this._lastDamageTaken) {
-        var counterDmg = Math.floor(this._lastDamageTaken * 2);
-        defender.currentHp = Math.max(0, defender.currentHp - counterDmg);
-        msg = (msg ? msg + ' ' : '') + defender.name + ' recibe "Contraataque"!';
-    }
-
-    // --- Money ---
-    if (eff === 'money') {
-        PMZ.Money.add(5 * attacker.level);
-        msg = 'Entrego dinero extra!';
-    }
-
-    // --- Mist --- (defender side protects from stat drops)
+    // --- Mist guard (universal) ---
+    var hasGuard = function(pk) { return pk._guardSpec > 0; };
     if (hasGuard(defender)) defender._guardSpec--;
-    // Mist protection
-    var side = defender === PMZ.Battle._playerPokemon ? 'player' : 'enemy';
-    if (b._mist[side] > 0) {
-        b._mist[side]--;
+    var mistSide = defender === PMZ.Battle._playerPokemon ? 'player' : 'enemy';
+    if (b._mist[mistSide] > 0) b._mist[mistSide]--;
+
+    // --- Bide damage accumulation (universal) ---
+    if (damage > 0 && b._bide && b._bide[id(defender)]) {
+        b._bide[id(defender)].damage += damage;
     }
 
-    // --- Protect ---
-    if (eff === 'protect') {
-        b._protect[id(attacker)] = { turns: 1, success: Math.random() < 0.5 };
-        msg = (msg ? msg + ' ' : '') + attacker.name + ' se protege!';
-    }
-
-    // --- Bide ---
-    if (eff === 'bide') {
-        if (!b._bide[id(attacker)]) {
-            b._bide[id(attacker)] = { turns: 3, damage: 0 };
-            msg = (msg ? msg + ' ' : '') + attacker.name + ' aguanta el ataque!';
-        }
-    }
-
-    // --- Rest ---
-    if (eff === 'rest') {
-        if (!attacker.status) {
-            attacker.currentHp = attacker.maxHp;
-            PMZ.Status.apply(attacker, 'sleep');
-            b._sleepTurns[id(attacker)] = 3;
-            msg = (msg ? msg + ' ' : '') + attacker.name + ' se durmio y recupero PS!';
-        }
-    }
-
-    // --- Heal Half ---
-    if (eff === 'heal_half') {
-        var healAmt = Math.floor(attacker.maxHp * 0.5);
-        attacker.currentHp = Math.min(attacker.maxHp, attacker.currentHp + healAmt);
-        msg = (msg ? msg + ' ' : '') + attacker.name + ' recupero PS!';
-    }
-
-    // --- Conversion ---
-    if (eff === 'conversion' && attacker.moves && attacker.moves.length > 0) {
-        var newType = attacker.moves[0].type || 'normal';
-        attacker.types = [newType];
-        msg = (msg ? msg + ' ' : '') + attacker.name + ' se volvio tipo ' + newType + '!';
-    }
-
-    // --- Mimic ---
-    if (eff === 'mimic' && defender.moves && defender.moves.length > 0) {
-        var lastKey = b._lastMoveUsed[id(defender)];
-        if (lastKey) {
-            var mData = PMZ.Data.move(lastKey);
-            if (mData && attacker.moves) {
-                var mimicMove = { key: lastKey, name: mData.name, pp: mData.pp, maxPp: mData.pp,
-                    power: mData.power || 0, type: mData.type, category: mData.category || 'status',
-                    accuracy: mData.accuracy !== undefined ? mData.accuracy : 100, neverMiss: !!mData.neverMiss,
-                    effect: mData.effect || 'none' };
-                if (attacker.moves.length < 4) attacker.moves.push(mimicMove);
-                else attacker.moves[0] = mimicMove;
-                msg = (msg ? msg + ' ' : '') + attacker.name + ' copio ' + mData.name + '!';
-            }
-        }
-    }
-
-    // --- Never Miss --- (accuracy handled in calcDamage, just track)
-    if (eff === 'never_miss') b._lastMoveUsed[id(attacker)] = moveData.key;
-
-    // --- Weather moves ---
-    if (eff === 'weather_rain') {
-        PMZ.Weather.set('rain', 5);
-        PMZ.Weather.applyToBattleScene(this);
-        return '¡Empezo a llover!';
-    }
-    if (eff === 'weather_sun') {
-        PMZ.Weather.set('sun', 5);
-        PMZ.Weather.applyToBattleScene(this);
-        return '¡El sol comenzo a brillar!';
-    }
-    if (eff === 'weather_sandstorm') {
-        PMZ.Weather.set('sandstorm', 5);
-        PMZ.Weather.applyToBattleScene(this);
-        return '¡Se levanto una tormenta de arena!';
-    }
-    if (eff === 'weather_hail') {
-        PMZ.Weather.set('hail', 5);
-        PMZ.Weather.applyToBattleScene(this);
-        return '¡Empezo a granizar!';
-    }
-
-    return msg;
+    return msg || '';
 };
-
 // Play MZ database animation on a sprite
 Scene_PMZ_Battle.prototype.playMoveAnimation = function(moveData, targetSprite) {
     if (!moveData || !targetSprite) return;
@@ -3665,14 +3409,17 @@ PMZ.Battle.calcDamage = function(attacker, defender, moveData) {
     var random = 0.85 + Math.random() * 0.15;
 
     // Critical hit
-    var critChance = moveData.effect === 'critical_high' ? 0.125 : 0.0625;
+    var critChance = PMZ.Effects.isMarker(moveData.effect, 'critical_high') ? 0.125 : 0.0625;
     if (PMZ.Battle._focusEnergy && PMZ.Battle._focusEnergy[attacker._battleId]) critChance *= 2;
-    // Shell Armor / Battle Armor: defender immune to crits
     var defenderHasShellArmor = defender && PMZ.Abilities && PMZ.Abilities.preventCrit && PMZ.Abilities.preventCrit(defender);
     var isCrit = !defenderHasShellArmor && Math.random() < critChance;
     if (isCrit) {
-        // Sniper (attacker): crits do 2.25x instead of 1.5x
-        var critMult = (PMZ.Abilities && PMZ.Abilities.hasEffect && PMZ.Abilities.hasEffect(attacker, 'sniper')) ? 2.25 : 1.5;
+        var critCtx = { attacker: attacker, defender: defender };
+        var critResults = PMZ.Abilities.triggerHook('onCritCheck', critCtx);
+        var critMult = 1.5;
+        for (var ci = 0; ci < critResults.length; ci++) {
+            if (critResults[ci] && critResults[ci].critMult) critMult = critResults[ci].critMult;
+        }
         damage = Math.floor(damage * critMult);
     }
 
@@ -3700,21 +3447,22 @@ PMZ.Battle.calcDamage = function(attacker, defender, moveData) {
     return Math.max(1, damage);
 };
 
-Scene_PMZ_Battle.prototype._applyWeatherDamage = function() {
+Scene_PMZ_Battle.prototype._buildAllPokemonList = function() {
+    var b = PMZ.Battle;
+    var list = [];
+    if (b._playerPokemon) list.push(b._playerPokemon);
+    if (b._playerPokemon2) list.push(b._playerPokemon2);
+    if (b._wildPokemon) list.push(b._wildPokemon);
+    if (b._wildPokemon2) list.push(b._wildPokemon2);
+    return list;
+};
+
+Scene_PMZ_Battle.prototype._applyWeatherDamage = function(allPoke) {
     if (!PMZ.Weather || PMZ.Weather._weather === 'none') return '';
     var w = PMZ.Weather._weather;
     var msg = '';
-    var allPoke = [];
-    var player = PMZ.Battle._playerPokemon;
-    var player2 = PMZ.Battle._playerPokemon2;
-    var wild = PMZ.Battle._wildPokemon;
-    var wild2 = PMZ.Battle._wildPokemon2;
 
-    if (player) allPoke.push(player);
-    if (player2) allPoke.push(player2);
-    if (wild) allPoke.push(wild);
-    if (wild2) allPoke.push(wild2);
-
+    if (!allPoke) allPoke = this._buildAllPokemonList();
     if (w === 'sandstorm' || w === 'hail') {
         var types = w === 'sandstorm' ? ['rock', 'ground', 'steel'] : ['ice'];
         for (var i = 0; i < allPoke.length; i++) {
@@ -3749,25 +3497,24 @@ Scene_PMZ_Battle.prototype._applyWeatherDamage = function() {
 };
 
 // Process Leech Seed end-of-turn drain
-Scene_PMZ_Battle.prototype._processLeechSeed = function() {
+Scene_PMZ_Battle.prototype._processLeechSeed = function(allPoke) {
     var msg = '';
     var b = PMZ.Battle;
-    var allPoke = [];
-    if (b._playerPokemon) allPoke.push(b._playerPokemon);
-    if (b._wildPokemon) allPoke.push(b._wildPokemon);
-    if (b._playerPokemon2) allPoke.push(b._playerPokemon2);
-    if (b._wildPokemon2) allPoke.push(b._wildPokemon2);
+    if (!allPoke) allPoke = this._buildAllPokemonList();
+
+    var pokeById = {};
+    for (var pi = 0; pi < allPoke.length; pi++) {
+        pokeById[allPoke[pi]._battleId] = allPoke[pi];
+    }
 
     var seeded = [];
     for (var ii = 0; ii < allPoke.length; ii++) {
         if (b._leechSeed[allPoke[ii]._battleId]) seeded.push(allPoke[ii].name);
     }
-    console.log('[PMZ][Leech] tick. seeded=[' + seeded.join(',') + '] msg_so_far=\'' + msg + '\'');
 
     for (var i = 0; i < allPoke.length; i++) {
         var p = allPoke[i];
         if (PMZ.Pokemon.isFainted(p)) continue;
-        // Magic Guard: immune to indirect damage (leech seed)
         if (PMZ.Abilities && PMZ.Abilities.immuneIndirect(p)) {
             delete b._leechSeed[p._battleId];
             continue;
@@ -3775,23 +3522,13 @@ Scene_PMZ_Battle.prototype._processLeechSeed = function() {
         var attackerId = b._leechSeed[p._battleId];
         if (!attackerId) continue;
         var dmg = Math.max(1, Math.floor(p.maxHp * 0.125));
-        var hpBefore = p.currentHp;
         p.currentHp = Math.max(0, p.currentHp - dmg);
-        // Find the attacker to heal
-        var healedName = null;
-        for (var j = 0; j < allPoke.length; j++) {
-            if (allPoke[j]._battleId === attackerId && !PMZ.Pokemon.isFainted(allPoke[j])) {
-                var hpBeforeA = allPoke[j].currentHp;
-                allPoke[j].currentHp = Math.min(allPoke[j].maxHp, allPoke[j].currentHp + dmg);
-                healedName = allPoke[j].name + ' ' + hpBeforeA + '->' + allPoke[j].currentHp;
-                break;
-            }
+        var attacker = pokeById[attackerId];
+        if (attacker && !PMZ.Pokemon.isFainted(attacker)) {
+            attacker.currentHp = Math.min(attacker.maxHp, attacker.currentHp + dmg);
         }
-        var faint = PMZ.Pokemon.isFainted(p);
-        console.log('[PMZ][Leech]   ' + p.name + ' ' + hpBefore + '->' + p.currentHp + ' (dmg ' + dmg + ') heal=' + healedName + ' faint=' + faint);
         msg += p.name + ' pierde PS por Semilla! ';
     }
-    // Clear leech seed on fainted
     for (var k = 0; k < allPoke.length; k++) {
         if (PMZ.Pokemon.isFainted(allPoke[k])) delete b._leechSeed[allPoke[k]._battleId];
     }
@@ -3799,14 +3536,10 @@ Scene_PMZ_Battle.prototype._processLeechSeed = function() {
 };
 
 // Process Bind (wrap) end-of-turn damage
-Scene_PMZ_Battle.prototype._processBindDamage = function() {
+Scene_PMZ_Battle.prototype._processBindDamage = function(allPoke) {
     var msg = '';
     var b = PMZ.Battle;
-    var allPoke = [];
-    if (b._playerPokemon) allPoke.push(b._playerPokemon);
-    if (b._wildPokemon) allPoke.push(b._wildPokemon);
-    if (b._playerPokemon2) allPoke.push(b._playerPokemon2);
-    if (b._wildPokemon2) allPoke.push(b._wildPokemon2);
+    if (!allPoke) allPoke = this._buildAllPokemonList();
 
     for (var i = 0; i < allPoke.length; i++) {
         var p = allPoke[i];
@@ -3832,14 +3565,10 @@ Scene_PMZ_Battle.prototype._processBindDamage = function() {
 };
 
 // Process Bide end-of-turn (release stored damage)
-Scene_PMZ_Battle.prototype._processBide = function() {
+Scene_PMZ_Battle.prototype._processBide = function(allPoke) {
     var msg = '';
     var b = PMZ.Battle;
-    var allPoke = [];
-    if (b._playerPokemon) allPoke.push(b._playerPokemon);
-    if (b._wildPokemon) allPoke.push(b._wildPokemon);
-    if (b._playerPokemon2) allPoke.push(b._playerPokemon2);
-    if (b._wildPokemon2) allPoke.push(b._wildPokemon2);
+    if (!allPoke) allPoke = this._buildAllPokemonList();
 
     for (var i = 0; i < allPoke.length; i++) {
         var p = allPoke[i];

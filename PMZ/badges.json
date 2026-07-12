@@ -7,6 +7,22 @@
     { "key": "soul", "name": "Alma", "leader": "Koga", "city": "Ciudad Fucsia", "type": "poison", "levelCap": 60, "hm": "flash", "reward": 3600 },
     { "key": "marsh", "name": "Pantano", "leader": "Sabrina", "city": "Ciudad Azafrán", "type": "psychic", "levelCap": 70, "hm": "waterfall", "reward": 4200 },
     { "key": "volcano", "name": "Volcán", "leader": "Blaine", "city": "Isla Canela", "type": "fire", "levelCap": 80, "hm": "rock_smash", "reward": 4800 },
-    { "key": "earth", "name": "Tierra", "leader": "Giovanni", "city": "Ciudad Verde", "type": "ground", "levelCap": 100, "hm": "", "reward": 5400 }
+    { "key": "earth", "name": "Tierra", "leader": "Giovanni", "city": "Ciudad Verde", "type": "ground", "levelCap": 100, "hm": "", "reward": 5400 },
+    { "key": "zephyr", "name": "Zéfiro", "leader": "Falkner", "city": "Ciudad Malva", "type": "flying", "levelCap": 12, "hm": "", "reward": 300 },
+    { "key": "hive", "name": "Colmena", "leader": "Bugsy", "city": "Ciudad Azalea", "type": "bug", "levelCap": 18, "hm": "cut", "reward": 700 },
+    { "key": "plain", "name": "Llano", "leader": "Whitney", "city": "Ciudad Trigal", "type": "normal", "levelCap": 25, "hm": "strength", "reward": 1200 },
+    { "key": "fog", "name": "Niebla", "leader": "Morty", "city": "Ciudad Iris", "type": "ghost", "levelCap": 32, "hm": "surf", "reward": 1800 },
+    { "key": "storm", "name": "Tormenta", "leader": "Chuck", "city": "Ciudad Orquídea", "type": "fighting", "levelCap": 40, "hm": "fly", "reward": 2500 },
+    { "key": "mineral", "name": "Mineral", "leader": "Jasmine", "city": "Ciudad Olivo", "type": "steel", "levelCap": 50, "hm": "waterfall", "reward": 3200 },
+    { "key": "glacier", "name": "Glaciar", "leader": "Pryce", "city": "Ciudad Caoba", "type": "ice", "levelCap": 60, "hm": "", "reward": 4000 },
+    { "key": "rising", "name": "Ascenso", "leader": "Clair", "city": "Ciudad Endrino", "type": "dragon", "levelCap": 70, "hm": "whirpool", "reward": 5000 },
+    { "key": "stone", "name": "Piedra", "leader": "Roxanne", "city": "Ciudad Petalia", "type": "rock", "levelCap": 15, "hm": "rock_smash", "reward": 900 },
+    { "key": "knuckle", "name": "Nudillos", "leader": "Brawly", "city": "Pueblo Azuliza", "type": "fighting", "levelCap": 20, "hm": "cut", "reward": 1200 },
+    { "key": "dynamo", "name": "Dinamo", "leader": "Wattson", "city": "Ciudad Mauville", "type": "electric", "levelCap": 25, "hm": "flash", "reward": 1800 },
+    { "key": "heat", "name": "Calor", "leader": "Flannery", "city": "Pueblo Lavaridge", "type": "fire", "levelCap": 30, "hm": "strength", "reward": 2400 },
+    { "key": "balance", "name": "Equilibrio", "leader": "Norman", "city": "Ciudad Petalia", "type": "normal", "levelCap": 35, "hm": "surf", "reward": 3000 },
+    { "key": "feather", "name": "Pluma", "leader": "Winona", "city": "Ciudad Arboric", "type": "flying", "levelCap": 35, "hm": "fly", "reward": 3600 },
+    { "key": "mind", "name": "Mente", "leader": "Tate & Liza", "city": "Ciudad Algaria", "type": "psychic", "levelCap": 40, "hm": "waterfall", "reward": 4200 },
+    { "key": "rain", "name": "Lluvia", "leader": "Juan", "city": "Ciudad Arrecípolis", "type": "water", "levelCap": 45, "hm": "dive", "reward": 4800 }
   ]
 }

@@ -351,10 +351,13 @@ Sprite_PMZ_Icon.prototype.refresh = function() {
 // PMZ.Config - Acceso a configuracion
 // ============================================================================
 PMZ.Config = {
+    _cache: {},
     get: function(key, def) {
+        if (key in this._cache) return this._cache[key];
         var cfg = PMZ.Data._cache.config;
-        if (!cfg) return def;
-        return cfg[key] !== undefined ? cfg[key] : def;
+        var val = cfg && cfg[key] !== undefined ? cfg[key] : def;
+        this._cache[key] = val;
+        return val;
     },
     isStatEvolution: function() { return this.get('evolutionMode', 'level') === 'stats'; },
     isOneShotCapture: function() { return this.get('captureMode', 'weak') === 'oneshot'; },
@@ -492,21 +495,25 @@ PMZ.Data = {
         return this._cache[name] || null;
     },
     
-    pokemon: function(key) { key = String(key).toLowerCase(); return this._cache.pokemon ? this._cache.pokemon[key] : null; },
-    move: function(key) { key = String(key).toLowerCase(); return this._cache.moves ? this._cache.moves[key] : null; },
-    item: function(key) { key = String(key).toLowerCase(); return this._cache.items ? this._cache.items[key] : null; },
-    trainer: function(key) { key = String(key).toLowerCase(); return this._cache.trainers ? this._cache.trainers[key] : null; },
-    type: function(key) { key = String(key).toLowerCase(); return this._cache.types ? this._cache.types[key] : null; },
+    pokemon: function(key) { return this._cache.pokemon ? this._cache.pokemon[key] : null; },
+    move: function(key) { return this._cache.moves ? this._cache.moves[key] : null; },
+    item: function(key) { return this._cache.items ? this._cache.items[key] : null; },
+    trainer: function(key) { return this._cache.trainers ? this._cache.trainers[key] : null; },
+    type: function(key) { return this._cache.types ? this._cache.types[key] : null; },
     encounter: function() { return this._cache.encounters || null; },
     config: function() { return this._cache.config || null; },
-    ability: function(key) { key = String(key).toLowerCase(); return this._cache.abilities ? this._cache.abilities[key] : null; },
+    ability: function(key) { return this._cache.abilities ? this._cache.abilities[key] : null; },
     badges: function() { return this._cache.badges || null; },
     mechanics: function() { return this._cache.mechanics || null; },
-    speciesId: function(key) { key = String(key).toLowerCase(); var p = this.pokemon(key); return p ? p.id : null; },
+    speciesId: function(key) { var p = this.pokemon(key); return p ? p.id : null; },
     
     configValue: function(key) {
+        if (!this._configCache) this._configCache = {};
+        if (key in this._configCache) return this._configCache[key];
         var c = this.config();
-        return c ? c[key] : null;
+        var val = c ? c[key] : null;
+        this._configCache[key] = val;
+        return val;
     }
 };
 
@@ -752,10 +759,295 @@ PMZ.Status = {
 };
 
 // ============================================================================
-// PMZ.Abilities - Habilidades
+// PMZ.Effects - Registro de efectos de movimientos
+// Cada efecto se define como { type: 'tipo', ...params }
+// Soporta formato legacy (string) y nuevo (objeto con parámetros)
 // ============================================================================
+PMZ.Effects = {
+    _registry: {},
+
+    register: function(type, handler) {
+        this._registry[type] = handler;
+    },
+
+    normalize: function(effect) {
+        if (!effect) return { type: 'none' };
+        if (typeof effect === 'string') return { type: effect };
+        return effect;
+    },
+
+    getType: function(effect) {
+        return this.normalize(effect).type;
+    },
+
+    getParams: function(effect) {
+        var e = this.normalize(effect);
+        var p = {};
+        for (var k in e) { if (k !== 'type') p[k] = e[k]; }
+        return p;
+    },
+
+    run: function(effect, attacker, defender, moveData, damage, battle) {
+        var e = this.normalize(effect);
+        var handler = this._registry[e.type];
+        if (handler) return handler(attacker, defender, moveData, e, damage, battle);
+        return '';
+    },
+
+    init: function() {
+        var self = this;
+        var r = Math.random;
+
+        self.register('none', function(){return'';});
+
+        self.register('status', function(a,d,md,e,dam,b){
+            var msgs={poison:'fue envenenado!',toxic:'fue gravemente envenenado!',paralyze:'fue paralizado!',sleep:'se durmio!',freeze:'fue congelado!',confusion:'se confundio!',burn:'fue quemado!'};
+            if(PMZ.Status.apply(d,e.status)) return d.name+' '+msgs[e.status]; return'';
+        });
+
+        self.register('status_chance', function(a,d,md,e,dam,b){
+            var sg=a&&PMZ.Abilities.hasEffect(a,'serene_grace'), sd=d&&PMZ.Abilities.hasEffect(d,'block_secondary_effects');
+            var fc=sd?0:((e.chance||0.3)*(sg?2:1));
+            if(r()<fc&&PMZ.Status.apply(d,e.status)) return d.name+' fue '+(e.status==='burn'?'quemado':e.status)+'!';
+            return'';
+        });
+
+        self.register('flinch_chance', function(a,d,md,e){
+            var sg=a&&PMZ.Abilities.hasEffect(a,'serene_grace'), sd=d&&PMZ.Abilities.hasEffect(d,'block_secondary_effects');
+            if(!sd&&r()<((e.chance||0.3)*(sg?2:1))) return d.name+' retrocedio!';
+            return'';
+        });
+
+        self.register('random_status', function(a,d){
+            var st=(e.statuses||['poison','burn','paralyze'])[Math.floor(r()*3)];
+            if(PMZ.Status.apply(d,st)) return d.name+' quedo '+(st==='burn'?'quemado':st)+'!';
+            return'';
+        });
+
+        self.register('self_status', function(a,d,md,e,dam,b){
+            if(e.status==='confusion'&&PMZ.Status.apply(a,'confusion')){
+                if(b) b._confusedUser[a._battleId]={turns:Math.floor(r()*2)+2,moveKey:md.key};
+                return a.name+' se confundio por el ataque!';
+            }
+            return'';
+        });
+
+        self.register('self_faint', function(a){a.currentHp=0;return a.name+' se autodestruyo!';});
+
+        self.register('sleep_absorb', function(a,d,md,e,dam){
+            if(dam>0&&d.status==='sleep'){a.currentHp=Math.min(a.maxHp,a.currentHp+Math.floor(dam*0.5));return a.name+' absorbe sueno!';}
+            return'';
+        });
+
+        self.register('recoil', function(a,d,md,e,dam){
+            if(dam>0&&!PMZ.Abilities.immuneRecoil(a)){var rd=Math.max(1,Math.floor(dam*((e.percent||25)/100)));a.currentHp=Math.max(1,a.currentHp-rd);return a.name+' recibe dano residual!';}
+            return'';
+        });
+
+        self.register('crash', function(a,d,md,e,dam){
+            if(dam===0&&!PMZ.Abilities.immuneRecoil(a)){var cd=Math.max(1,Math.floor(a.maxHp*((e.percent||50)/100)));a.currentHp=Math.max(1,a.currentHp-cd);return a.name+' se estrello!';}
+            return'';
+        });
+
+        self.register('recoil_crash', function(a,d,md,e,dam){
+            if(dam===0&&!PMZ.Abilities.immuneRecoil(a)){a.currentHp=Math.max(1,a.currentHp-Math.max(1,Math.floor(a.maxHp*0.5)));return a.name+' se estrello!';}
+            return'';
+        });
+
+        self.register('drain', function(a,d,md,e,dam){
+            if(dam>0){a.currentHp=Math.min(a.maxHp,a.currentHp+Math.floor(dam*((e.percent||50)/100)));return a.name+' absorbe energia!';}
+            return'';
+        });
+
+        self.register('heal', function(a){
+            a.currentHp=Math.min(a.maxHp,a.currentHp+Math.floor(a.maxHp*((e.percent||50)/100)));
+            return a.name+' recupero PS!';
+        });
+
+        self.register('heal_weather', function(a){
+            var w=PMZ.Weather.current?PMZ.Weather.current.type:null,pct=e.base||50;
+            if(w==='rain'||w==='sandstorm'||w==='hail')pct=e.rain||25;else if(w==='sun')pct=e.sun||67;
+            a.currentHp=Math.min(a.maxHp,a.currentHp+Math.floor(a.maxHp*(pct/100)));
+            return a.name+' recupero PS!';
+        });
+
+        self.register('rest', function(a,d,md,e,dam,b){
+            if(!a.status){a.currentHp=a.maxHp;PMZ.Status.apply(a,'sleep');if(b)b._sleepTurns[a._battleId]=3;return a.name+' se durmio y recupero PS!';}
+            return'';
+        });
+
+        self.register('stat_stage', function(a,d,md,e){
+            var t=e.target==='self'?a:d,msg='';
+            if(e.stat){var m=PMZ.Battle.statStageMsg(t,e.stat,e.stages||1);if(m)msg=m;}
+            if(e.stat2){var m2=PMZ.Battle.statStageMsg(t,e.stat2,e.stages2||1);if(m2)msg=msg?msg+' '+m2:m2;}
+            return msg;
+        });
+
+        self.register('stat_stage_chance', function(a,d,md,e){
+            var sg=a&&PMZ.Abilities.hasEffect(a,'serene_grace'), sd=d&&PMZ.Abilities.hasEffect(d,'block_secondary_effects');
+            if(e.target!=='self'&&sd)return'';
+            if(r()<((e.chance||0.3)*(sg?2:1))) return PMZ.Battle.statStageMsg(e.target==='self'?a:d,e.stat,e.stages||-1);
+            return'';
+        });
+
+        self.register('stat_stage_self', function(a){
+            if(e.selfStat)PMZ.Battle.boostStat(a,e.selfStat,e.selfStages||-1);
+            if(e.selfStat2)PMZ.Battle.boostStat(a,e.selfStat2,e.selfStages2||-1);
+            return a.name+' modifico sus stats!';
+        });
+
+        self.register('reset_stats', function(a,d){
+            if(a._statStages)for(var s in a._statStages)a._statStages[s]=0;
+            if(d._statStages)for(var s2 in d._statStages)d._statStages[s2]=0;
+            return'Todos los stats volvieron a la normalidad!';
+        });
+
+        self.register('shell_smash', function(a){
+            PMZ.Battle.boostStat(a,'defense',-1);PMZ.Battle.boostStat(a,'spDefense',-1);
+            PMZ.Battle.boostStat(a,'attack',2);PMZ.Battle.boostStat(a,'spAttack',2);PMZ.Battle.boostStat(a,'speed',2);
+            return a.name+' uso Rompecascara!';
+        });
+
+        self.register('dragon_dance', function(a){
+            PMZ.Battle.boostStat(a,'attack',1);PMZ.Battle.boostStat(a,'speed',1);
+            return a.name+' Danza Dragon!';
+        });
+
+        self.register('screen', function(a,d,md,e){
+            var side=a===PMZ.Battle._playerPokemon?'player':'enemy',t=e.turns||5;
+            if(e.screen==='reflect')PMZ.Battle._reflect[side]=t;
+            else if(e.screen==='light_screen')PMZ.Battle._lightScreen[side]=t;
+            else if(e.screen==='mist')PMZ.Battle._mist[side]=t;
+            var msgs={reflect:'Reflect protege al equipo!',light_screen:'Pantalla de luz protege!',mist:'Niebla protege stats!',safeguard:'Safeguard protege!'};
+            return msgs[e.screen]||'Pantalla colocada!';
+        });
+
+        self.register('weather', function(a,d,md,e,dam,b){
+            PMZ.Weather.set(e.weather||'rain',e.turns||5);
+            if(b)PMZ.Weather.applyToBattleScene(b);
+            var msgs={rain:'!Empezo a llover!',sun:'!El sol comenzo a brillar!',sandstorm:'!Se levanto tormenta de arena!',hail:'!Empezo a granizar!'};
+            return msgs[e.weather]||'Clima cambiado!';
+        });
+
+        self.register('substitute', function(a){
+            var sh=Math.max(1,Math.floor(a.maxHp*0.25));a.currentHp-=sh;
+            PMZ.Battle._substitute[a._battleId]=sh;
+            return a.name+' creo un sustituto!';
+        });
+
+        self.register('leech_seed', function(a,d){
+            if(!PMZ.Battle._leechSeed[d._battleId]){PMZ.Battle._leechSeed[d._battleId]=a._battleId;return d.name+' fue sembrado!';}
+            return'';
+        });
+
+        self.register('trap', function(a,d,md,e,dam){
+            if(dam>0&&!PMZ.Battle._bind[d._battleId]){PMZ.Battle._bind[d._battleId]={turns:Math.floor(r()*3)+2,attackerId:a._battleId};return d.name+' fue atrapado!';}
+            return'';
+        });
+
+        self.register('protect', function(a){
+            PMZ.Battle._protect[a._battleId]={turns:1,success:Math.random()<0.5};
+            return a.name+' se protege!';
+        });
+
+        self.register('bide', function(a){
+            if(!PMZ.Battle._bide[a._battleId]){PMZ.Battle._bide[a._battleId]={turns:3,damage:0};return a.name+' aguanta el ataque!';}
+            return'';
+        });
+
+        self.register('focus_energy', function(a){
+            PMZ.Battle._focusEnergy[a._battleId]=true;
+            return a.name+' concentra su energia!';
+        });
+
+        self.register('rage', function(a){PMZ.Battle._rage[a._battleId]=true;return'';});
+
+        self.register('disable', function(a,d){
+            if(d.moves&&d.moves.length>0){
+                var lk=PMZ.Battle._lastMoveUsed[d._battleId];
+                for(var i=0;i<d.moves.length;i++){if(d.moves[i].key===lk){PMZ.Battle._disable[d._battleId]={moveIndex:i,turns:Math.floor(r()*4)+2};return d.moves[i].name+' de '+d.name+' fue desactivado!';}}
+            }
+            return'';
+        });
+
+        self.register('transform', function(a,d){
+            if(d.moves){a.types=d.types.slice();a.moves=[];for(var i=0;i<Math.min(d.moves.length,4);i++){var sm=d.moves[i];a.moves.push({key:sm.key,name:sm.name,pp:sm.maxPp||5,maxPp:sm.maxPp||5,power:sm.power||0,type:sm.type||'normal',category:sm.category||'status',accuracy:sm.accuracy!==undefined?sm.accuracy:100,neverMiss:!!sm.neverMiss,effect:sm.effect||{type:'none'}});}return a.name+' se transformo en '+d.name+'!';}
+            return'';
+        });
+
+        self.register('counter', function(a,d,md,e,dam,b){
+            if(b&&b._lastDamageTaken){d.currentHp=Math.max(0,d.currentHp-Math.floor(b._lastDamageTaken*2));return d.name+' recibe Contraataque!';}
+            return'';
+        });
+
+        self.register('mirrorcoat', function(a,d,md,e,dam,b){
+            if(b&&b._lastDamageTaken){d.currentHp=Math.max(0,d.currentHp-Math.floor(b._lastDamageTaken*2));return d.name+' recibe Espejo!';}
+            return'';
+        });
+
+        self.register('conversion', function(a){
+            if(a.moves&&a.moves.length>0){a.types=[a.moves[0].type||'normal'];return a.name+' se volvio tipo '+a.types[0]+'!';}
+            return'';
+        });
+
+        self.register('mimic', function(a,d,md,e,dam,b){
+            if(d.moves&&d.moves.length>0){var lk=PMZ.Battle._lastMoveUsed[d._battleId];if(lk){var m=PMZ.Data.move(lk);if(m&&a.moves){var mm={key:lk,name:m.name,pp:m.pp,maxPp:m.pp,power:m.power||0,type:m.type,category:m.category||'status',accuracy:m.accuracy!==undefined?m.accuracy:100,neverMiss:!!m.neverMiss,effect:m.effect||{type:'none'}};if(a.moves.length<4)a.moves.push(mm);else a.moves[0]=mm;return a.name+' copio '+m.name+'!';}}}
+            return'';
+        });
+
+        self.register('never_miss', function(a,d,md){PMZ.Battle._lastMoveUsed[a._battleId]=md.key;return'';});
+
+        self.register('money', function(a){PMZ.Money.add(5*a.level);return'Entrego dinero extra!';});
+
+        // --- Damage computation registry (fixed_damage, psywave, ohko) ---
+        self.registerDamage('fixed_damage', function(a,d,e){
+            if(e.amount==='level')return a.level;
+            if(e.amount==='half_hp')return Math.max(1,Math.floor(d.currentHp/2));
+            return Number(e.amount)||0;
+        });
+        self.registerDamage('psywave', function(a){
+            return Math.floor(a.level*(0.5+r()*0.5));
+        });
+        self.registerDamage('ohko', function(a,d){
+            if(a.level>=d.level&&r()<0.3+(a.level-d.level)*0.01)return d.currentHp;
+            return -1;
+        });
+
+        // --- Multi-hit param registry ---
+        self.registerHit('multi_hit', function(a,e){
+            var mn=e.min||2,mx=e.max||2;
+            var sl=PMZ.Abilities.hasEffect(a,'skill_link');
+            var h=sl?mx:(mn===mx?mn:(r()<0.375?2:(r()<0.5?3:(r()<0.5?4:5))));
+            return Math.min(mx,Math.max(mn,h));
+        });
+    },
+
+    // --- Damage computation registry ---
+    _damageRegistry: {},
+    registerDamage: function(type, handler){this._damageRegistry[type]=handler;},
+    computeDamage: function(effect,attacker,defender){
+        var e=this.normalize(effect);
+        var h=this._damageRegistry[e.type];
+        if(h)return h(attacker,defender,e);
+        return null;
+    },
+
+    // --- Multi-hit registry ---
+    _hitRegistry: {},
+    registerHit: function(type, handler){this._hitRegistry[type]=handler;},
+    getHitParams: function(effect,attacker){
+        var e=this.normalize(effect);
+        var h=this._hitRegistry[e.type];
+        if(h)return h(attacker,e);
+        return null;
+    },
+
+    // Quick effect type check
+    isMarker: function(effect,type){return this.normalize(effect).type===type;},
+};
+
+PMZ.Effects.init();
 PMZ.Abilities = {
-    // Priority levels for ability activation order (lower = earlier)
     _priority: {
         entry: { 'drizzle': 1, 'drought': 1, 'sandstream': 1, 'snowwarning': 1,
                  'intimidate': 10, 'trace': 20, 'download': 25 },
@@ -763,12 +1055,30 @@ PMZ.Abilities = {
         faint: { 'aftermath': 1 },
         turnEnd: { 'raindish': 1, 'dryskin': 2, 'shedskin': 3 }
     },
-    
+
+    // --- Hook system ---
+    _hooks: {},
+
+    registerHook: function(hookName, handler) {
+        if (!this._hooks[hookName]) this._hooks[hookName] = [];
+        this._hooks[hookName].push(handler);
+    },
+
+    triggerHook: function(hookName, context) {
+        var hooks = this._hooks[hookName] || [];
+        var results = [];
+        for (var i = 0; i < hooks.length; i++) {
+            var r = hooks[i](context);
+            if (r) results.push(r);
+        }
+        return results;
+    },
+
     getPriority: function(effect, category) {
         var cat = this._priority[category] || {};
         return cat[effect] || 50;
     },
-    
+
     getAllAbilityNames: function(pokemon) {
         var keys = this.getAll(pokemon);
         return keys.map(function(k) {
@@ -776,13 +1086,11 @@ PMZ.Abilities = {
             return d ? d.name || k : k;
         }).filter(function(n) { return n; });
     },
-    
+
     getAll: function(pokemon) {
         var base = PMZ.Data.pokemon(pokemon.species);
         var keys = [];
-        if (base && base.abilities) {
-            keys = base.abilities;
-        }
+        if (base && base.abilities) { keys = base.abilities; }
         return keys;
     },
 
@@ -798,6 +1106,15 @@ PMZ.Abilities = {
         return false;
     },
 
+    hasHook: function(pokemon, hookName) {
+        var keys = this.getAll(pokemon);
+        for (var i = 0; i < keys.length; i++) {
+            var data = PMZ.Data.ability(keys[i]);
+            if (data && data.hook === hookName) return true;
+        }
+        return false;
+    },
+
     getAbilityData: function(pokemon, effect) {
         var keys = this.getAll(pokemon);
         for (var i = 0; i < keys.length; i++) {
@@ -807,180 +1124,309 @@ PMZ.Abilities = {
         return null;
     },
 
-    // Apply ability effects on damage calculation (defender side)
-    // Returns modified damage (0 means immune), or null if no override
-    modifyDefense: function(attacker, defender, moveData, damage) {
-        // Mold Breaker: attacker's ability ignores defender's passive abilities
-        var moldBreaker = PMZ.Abilities.hasEffect(attacker, 'mold_breaker');
-        if (moldBreaker) {
-            // Only check Wonder Guard (impossible to bypass) and pre-existing damage mults
-            // Type immunity, type absorb, levitate all bypassed
-        } else {
-            if (PMZ.Abilities.hasEffect(defender, 'type_immunity', moveData.type)) {
-                return 0;
-            }
-            if (PMZ.Abilities.hasEffect(defender, 'type_absorb', moveData.type)) {
-                var heal = Math.floor(damage * 0.25);
-                defender.currentHp = Math.min(defender.maxHp, defender.currentHp + heal);
-                return 0;
-            }
-            if (PMZ.Abilities.hasEffect(defender, 'levitate') && moveData.type === 'ground') {
-                return 0;
-            }
+    getAbilitiesByHook: function(pokemon, hookName) {
+        var keys = this.getAll(pokemon);
+        var result = [];
+        for (var i = 0; i < keys.length; i++) {
+            var data = PMZ.Data.ability(keys[i]);
+            if (data && data.hook === hookName) result.push(data);
         }
-        // Soundproof blocks sound moves
-        if (PMZ.Abilities.hasEffect(defender, 'soundproof') && moveData.isSound) {
-            return 0;
-        }
-        // Scrappy: normal/fighting hits ghost
-        if (PMZ.Abilities.hasEffect(attacker, 'scrappy') &&
-            (moveData.type === 'normal' || moveData.type === 'fighting') &&
-            defender.types && defender.types.indexOf('ghost') >= 0) {
-            // Override: damage is applied normally (we just need to not return 0 for ghost immunity)
-        }
-        return damage;
+        return result;
     },
 
-    // Apply ability effects on damage calculation (attacker side)
-    modifyAttack: function(attacker, attackerAbilityMult) {
-        var mult = attackerAbilityMult;
-
-        // Guts: 1.5x attack when statused
-        if (PMZ.Abilities.hasEffect(attacker, 'guts') && attacker.status) {
-            mult *= 1.5;
-        }
-
-        // type_boost_low_hp: boost certain type when HP low
-        var lowHpData = PMZ.Abilities.getAbilityData(attacker, 'type_boost_low_hp');
-        if (lowHpData) {
-            // Handled in calcDamage with moveData.type check
-        }
-
-        return mult;
+    // --- Weather speed modifier ---
+    weatherSpeedMult: function(pokemon) {
+        if (!pokemon) return 1;
+        if (!PMZ.Weather||!PMZ.Weather.is) return 1;
+        var w=PMZ.Weather.is('sun'),r=PMZ.Weather.is('rain'),s=PMZ.Weather.is('sandstorm'),h=PMZ.Weather.is('hail');
+        if(this.hasEffect(pokemon,'chlorophyll')&&w)return 2;
+        if(this.hasEffect(pokemon,'swiftswim')&&r)return 2;
+        if(this.hasEffect(pokemon,'sandrush')&&s)return 2;
+        if(this.hasEffect(pokemon,'slushrush')&&h)return 2;
+        return 1;
     },
 
-    // Returns true if the pokemon's ability prevents this KO.
-    // Sturdy: only triggers if the pokemon was at full HP before the hit
-    // AND only triggers once per switch-in (per official mechanics).
-    // In our simple model we treat it as once per battle per pokemon.
+    // --- Sturdy / Focus Sash survival ---
     preventKO: function(pokemon, wasFullHp) {
-        if (!pokemon) return false;
-        if (pokemon.currentHp > 0) return false;
-        if (PMZ.Abilities.hasEffect(pokemon, 'sturdy') && wasFullHp) {
-            pokemon.currentHp = 1;
-            return true;
+        if(!pokemon||pokemon.currentHp>0)return false;
+        if(wasFullHp&&this.hasEffect(pokemon,'sturdy')){pokemon.currentHp=1;return true;}
+        if(wasFullHp&&PMZ.HoldItems&&PMZ.HoldItems.hasItem&&PMZ.HoldItems.hasItem(pokemon,'focussash')){
+            pokemon.currentHp=1;if(PMZ.HoldItems.consumeItem)PMZ.HoldItems.consumeItem(pokemon);return true;
         }
         return false;
     },
 
-    // Returns true if pokemon's ability prevents crit hits (Shell Armor, Battle Armor)
+    // --- Crit prevention (via hook) ---
     preventCrit: function(pokemon) {
-        if (!pokemon) return false;
-        return PMZ.Abilities.hasEffect(pokemon, 'shell_armor') ||
-               PMZ.Abilities.hasEffect(pokemon, 'battle_armor');
+        if(!pokemon)return false;
+        var ctx={defender:pokemon,attacker:null};
+        var r=this.triggerHook('onCritCheck',ctx);
+        for(var i=0;i<r.length;i++){if(r[i]&&r[i].preventCrit)return true;}
+        return false;
     },
 
-    // Returns true if pokemon's ability makes it immune to indirect damage (Magic Guard)
-    // Indirect = poison, burn, weather, leech seed, recoil, Life Orb, curse, confusion damage
-    immuneIndirect: function(pokemon) {
-        if (!pokemon) return false;
-        return PMZ.Abilities.hasEffect(pokemon, 'magic_guard');
+    // --- Cloud Nine weather cancel ---
+    cloudNine: function(pokemon){return pokemon&&this.hasEffect(pokemon,'cloudnine');},
+
+    // --- Magic Guard indirect immunity ---
+    immuneIndirect: function(pokemon){return pokemon&&this.hasEffect(pokemon,'magicguard');},
+
+    // --- Rock Head / Magic Guard recoil immunity ---
+    immuneRecoil: function(pokemon){return pokemon&&(this.hasEffect(pokemon,'rockhead')||this.hasEffect(pokemon,'magicguard'));},
+
+    // Storage for modifyDefense message
+    _lastModifyMsg: null,
+
+    // --- Damage modifier (calls onDamageCalc hook) ---
+    modifyDefense: function(attacker, defender, moveData, damage) {
+        if(!defender||!moveData)return damage;
+        this._lastModifyMsg=null;
+        var ctx={attacker:attacker,defender:defender,moveData:moveData,damage:damage};
+        var r=this.triggerHook('onDamageCalc',ctx);
+        for(var i=0;i<r.length;i++){
+            var o=r[i];
+            if(o&&o.immune){
+                if(o.msg)this._lastModifyMsg=o.msg;
+                return o.damage!==undefined?o.damage:0;
+            }
+        }
+        return damage;
     },
 
-    // Returns true if pokemon's ability prevents recoil damage
-    immuneRecoil: function(attacker) {
-        if (!attacker) return false;
-        return PMZ.Abilities.hasEffect(attacker, 'rock_head');
-    },
+    // --- Get message from last modifyDefense call ---
+    getModifyMsg: function(){var m=this._lastModifyMsg;this._lastModifyMsg=null;return m;},
 
-    // Returns true if pokemon's ability makes moves with `recoil` flag do 1.2x damage
-    recklessBoost: function(attacker) {
-        if (!attacker) return false;
-        return PMZ.Abilities.hasEffect(attacker, 'reckless');
-    },
+    // --- Built-in hook handlers ---
+    initHooks: function() {
+        var self = this;
+        var r = Math.random;
 
-    // Returns true if pokemon's ability boosts punch moves
-    ironFistBoost: function(attacker) {
-        if (!attacker) return false;
-        return PMZ.Abilities.hasEffect(attacker, 'iron_fist');
-    },
+        // ======== onDamageCalc: type immunity, absorption, damage modifiers ========
+        self.registerHook('onDamageCalc', function(ctx) {
+            var a = ctx.attacker, d = ctx.defender, md = ctx.moveData, dam = ctx.damage;
+            if (!d || !md) return null;
 
-    // Returns true if pokemon's ability cancels weather effects
-    cloudNine: function(pokemon) {
-        if (!pokemon) return false;
-        return PMZ.Abilities.hasEffect(pokemon, 'cloud_nine');
-    },
+            // Type immunity (Levitate type)
+            if (self.hasEffect(d, 'type_immunity', md.type)) return { damage: 0, immune: true };
 
-    // Returns weather-based speed multiplier (Swift Swim 2x in rain, Chlorophyll 2x in sun)
-    weatherSpeedMult: function(pokemon) {
-        if (!pokemon) return 1;
-        if (PMZ.Abilities.hasEffect(pokemon, 'swift_swim') && PMZ.Weather.is('rain')) return 2;
-        if (PMZ.Abilities.hasEffect(pokemon, 'chlorophyll') && PMZ.Weather.is('sun')) return 2;
-        if (PMZ.Abilities.hasEffect(pokemon, 'sand_rush') && PMZ.Weather.is('sandstorm')) return 2;
-        if (PMZ.Abilities.hasEffect(pokemon, 'slush_rush') && PMZ.Weather.is('hail')) return 2;
-        return 1;
-    },
+            // Type absorb (Water Absorb, Volt Absorb)
+            if (self.hasEffect(d, 'type_absorb', md.type)) {
+                var heal = Math.floor(dam * 0.25);
+                d.currentHp = Math.min(d.maxHp, d.currentHp + heal);
+                return { damage: 0, immune: true, msg: d.name + ' absorbe el ataque!' };
+            }
 
-    sortByPriority: function(abilities, category) {
-        return abilities.sort(function(a, b) {
-            var pa = PMZ.Abilities.getPriority(a.effect, category);
-            var pb = PMZ.Abilities.getPriority(b.effect, category);
-            return pa - pb;
+            // Levitate
+            if (self.hasEffect(d, 'levitate') && md.type === 'ground') return { damage: 0, immune: true };
+
+            // Soundproof
+            if (self.hasEffect(d, 'soundproof') && md.isSound) return { damage: 0, immune: true };
+
+            // Scrappy (attacker side)
+            if (self.hasEffect(a, 'scrappy') && (md.type === 'normal' || md.type === 'fighting') &&
+                d.types && d.types.indexOf('ghost') >= 0) { /* bypass */ }
+
+            // === Damage modifiers (moved from calcDamage) ===
+
+            // Adaptability: STAB 2.0 instead of 1.5
+            if (self.hasEffect(a, 'adaptability')) return { stabMult: 2.0 };
+
+            // Thick Fat: half Fire/Ice damage
+            if (self.hasEffect(d, 'thick_fat') && (md.type === 'fire' || md.type === 'ice')) {
+                return { damageMult: 0.5 };
+            }
+
+            // Filter / Solid Rock: reduce super-effective by 25%
+            if (dam > 0 && (self.hasEffect(d, 'filter') || self.hasEffect(d, 'solid_rock'))) {
+                return { damageMult: 0.75, condition: 'super_effective' };
+            }
+
+            // Tinted Lens: double not-very-effective damage
+            if (self.hasEffect(a, 'tinted_lens')) {
+                return { damageMult: 2.0, condition: 'not_very_effective' };
+            }
+
+            // Technician: boost <=60 power moves
+            if (self.hasEffect(a, 'technician') && md.power && md.power <= 60) {
+                return { damageMult: 1.5 };
+            }
+
+            // Reckless: boost recoil moves
+            if (self.hasEffect(a, 'reckless') && md.recoil) {
+                return { damageMult: 1.2 };
+            }
+
+            // Iron Fist: boost punching moves
+            if (self.hasEffect(a, 'iron_fist') && md.isPunch) {
+                return { damageMult: 1.2 };
+            }
+
+            // type_boost_low_hp: Overgrow/Blaze/Torrent/Swarm
+            if (a && a.currentHp < a.maxHp * 0.33) {
+                var ab = self.getAbilityData(a, 'type_boost_low_hp');
+                if (ab && ab.type === md.type) {
+                    return { damageMult: ab.multiplier || 1.5 };
+                }
+            }
+
+            // Mold Breaker check
+            if (self.hasEffect(a, 'mold_breaker')) return null;
+            return null;
         });
-    },
-    
-    // Get all effect data for a pokemon, sorted by priority
-    getEffectsByCategory: function(pokemon, category) {
-        var keys = this.getAll(pokemon);
-        var effects = [];
-        for (var i = 0; i < keys.length; i++) {
-            var data = PMZ.Data.ability(keys[i]);
-            if (data && data.effect) {
-                effects.push({ key: keys[i], effect: data.effect, data: data });
+
+        // ======== onStatusCheck: status immunity ========
+        self.registerHook('onStatusCheck', function(ctx) {
+            if (!ctx.defender || !ctx.status) return null;
+            if (self.hasEffect(ctx.defender, 'status_immunity', ctx.status)) {
+                return { blocked: true, msg: ctx.defender.name + ' es inmune!' };
             }
-        }
-        return this.sortByPriority(effects, category);
-    },
-    
-    // Called when a Pokémon enters battle
-    onSwitchIn: function(pokemon, opponent) {
-        var msgs = [];
-        var effects = this.getEffectsByCategory(pokemon, 'entry');
-        for (var i = 0; i < effects.length; i++) {
-            var eff = effects[i].effect;
-            if (eff === 'intimidate' && opponent) {
-                PMZ.Battle.boostStat(opponent, 'attack', -1);
-                msgs.push(pokemon.name + ' intimida a ' + opponent.name + '!');
+            return null;
+        });
+
+        // ======== onCritCheck: crit modifiers ========
+        self.registerHook('onCritCheck', function(ctx) {
+            if (!ctx.defender) return null;
+            if (self.hasEffect(ctx.defender, 'shell_armor') || self.hasEffect(ctx.defender, 'battle_armor')) {
+                return { preventCrit: true };
             }
-        }
-        return msgs.join(' ');
-    },
-    
-    // Called on contact (physical attack hits)
-    onContact: function(attacker, defender) {
-        var effects = this.getEffectsByCategory(defender, 'contact');
-        for (var i = 0; i < effects.length; i++) {
-            var eff = effects[i].effect;
-            if (eff === 'static' && Math.random() < 0.3) {
-                PMZ.Status.apply(attacker, 'paralysis');
-                return attacker.name + ' se paralizo por Static!';
+            if (ctx.attacker && self.hasEffect(ctx.attacker, 'sniper')) {
+                return { critMult: 2.25 };
             }
-            if (eff === 'flamebody' && Math.random() < 0.3) {
-                PMZ.Status.apply(attacker, 'burn');
-                return attacker.name + ' se quemo por Cuerpo Llama!';
+            return null;
+        });
+
+        // ======== onWeather: weather-related effects ========
+        self.registerHook('onWeather', function(ctx) {
+            if (!ctx.pokemon) return null;
+            if (self.hasEffect(ctx.pokemon, 'overcoat')) return { immune: true };
+            if (self.hasEffect(ctx.pokemon, 'solarpower') && ctx.weather === 'sun') {
+                return { spAtkBoost: 1.5, hpLoss: Math.floor(ctx.pokemon.maxHp / 8) };
             }
-            if (eff === 'poisonpoint' && Math.random() < 0.3) {
-                PMZ.Status.apply(attacker, 'poison');
-                return attacker.name + ' se enveneno por Punto Toxico!';
+            if (self.hasEffect(ctx.pokemon, 'raindish') && ctx.weather === 'rain') {
+                return { healPct: 0.0625 };
             }
-        }
-        return '';
+            if (self.hasEffect(ctx.pokemon, 'dryskin') && ctx.weather === 'rain') {
+                return { healPct: 0.0625 };
+            }
+            if (self.hasEffect(ctx.pokemon, 'sandrush') && ctx.weather === 'sandstorm') {
+                return { spDefBoost: 1.5 };
+            }
+            return null;
+        });
+
+        // ======== onAccuracy: accuracy/evasion modifiers ========
+        self.registerHook('onAccuracy', function(ctx) {
+            if (!ctx.attacker || !ctx.defender) return null;
+            // No Guard: always hit
+            if (self.hasEffect(ctx.attacker, 'noguard') || self.hasEffect(ctx.defender, 'noguard')) {
+                return { alwaysHit: true };
+            }
+            // Compound Eyes: boost accuracy 1.3x
+            if (self.hasEffect(ctx.attacker, 'compoundeyes')) {
+                return { accuracyMult: 1.3 };
+            }
+            // Hustle: physical moves accuracy 0.8x
+            if (self.hasEffect(ctx.attacker, 'hustle') && ctx.moveData && ctx.moveData.category === 'physical') {
+                return { accuracyMult: 0.8 };
+            }
+            // Sand Veil / Snow Cloak: evasion 1.25x in weather
+            if (PMZ.Weather && PMZ.Weather.is) {
+                if (self.hasEffect(ctx.defender, 'sandveil') && PMZ.Weather.is('sandstorm')) return { evasionMult: 1.25 };
+                if (self.hasEffect(ctx.defender, 'snowcloak') && PMZ.Weather.is('hail')) return { evasionMult: 1.25 };
+            }
+            return null;
+        });
+
+        // ======== onEntry: entry abilities ========
+        self.registerHook('onEntry', function(ctx) {
+            if (!ctx.attacker || !ctx.defender) return null;
+            // Intimidate: lower opponent Attack by 1
+            if (self.hasEffect(ctx.attacker, 'intimidate') && !PMZ.Pokemon.isFainted(ctx.defender)) {
+                var ch = PMZ.Battle.boostStat(ctx.defender, 'attack', -1);
+                if (ch < 0) return { msg: 'Intimidate de ' + ctx.attacker.name + ' baja el Ataque!' };
+            }
+            return null;
+        });
+
+        // ======== onContact: contact abilities ========
+        self.registerHook('onContact', function(ctx) {
+            if (!ctx.defender || !ctx.attacker) return null;
+            if (PMZ.Pokemon.isFainted(ctx.attacker)) return null;
+            // Static: 30% paralyze
+            if (self.hasEffect(ctx.defender, 'contact_paralyze') && r() < 0.3) {
+                if (PMZ.Status.apply(ctx.attacker, 'paralyze')) return { msg: ctx.attacker.name + ' se paralizo por Static!' };
+            }
+            // Flame Body: 30% burn
+            if (self.hasEffect(ctx.defender, 'contact_burn') && r() < 0.3) {
+                if (PMZ.Status.apply(ctx.attacker, 'burn')) return { msg: ctx.attacker.name + ' se quemo!' };
+            }
+            // Poison Point: 30% poison
+            if (self.hasEffect(ctx.defender, 'contact_poison') && r() < 0.3) {
+                if (PMZ.Status.apply(ctx.attacker, 'poison')) return { msg: ctx.attacker.name + ' fue envenenado!' };
+            }
+            // Rough Skin / Iron Barbs: damage 12.5% of max HP
+            if (self.hasEffect(ctx.defender, 'roughskin')) {
+                var rd = Math.max(1, Math.floor(ctx.attacker.maxHp * 0.125));
+                ctx.attacker.currentHp = Math.max(1, ctx.attacker.currentHp - rd);
+                return { msg: ctx.attacker.name + ' recibe dano por Rough Skin!' };
+            }
+            return null;
+        });
+
+        // ======== onTurnEnd: end-of-turn effects ========
+        self.registerHook('onTurnEnd', function(ctx) {
+            if (!ctx.pokemon || PMZ.Pokemon.isFainted(ctx.pokemon)) return null;
+            // Shed Skin: 30% cure status
+            if (self.hasEffect(ctx.pokemon, 'shedskin') && ctx.pokemon.status && r() < 0.3) {
+                ctx.pokemon.status = null;
+                return { msg: ctx.pokemon.name + ' se curo por Mudar Piel!' };
+            }
+            // Speed Boost: +1 Speed
+            if (self.hasEffect(ctx.pokemon, 'speedboost')) {
+                PMZ.Battle.boostStat(ctx.pokemon, 'speed', 1);
+                return { msg: ctx.pokemon.name + ' aumento su Velocidad!' };
+            }
+            // Rain Dish / Dry Skin: heal in rain
+            if (PMZ.Weather && PMZ.Weather.is && PMZ.Weather.is('rain')) {
+                if (self.hasEffect(ctx.pokemon, 'raindish') || self.hasEffect(ctx.pokemon, 'dryskin')) {
+                    ctx.pokemon.currentHp = Math.min(ctx.pokemon.maxHp, ctx.pokemon.currentHp + Math.floor(ctx.pokemon.maxHp / 16));
+                    return { msg: ctx.pokemon.name + ' recupero PS por la lluvia!' };
+                }
+            }
+            return null;
+        });
+
+        // ======== onSecondaryEffect: secondary effect modifiers ========
+        self.registerHook('onSecondaryEffect', function(ctx) {
+            if (!ctx.defender) return null;
+            // Shield Dust: block secondary effects
+            if (self.hasEffect(ctx.defender, 'shielddust')) return { blocked: true };
+            // Serene Grace: double chance
+            if (ctx.attacker && self.hasEffect(ctx.attacker, 'serenegrace')) return { chanceMult: 2.0 };
+            return null;
+        });
+
+        // ======== onPreventFlinch: flinch immunity ========
+        self.registerHook('onPreventFlinch', function(ctx) {
+            if (!ctx.defender) return null;
+            if (self.hasEffect(ctx.defender, 'innerfocus') || self.hasEffect(ctx.defender, 'steadfast')) {
+                return { preventFlinch: true };
+            }
+            return null;
+        });
+
+        // ======== onOverride: special overrides ========
+        self.registerHook('onOverride', function(ctx) {
+            if (!ctx.attacker) return null;
+            // Mold Breaker: ignore defender abilities
+            if (self.hasEffect(ctx.attacker, 'moldbreaker')) return { ignoreDefAbilities: true };
+            // Skill Link: handled in multi_hit effect
+            return null;
+        });
     }
 };
 
-// ============================================================================
-// PMZ.AI - Inteligencia artificial para entrenadores
-// ============================================================================
+PMZ.Abilities.initHooks();
 PMZ.AI = {
     chooseMove: function(attacker, defender, availMoves) {
         if (!attacker || !attacker.moves || attacker.moves.length === 0) return null;
@@ -1338,18 +1784,24 @@ PMZ.Pokemon = {
             take.forEach(function(m) {
                 var md = PMZ.Data.move(m.name);
                 if (md) {
-                    p.moves.push({
-                        key: m.name.toLowerCase(),
-                        name: md.name,
-                        pp: md.pp || 5,
-                        maxPp: md.pp || 5,
-                        power: md.power || 0,
-                        type: md.type || 'normal',
-                        category: md.category || 'physical',
-                        accuracy: md.accuracy !== undefined ? md.accuracy : 100,
-                        neverMiss: !!md.neverMiss,
-                        effect: md.effect || 'none'
-                    });
+                    var alreadyHas = false;
+                    for (var j = 0; j < p.moves.length; j++) {
+                        if (p.moves[j].key === m.name.toLowerCase()) { alreadyHas = true; break; }
+                    }
+                    if (!alreadyHas) {
+                        p.moves.push({
+                            key: m.name.toLowerCase(),
+                            name: md.name,
+                            pp: md.pp || 5,
+                            maxPp: md.pp || 5,
+                            power: md.power || 0,
+                            type: md.type || 'normal',
+                            category: md.category || 'physical',
+                            accuracy: md.accuracy !== undefined ? md.accuracy : 100,
+                            neverMiss: !!md.neverMiss,
+                            effect: md.effect || 'none'
+                        });
+                    }
                 }
             });
         }
@@ -1359,33 +1811,41 @@ PMZ.Pokemon = {
             for (var i = 0; i < limit2; i++) {
                 var md2 = PMZ.Data.move(moves[i]);
                 if (md2) {
-                    p.moves.push({
-                        key: moves[i].toLowerCase(),
-                        name: md2.name,
-                        pp: md2.pp || 5,
-                        maxPp: md2.pp || 5,
-                        power: md2.power || 0,
-                        type: md2.type || 'normal',
-                        category: md2.category || 'physical',
-                        accuracy: md2.accuracy !== undefined ? md2.accuracy : 100,
-                        neverMiss: !!md2.neverMiss,
-                        effect: md2.effect || 'none'
-                    });
+                    var alreadyHas2 = false;
+                    for (var j2 = 0; j2 < p.moves.length; j2++) {
+                        if (p.moves[j2].key === moves[i].toLowerCase()) { alreadyHas2 = true; break; }
+                    }
+                    if (!alreadyHas2) {
+                        p.moves.push({
+                            key: moves[i].toLowerCase(),
+                            name: md2.name,
+                            pp: md2.pp || 5,
+                            maxPp: md2.pp || 5,
+                            power: md2.power || 0,
+                            type: md2.type || 'normal',
+                            category: md2.category || 'physical',
+                            accuracy: md2.accuracy !== undefined ? md2.accuracy : 100,
+                            neverMiss: !!md2.neverMiss,
+                            effect: md2.effect || 'none'
+                        });
+                    }
                 }
             }
         }
     },
     
     calcExp: function(level, rate) {
+        if (level <= 0) return 0;
+        var lv3 = level * level * level;
+        var lv2 = level * level;
         var rates = {
-            'fast': Math.floor(4 * Math.pow(level, 3) / 5),
-            'medium': Math.floor(Math.pow(level, 3)),
-            'slow': Math.floor(5 * Math.pow(level, 3) / 4),
-            'medium_slow': Math.floor(6 * Math.pow(level, 3) / 5 - 15 * Math.pow(level, 2) + 100 * level - 140),
+            'fast': Math.floor(4 * lv3 / 5),
+            'medium': Math.floor(lv3),
+            'slow': Math.floor(5 * lv3 / 4),
+            'medium_slow': Math.floor(6 * lv3 / 5 - 15 * lv2 + 100 * level - 140),
             'erratic': 0,
             'fluctuating': 0
         };
-        if (level <= 0) return 0;
         return rates[rate] || rates['medium'];
     },
     
@@ -1508,17 +1968,19 @@ PMZ.Pokemon = {
         p.exp += amount;
         var result = { leveled: false, evolved: false, newMoves: [], pendingMoves: [] };
         var tries = 0;
+        var base = PMZ.Data.pokemon(p.species);
         while (p.expToNext > 0 && p.exp >= p.expToNext && tries < 100) {
             tries++;
             p.exp -= p.expToNext;
             p.level++;
             result.leveled = true;
-            var base = PMZ.Data.pokemon(p.species);
             if (base) {
                 PMZ.Pokemon.calculateStats(p, base);
                 p.maxHp = p.hp;
                 p.currentHp = Math.min(p.currentHp, p.maxHp);
-                p.expToNext = this.calcExp(p.level + 1, base.expRate) - this.calcExp(p.level, base.expRate);
+                var expNext = this.calcExp(p.level + 1, base.expRate);
+                var expCur = this.calcExp(p.level, base.expRate);
+                p.expToNext = expNext - expCur;
                 if (p.expToNext <= 0) p.expToNext = 100;
                 var learnResult = this.learnNewMoves(p, base);
                 if (learnResult.learned.length > 0) result.newMoves = result.newMoves.concat(learnResult.learned);
@@ -1526,6 +1988,7 @@ PMZ.Pokemon = {
                 var evo = PMZ.Evolution.checkAll(p);
                 if (evo) {
                     PMZ.Evolution.evolve(p, evo);
+                    base = PMZ.Data.pokemon(p.species);
                     result.evolved = true;
                     break;
                 }
@@ -1638,20 +2101,23 @@ PMZ.Party = {
         $gamePMZ.party().forEach(function(p) { PMZ.Pokemon.heal(p); });
     },
     firstAlive: function() {
-        for (var i = 0; i < $gamePMZ.party().length; i++) {
-            if ($gamePMZ.party()[i].currentHp > 0) return $gamePMZ.party()[i];
+        var party = $gamePMZ.party();
+        for (var i = 0; i < party.length; i++) {
+            if (party[i].currentHp > 0) return party[i];
         }
         return null;
     },
     firstAliveIndex: function() {
-        for (var i = 0; i < $gamePMZ.party().length; i++) {
-            if ($gamePMZ.party()[i].currentHp > 0) return i;
+        var party = $gamePMZ.party();
+        for (var i = 0; i < party.length; i++) {
+            if (party[i].currentHp > 0) return i;
         }
         return -1;
     },
     allFainted: function() {
-        for (var i = 0; i < $gamePMZ.party().length; i++) {
-            if ($gamePMZ.party()[i].currentHp > 0) return false;
+        var party = $gamePMZ.party();
+        for (var i = 0; i < party.length; i++) {
+            if (party[i].currentHp > 0) return false;
         }
         return true;
     }
@@ -2301,6 +2767,7 @@ PMZ.Evolution = {
         PMZ.Pokemon.calculateStats(p, base);
         p.maxHp = p.hp;
         p.currentHp = Math.min(p.currentHp, p.maxHp);
+        p.moves = [];
         PMZ.Pokemon.assignMoves(p, base);
         return p;
     }
@@ -2630,15 +3097,14 @@ PMZ.Encounter = {
         if (!$gamePlayer) return null;
         var x = $gamePlayer.x, y = $gamePlayer.y;
         
+        var byType = enc.byType || {};
+        
         // 2. Por Region ID (capa R del editor)
         var rid = $gameMap.regionId(x, y);
         if (rid > 0) {
             var rMap = enc.regionMap || {};
             var type = rMap[String(rid)];
-            if (type) {
-                var bt = enc.byType || {};
-                return bt[type] || null;
-            }
+            if (type) return byType[type] || null;
         }
         
         // 3. Por Terrain Tag (etiqueta T de tileset)
@@ -2646,10 +3112,7 @@ PMZ.Encounter = {
         if (tag > 0) {
             var tMap = enc.regionMap || {};
             var type2 = tMap[String(tag)];
-            if (type2) {
-                var bt2 = enc.byType || {};
-                return bt2[type2] || null;
-            }
+            if (type2) return byType[type2] || null;
         }
         
         return null;
@@ -3607,6 +4070,17 @@ PMZ.Battle = {
         var newStage = Math.max(-6, Math.min(6, current + stages));
         pokemon._statStages[stat] = newStage;
         return newStage - current; // actual change
+    },
+
+    statStageMsg: function(pokemon, stat, stages) {
+        var change = this.boostStat(pokemon, stat, stages);
+        if (change === 0) return '';
+        var statNames = { attack: 'Ataque', defense: 'Defensa', spAttack: 'At.Esp.', spDefense: 'Def.Esp.',
+            speed: 'Velocidad', accuracy: 'Precision', evasion: 'Evasion', crit: 'Critico' };
+        var sname = statNames[stat] || stat;
+        var verb = change > 0 ? 'subio' : 'bajo';
+        var intens = Math.abs(change) >= 2 ? ' mucho' : '';
+        return pokemon.name + ' ' + sname + ' ' + verb + intens + '!';
     },
     
     // ============================================================================

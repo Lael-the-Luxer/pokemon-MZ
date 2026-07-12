@@ -451,6 +451,7 @@ Window_PMZ_Summary_Stats.prototype.initialize = function(x, y, width, height) {
 };
 
 Window_PMZ_Summary_Stats.prototype.setPokemon = function(pkmn) {
+    if (this._pkmn === pkmn) return;
     this._pkmn = pkmn;
     this.refresh();
 };
@@ -583,6 +584,7 @@ Window_PMZ_Summary_StatsIV.prototype.initialize = function(x, y, width, height) 
 };
 
 Window_PMZ_Summary_StatsIV.prototype.setPokemon = function(pkmn) {
+    if (this._pkmn === pkmn) return;
     this._pkmn = pkmn;
     this.refresh();
 };
@@ -628,6 +630,7 @@ Window_PMZ_Data.prototype.initialize = function(x, y, width, height) {
 };
 
 Window_PMZ_Data.prototype.setPokemon = function(pkmn) {
+    if (this._pkmn === pkmn) return;
     this._pkmn = pkmn;
     this.refresh();
 };
@@ -700,6 +703,7 @@ Window_PMZ_Summary_Moves.prototype.initialize = function(x, y, width, height) {
 };
 
 Window_PMZ_Summary_Moves.prototype.setPokemon = function(pkmn) {
+    if (this._pkmn === pkmn) return;
     this._pkmn = pkmn;
     this.refresh();
 };
@@ -770,6 +774,7 @@ Window_PMZ_Info.prototype.initialize = function(x, y, width, height) {
 };
 
 Window_PMZ_Info.prototype.setPokemon = function(pkmn) {
+    if (this._pkmn === pkmn) return;
     this._pkmn = pkmn;
     this.refresh();
 };
@@ -1530,12 +1535,11 @@ Scene_PMZ_Shop.prototype.onSell = function() {
     var sellItems = [];
     var bag = $gamePMZ.itemBag();
     for (var key in bag) {
-        if (bag.hasOwnProperty(key) && bag[key] > 0) {
-            var data = PMZ.Data.item(key);
-            if (key.indexOf('tm') === 0 || key.indexOf('hm') === 0) continue;
-            if (data && data.type === 'tm') continue;
-            sellItems.push({ key: key, count: bag[key] });
-        }
+        if (!bag.hasOwnProperty(key) || bag[key] <= 0) continue;
+        if (key.indexOf('tm') === 0 || key.indexOf('hm') === 0) continue;
+        var data = PMZ.Data.item(key);
+        if (!data || data.type === 'tm' || data.type === 'hm') continue;
+        sellItems.push({ key: key, count: bag[key] });
     }
     this._itemList = sellItems;
     this._listWindow._shopMode = 'sell';
@@ -1698,8 +1702,8 @@ Scene_PMZ_Shop.prototype.update = function() {
         if (this._lastIndex !== idx) {
             this._lastIndex = idx;
             this._msgText = null;
+            this.updateDetail();
         }
-        this.updateDetail();
     }
 };
 
@@ -2545,6 +2549,7 @@ Scene_PMZ_PC.prototype.initialize = function() {
 Scene_PMZ_PC.prototype.create = function() {
     Scene_MenuBase.prototype.create.call(this);
 
+    this._boxCount = PMZ.PC.allBoxes().length;
     this._helpWindow = new Window_Base(0, 0, Graphics.boxWidth, 48);
     this._helpWindow.drawText('PC DE ' + ($gamePlayer ? $gamePlayer._actorName || 'ENTRENADOR' : 'ENTRENADOR'), 10, 12, 400, 'left');
     this.addWindow(this._helpWindow);
@@ -2590,18 +2595,18 @@ Scene_PMZ_PC.prototype.refreshBox = function() {
     this._listWindow.setPokemon(box.pokemon, this._boxIndex);
     this._helpWindow.contents.clear();
     this._helpWindow.drawText('PC DE ' + ($gamePlayer ? $gamePlayer._actorName || 'ENTRENADOR' : 'ENTRENADOR'), 10, 12, 250, 'left');
-    this._helpWindow.drawText(box.name + ' ' + (this._boxIndex + 1) + '/' + PMZ.PC.allBoxes().length, Graphics.boxWidth - 180, 12, 170, 'right');
+    this._helpWindow.drawText(box.name + ' ' + (this._boxIndex + 1) + '/' + this._boxCount, Graphics.boxWidth - 180, 12, 170, 'right');
     this._listWindow.select(0);
 };
 
 Scene_PMZ_PC.prototype.prevBox = function() {
     if (this._boxIndex > 0) this._boxIndex--;
-    else this._boxIndex = PMZ.PC.allBoxes().length - 1;
+    else this._boxIndex = this._boxCount - 1;
     this.refreshBox();
 };
 
 Scene_PMZ_PC.prototype.nextBox = function() {
-    if (this._boxIndex < PMZ.PC.allBoxes().length - 1) this._boxIndex++;
+    if (this._boxIndex < this._boxCount - 1) this._boxIndex++;
     else this._boxIndex = 0;
     this.refreshBox();
 };
@@ -2910,13 +2915,11 @@ Scene_PMZ_MoveLearn.prototype.createCurrentMovesWindow = function() {
     // Custom arrow indicators + position counter
     MoveListWindow.prototype._updateArrows = function() {
         Window_Selectable.prototype._updateArrows.call(this);
-        // Position counter overlay (top-right corner, doesn't clip items)
-        if (this._posSprite) {
-            this.removeChild(this._posSprite);
-            this._posSprite = null;
-        }
-        var ctx = this.contents;
         var txt = (this.index() + 1) + ' / ' + this.maxItems();
+        if (this._lastPosText === txt) return;
+        this._lastPosText = txt;
+        if (this._posSprite) this.removeChild(this._posSprite);
+        var ctx = this.contents;
         var w = ctx.measureTextWidth(txt) + 12;
         var sp = new Sprite(new Bitmap(w, 22));
         sp.bitmap.fontSize = 14;

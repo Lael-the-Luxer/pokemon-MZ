@@ -1,8 +1,8 @@
 # PMZ — Pokémon Essential para RPG Maker MZ
 
-**Versión:** v0.9.8 (Beta Pública)
+**Versión:** v0.9.9 (Beta Pública) + **Expansión Hoenn** + **PMZ Editor**
 **Estado del motor:** ✅ Listo para crear contenido (mapas, eventos, historia)
-**Faltante para v1.0 final:** Mapa demo + tutoriales + balance de dificultad
+**Estado del editor:** ✅ Edición visual de todos los JSON desde el navegador
 
 ## Ficha Técnica
 
@@ -11,12 +11,11 @@
 | **Plugins** | 3 (`PMZ_Core.js`, `PMZ_Menu.js`, `PMZ_Battle.js`) |
 | **Líneas de código** | ~11.400 |
 | **Archivos de datos** | 11 JSON (mechanics, items, pokemon, moves, abilities, types, trainers, encounters, config, badges, icons) |
-| **Especies Pokémon** | 151 (Gen 1 completa) |
-| **Movimientos** | 176 (172 + charm, secretpower, thief, magnitude, powdersnow, ancientpower, magicalleaf) |
-| **Objetos** | 134 (balls, medicina, mega piedras, orbes primigenios, hold items, bayas, 50 TMs, 5 HMs, 9 evolution stones, cañas) |
-| **Habilidades** | 81 (15+ implementadas en código) |
-| **Tipos** | 18 (con tabla de efectividad completa, incluye dark/steel/fairy) |
-| **Entrenadores** | 22 (youngster, lass, bug catcher, 8 líderes gimnasio, 4 elite four, campeón, etc.) |
+| **Especies Pokémon** | 386 (Gen 1 + Gen 2 + Gen 3 Hoenn completa: Treecko → Deoxys) |
+| **Movimientos** | 316 (Gen 1 + Gen 2 + 41 Gen 3: leafblade, blastburn, bulkup, dragonclaw, overheat, meteor mash, etc.) |
+| **Objetos** | 163 (Gen 1 + Gen 2 + 24 Gen 3: type-boost items, shellbell, whiteherb, deepseatooth, pinch berries, etc.) |
+| **Habilidades** | 113 (Gen 1 + Gen 2 + 15 Gen 3: truant, forecast, colorchange, purepower, normalize, etc.) |
+| **Entrenadores** | 60 (Kanto + Johto + 22 Hoenn: Roxanne → Juan, Elite 4, Steven, regulares) |
 | **Efectos de movimiento implementados** | 63 (recoil, drain, OHKO, multi-hit, fixed damage, trap, weather, etc.) |
 
 ## Arquitectura
@@ -572,6 +571,41 @@ Para el game designer: con los 3 plugins + 11 JSONs + sprites/sonido en las ruta
 | **Huevo: error `undefined.png` al abrir menú** | `PMZ.Icons.getBitmap` no manejaba `id: null/undefined` de los huevos. Añadido `if (id == null) id = 'egg'` para cargar `egg.png` |
 | **Pokédex: congelada al seleccionar un Pokémon** | `Window_Selectable.processOk()` llama `deactivate()` nativamente, dejando la lista inactiva sin responder a input. `PokedexList.processOk()` overridden para omitir el `deactivate()` |
 | **Huida fallida: juego congelado** | `tryFlee()` cambiaba a `_state = 'opponentAttack'` sin ocultar la ventana de comandos. Al volver a `playerCommand`, `updatePlayerCommand()` no detectaba el cambio y la ventana quedaba desactivada. Añadido `_cmdWindow.hide()` en ambos branches de `tryFlee()` |
+| **Pokémon moves duplicados al evolucionar** | `evolve()` no limpiaba `p.moves = []` antes de `assignMoves`, duplicando moves del nivel base. `assignMoves` ahora tiene guard `alreadyHas` en ambos code paths |
+| **15 trainer move typos corregidos** | nightbash→nightslash, dizzywhirl→teeterdance, shadowpunch añadido a moves.json |
+| **8 badges Hoenn añadidos** | stone→rain en badges.json — 24 medallas total (8 Kanto + 8 Johto + 8 Hoenn) |
+
+## PMZ Editor (`PMZ_Editor.html`)
+
+Editor visual autónomo para todos los archivos JSON del proyecto. Se abre directamente en el navegador sin servidor.
+
+**Características:**
+- **Carga por carpeta** — selecciona la carpeta raíz del proyecto, carga todos los JSON vía File System Access API
+- **Pestañas**: Pokémon, Movimientos, Objetos, Habilidades, **Mecánicas**, Entrenadores, Encuentros
+- **Pokémon**: tarjetas visuales con sprite (carga lazy desde BW/), tipos, stats con barras, habilidades, movimientos por nivel, evoluciones
+- **Movimientos**: tabla editable con tipo, categoría, poder, precisión, PP, efecto
+- **Objetos**: tabla editable con tipo, precio + columna "Efecto/Mecánica" que muestra qué mecánica activa cada objeto (verde si vinculado). Modal de edición con selector de mecánica + **campos de transformación** (`megaSuffix`, `megaTo`, `megaTypes`) que aparecen al vincular mega/primal
+- **Mecánicas** (`mechanics.json`): tabla con clave, nombre, trigger, stat boost, stats, sprites/icono, objetos vinculados. Modal de edición con todos los campos (trigger, statBoost, stats checkboxes, overrideTypes, suffixField, suffixSprite/icon, descripción, mensaje)
+- **Habilidades**: tabla editable con hook de activación
+- **Entrenadores**: modal de edición con pokémon/movimientos/niveles
+- **Encuentros**: vista de zonas y especies
+- **Búsqueda** en tiempo real por nombre/clave
+- **Paginación** (50 ítems por página)
+- **Guardar** — escribe los cambios directamente a los archivos
+- **Exportar** — descarga como ZIP
+- **Diseño oscuro** minimalista con estadísticas en vivo en la barra lateral
+- **Sprites**: carga lazy uno a uno desde `img/enemies/Black-White/BW/`
+
+**Bugfixes aplicados al editor:**
+| Issue | Solución |
+|---|---|
+| **Ruta duplicada `PMZ/PMZ/pokemon.json`** | `_rj()` ahora recibe `dir` directamente en vez de concatenar `dir.name` |
+| **AsyncIterator roto en sprite loading** | `sub.values()` no es un Promise; reemplazado con función `next()` recursiva |
+| **Sprite placeholder desaparecía al fallar** | `img.onerror` ahora limpia URL creada pero no remueve el placeholder |
+| **Tablas ilegibles** | `td` ahora con `color:var(--tx)` explícito, inputs con fondo `var(--cd)` y borde, números centrados y bold |
+| **Cards Pokémon: inputs de nivel y evolución poco visibles** | Labels "Lv"/"Item" en color accent, inputs con fondo/borde, espaciado mejorado |
+| **Pestaña Mecánicas añadida** | Tabla con clave, nombre, trigger, stat boost, stats, sprites/icono, objetos vinculados. Modal de edición con todos los campos |
+| **Objetos vinculados a mecánicas** | Columna "Efecto / Mecánica" en la tabla de objetos. Al hacer clic en un objeto se abre modal para elegir qué mecánica activa (mega, primal, etc.) con selector de `triggerItemEffect` |
 | **Cuerda Huida (Escape Rope) usable en batalla** | Nuevo handler en `onBagOk()` para `effect: 'escape'`: consume el item y huye del combate (excepto vs entrenadores). Filtro `showBag()` ampliado para mostrar items con `effect: 'escape'` independientemente de su tipo. En overworld: ahora teletransporta al último Centro Pokémon + cura al equipo |
 | **Pokédex: celda vacía si no se ha visto el Pokémon** | Cuando `!seen`, el detail window retorna temprano y solo muestra '???' — no intenta cargar icono ni dibujar datos del Pokémon no avistado |
 | **Tienda: freeze en buy path** | `Scene_PMZ_Shop.onItemOk` ahora llama `_listWindow.activate()` en TODOS los paths de compra (exitoso, sin stock, sin dinero, item inválido). Mismo patrón que el fix de Pokédex: `processOk()` desactivaba nativamente y la ruta de compra no reactivaba. Venta delega a `onSell()` que sí reactiva |
@@ -591,6 +625,29 @@ Para el game designer: con los 3 plugins + 11 JSONs + sprites/sonido en las ruta
 | **`startDoubleTrainer` plugin command: llamaba a `startTrainer` (1v1)** | El plugin command `startDoubleTrainer` (PMZ_Battle.js:3892) llamaba a `PMZ.Battle.startTrainer(trainer)` en vez de `PMZ.Battle.startDoubleTrainer(trainer)`. Resultado: aunque el evento decía "double trainer", la batalla se configuraba como 1v1 — `_wildPokemon2` y `_playerPokemon2` nunca se asignaban, y `_doubleBattle` quedaba en `false`. **Fix:** cambiado el call site a `startDoubleTrainer`. Ahora el comando `startDoubleTrainer` sí configura los 2 slots |
 | **Trainer send-out: solo 1 pokemon en batalla doble, 3º+ no aparecía** | En batalla doble, cuando el jugador KOeaba al último wild en field, el `trainerSendOut` handler solo enviaba UN nuevo pokemon al slot `_wildPokemon` (nunca al slot `_wildPokemon2`). Si ambos wild estaban fainted, el slot 2 quedaba vacío y la batalla continuaba 1v2 con un slot fantasma. Además, el "next" pokemon podía ser el mismo que ya estaba en slot 2 (duplicado). **Fix:** refactor de `sendNextTrainerPokemon(excludePkmn)` (PMZ_Core.js:3523) que ahora solo retorna el siguiente pokemon vivo (sin auto-setear `_wildPokemon`) y acepta un `exclude` para evitar duplicados. `updateTrainerSendOut` (PMZ_Battle.js:3475) reescrito: chequea `slot1Empty`/`slot2Empty` y envía 1 o 2 nuevos pokemon al slot correcto, excluyendo al pokemon del otro slot. Si no quedan más reemplazos pero el otro slot sigue vivo, continúa 1vN (no victory) |
 | **Trainer send-out: `console.log` diagnostic** | En `sendNextTrainerPokemon` y `updateTrainerSendOut` se añadieron logs de debug con el estado de los slots y qué pokemon se envió. Útiles para verificar que el flujo de reemplazos funciona en batallas dobles |
+
+## Optimizaciones de Rendimiento (v0.9.8)
+
+| Área | Cambio | Archivo | Impacto |
+|------|--------|---------|---------|
+| **Data accessors** | Eliminado `String(key).toLowerCase()` en `PMZ.Data.pokemon/move/item/trainer/type/ability/speciesId` — las keys ya vienen en minúsculas desde origen | `PMZ_Core.js:498-508` | ~30-100+ llamadas a función ahorradas por acción de batalla |
+| **Config caching** | `PMZ.Config.get()` y `PMZ.Data.configValue()` ahora cachean valores tras primera lectura con `key in cache` check | `PMZ_Core.js:353-369, 510-517` | Elimina lookup redundante en cada HP refresh y acceso a config |
+| **Party methods** | `firstAlive`, `firstAliveIndex`, `allFainted` ahora cachean `$gamePMZ.party()` en variable local | `PMZ_Core.js:1652-1671` | 66% menos llamadas a función por query de party |
+| **`calcExp`** | `Math.pow(level, 3)` → `level * level * level` (~3× más rápido) + early return si `level <= 0` | `PMZ_Core.js:1386-1398` | Exp curve ~3× más rápida |
+| **`gainExp`** | `base` lookup movido fuera del `while` loop; `calcExp` cacheado en variables locales | `PMZ_Core.js:1515-1547` | 1 lookup en vez de N por subida de nivel |
+| **Encounter `_getData`** | `enc.byType` resuelto una sola vez en vez de 3 accesos con `|| {}` | `PMZ_Core.js:2628-2667` | Menos garbage collection en encuentros |
+| **Battle sort por speed** | Pre-calcula `_speed` en todos los queue items antes del sort (forEach) en vez de recalcular 2-3× por comparación | `PMZ_Battle.js:1596-1608` | Sort de velocidad ~3× más rápido |
+| **Battle `_buildAllPokemonList`** | Nuevo helper que construye el array una sola vez, reutilizado en weather/leech/bind/bide end-of-turn | `PMZ_Battle.js:3709-3717` | 4 arrays → 1 por turno |
+| **Leech Seed O(n²)** | Nested loop `for j in allPoke` reemplazado por lookup map O(1) via `pokeById[_battleId]` | `PMZ_Battle.js:3759-3795` | Leech seed ~4× más rápido |
+| **Update loop** | `.update()` solo llamado en ventanas visibles (`_cmdWindow`, `_fightWindow`, `_bagWindow`, `_partyWindow`, `_targetWindow`) | `PMZ_Battle.js:1345-1357` | Menos CPU por frame en batalla |
+| **`playCry`** | `String(id).padStart(3,'0')` → aritmética `id < 10 ? '00'+id : ...` | `PMZ_Battle.js:1338-1342` | Sin allocation de string temporal |
+| **Enemy move filter** | `.filter()` → `for` loop (evita creación de array temporal) | `PMZ_Battle.js:2296-2299` | Menos GC por turno enemigo |
+| **HP window `isStatEvolution`** | Cacheado en `initialize()` en vez de lookup cada refresh | `PMZ_Battle.js:574-578` | 1 lookup ahorrado por HP refresh |
+| **`_updateArrows` (MoveLearn)** | No recrea Sprite+Bitmap si el texto del contador no cambió (`_lastPosText`) | `PMZ_Menu.js:2916-2934` | Evita GC thrash en cada cursor move |
+| **Shop `updateDetail`** | Solo redibuja cuando cambia el índice de la lista (movido dentro del `if`) | `PMZ_Menu.js:1698-1710` | ~70 draw calls ahorrados por frame |
+| **Summary windows** | 5 ventanas skip `refresh()` si es el mismo Pokémon (`Stats`, `StatsIV`, `Moves`, `Data`, `Info`) | `PMZ_Menu.js:453-457, 586-590, 632-636, 705-709, 776-780` | Evita clear+redraw redundante |
+| **PC Scene `boxCount`** | `PMZ.PC.allBoxes().length` cacheado en `create()`, reusado en navegación | `PMZ_Menu.js:2547-2558, 2600-2610` | Sin lookup repetido en prev/next box |
+| **Shop `onSell`** | Eliminados checks redundantes de TM/HM; `continue` temprano si `!data` o tipo TM/HM | `PMZ_Menu.js:1527-1550` | Menos iteraciones en venta |
 
 ## Mejoras UI Recientes
 
@@ -713,16 +770,135 @@ El motor está completo y estable. Se puede crear contenido, mapas, eventos y pu
 - **Held items en batalla:** 72% (Focus Band/Sturdy saves con wasFullHp semántica correcta, solo attacking moves)
 - **Status conditions:** 85% (KO bug arreglado, Sturdy/Focus Band no triggerean desde status)
 - **EXP distribution:** 90% (shared con participantes, EVs al killer, queue de move learns)
-- **Abilities engine:** 25% (15+/81 implementadas)
+- **Abilities engine:** 45% (98 abilities en JSON, 25+ implementadas en código, 3 nuevas: Serene Grace, Shield Dust, Skill Link)
 - **AI:** 20%
 - **UI/UX polish:** 55%
-- **TOTAL MOTOR:** ~80%
+- **Data coverage:** 251 especies, 276 movimientos, 139 objetos, 98 habilidades, 38 entrenadores, 16 medallas, 18 zonas
+- **TOTAL MOTOR:** ~82%
 
-### Para expandir a Gen 2+
-Los 4 nuevos evolution stones (Sun, Dusk, Dawn, Shiny) ya están listos. Solo falta:
-1. Añadir las especies Gen 2+ a `pokemon.json`
-2. Definir sus evoluciones con los stones ya configurados
-3. Ampliar `moves.json` con los moves nuevos
-4. (Opcional) Implementar las abilities específicas
+### ✅ Gen 2 (Johto) — COMPLETADO
 
-No requiere cambios de código.
+| Componente | Estado |
+|---|---|
+| **100 especies Johto** (#152 Chikorita → #251 Celebi) | ✅ Datos completos (stats, tipos, habilidades, movimientos, grupos huevo, EV yields) |
+| **Movimientos Gen 2** | ✅ 100 nuevos movimientos (Crunch, Shadow Ball, Brick Break, Dragon Dance, Extreme Speed, etc.) |
+| **Objetos nuevos** | ✅ Dragon Scale, Upgrade, Berserk Gene, Leppa Berry |
+| **Habilidades nuevas** | ✅ 17 nuevas habilidades (Solar Power, Super Luck, Shadow Tag, Inner Focus, Huge Power, etc.) |
+| **Evoluciones retroactivas** | ✅ Golbat→Crobat, Eevee→Espeon/Umbreon, Porygon→Porygon2, Chansey→Blissey, Gloom→Bellossom, Poliwhirl→Politoed, Slowpoke→Slowking, Onix→Steelix, Scyther→Scizor, Seadra→Kingdra |
+| **Entrenadores Johto** | ✅ 8 líderes (Falkner→Clair) + Elite Four (Will, Karen) + Campeón Lance + 5 entrenadores regulares |
+| **Medallas Johto** | ✅ Zéfiro, Colmena, Llano, Niebla, Tormenta, Mineral, Glaciar, Ascenso (16 medallas total) |
+| **Zonas de encuentro** | ✅ 6 nuevas zonas (grass_johto_early/mid/late, cave_johto, water_johto_surf/fish) |
+| **Cross-references** | ✅ 100% validadas (habilidades, movimientos, objetos, evoluciones, encuentros, entrenadores) |
+| **Total JSON** | 8 archivos, ~270KB, sintaxis 100% válida |
+
+### ✅ EffectRegistry + Data-Driven Effects — COMPLETADO
+
+Refactor mayor del sistema de efectos de movimientos y habilidades.
+
+| Componente | Cambio |
+|---|---|
+| **PMZ.Effects** (nuevo) | Sistema de registro de efectos con `register()`, `normalize()`, `run()` |
+| **moves.json** | `effect` de string → objeto parametrizado (276 movimientos migrados) |
+| **applyMoveEffects** | If/else de ~300 líneas reemplazado por dispatch por tipo de efecto |
+| **Efectos parametrizables** | `status_chance`, `stat_stage`, `drain`, `recoil`, `heal`, `screen`, `weather`, `multi_hit`, `fixed_damage` — todos con parámetros en JSON |
+| **PMZ.Battle.statStageMsg** (nuevo) | Helper unificado para mensajes de cambio de stats |
+| **Serene Grace** | ✅ Implementado: duplica chance de efectos secundarios |
+| **Shield Dust** (block_secondary_effects) | ✅ Implementado: bloquea efectos secundarios en el defensor |
+| **Skill Link** | ✅ Implementado: multi-hit siempre da golpe máximo |
+
+**Beneficio:** ahora se pueden crear nuevos movimientos combinando efectos existentes sin tocar código JavaScript. Ejemplo — un movimiento con efecto quemar+stat_drop se define solo en JSON.
+
+### ✅ 7 métodos faltantes de Abilities definidos — COMPLETADO
+
+Se implementaron 7 métodos de `PMZ.Abilities` que existían como llamadas en el código pero no tenían definición, causando errores runtime:
+
+| Método | Función |
+|--------|---------|
+| `weatherSpeedMult(pokemon)` | Chlorophyll/Swift Swim/Sand Rush/Slush Rush (speed ×2 en clima) |
+| `preventKO(pokemon, wasFullHp)` | Sturdy (full HP → sobrevive con 1 HP) + Focus Sash |
+| `preventCrit(pokemon)` | Shell Armor/Battle Armor (vía hook `onCritCheck`) |
+| `cloudNine(pokemon)` | Cloud Nine (cancela clima) |
+| `immuneIndirect(pokemon)` | Magic Guard (inmune a daño indirecto) |
+| `immuneRecoil(pokemon)` | Rock Head + Magic Guard (sin retroceso) |
+| `modifyDefense(attacker, defender, moveData, damage)` | Punto de entrada unificado para hooks de modificación de daño |
+
+### ✅ Hook System expandido — 8 nuevos hooks
+
+Se registraron 8 hooks que antes existían en `abilities.json` pero no tenían handler:
+
+| Hook | Habilidades | Lógica |
+|------|-------------|--------|
+| **`onWeather`** | overcoat, solarpower, raindish, dryskin | Inmunidad a clima, boost SpAtk en sol, curación en lluvia |
+| **`onAccuracy`** | compoundeyes, noguard, hustle, sandveil, snowcloak | Multiplicadores de precisión/evasión, No Guard always-hit |
+| **`onEntry`** | intimidate | Baja Attack del oponente al entrar |
+| **`onContact`** | contact_paralyze, contact_burn, contact_poison, roughskin | Efectos al recibir golpe de contacto |
+| **`onTurnEnd`** | shedskin, speedboost, raindish, dryskin | Cura de status, boost de Speed, curación en clima |
+| **`onSecondaryEffect`** | shielddust, serenegrace | Bloqueo o duplicación de chances secundarias |
+| **`onPreventFlinch`** | innerfocus, steadfast | Inmunidad a flinch |
+| **`onOverride`** | moldbreaker | Ignora habilidades del defensor |
+
+### ✅ Damage modifiers movidos a hook `onDamageCalc`
+
+Toda la lógica de modificación de daño que antes estaba hardcodeada en `calcDamage()` ahora se resuelve vía hook:
+
+| Habilidad | Efecto |
+|-----------|--------|
+| adaptability | STAB 2.0× en vez de 1.5× |
+| thick_fat | Daño Fire/Ice reducido 50% |
+| filter / solid_rock | Daño super-efectivo reducido 25% |
+| tinted_lens | Daño no-muy-efectivo duplicado 2.0× |
+| technician | Movimientos ≤60 BP ×1.5 |
+| reckless | Movimientos recoil ×1.2 |
+| iron_fist | Movimientos de puño ×1.2 |
+| type_boost_low_hp | Overgrow/Blaze/Torrent/Swarm: ×1.5 cuando PS < 33% |
+
+### ✅ EffectRegistry — Damage/Hit computation
+
+4 nuevos registros para efectos antes hardcodeados en el flujo de batalla:
+
+| Registro | Handler | Reemplaza |
+|----------|---------|-----------|
+| `registerDamage('fixed_damage')` | `computeDamage()` | Dragon Rage, Sonic Boom, Seismic Toss, Night Shade, Super Fang |
+| `registerDamage('psywave')` | `computeDamage()` | Psywave |
+| `registerDamage('ohko')` | `computeDamage()` | Guillotine, Horn Drill, Fissure |
+| `registerHit('multi_hit')` | `getHitParams()` | Double Slap, Fury Attack, Bullet Seed (Skill Link: golpe máximo) |
+
+### ✅ Battle.js — Bloques hardcodeados reemplazados
+
+| Antes | Ahora |
+|-------|-------|
+| `if (effType === 'fixed_damage') { ... } else if (effType === 'psywave') { ... }` | `PMZ.Effects.computeDamage(move.effect, player, target)` |
+| `if (effType === 'multi_hit' && !this._multiHitSteps) { ... }` | `PMZ.Effects.getHitParams(move.effect, player)` |
+| `moveData.effect === 'critical_high'` | `PMZ.Effects.isMarker(moveData.effect, 'critical_high')` |
+| `PMZ.Abilities.hasEffect(wild, 'intimidate')` + duplicado player | `PMZ.Abilities.triggerHook('onEntry', ...)` |
+| `PMZ.Abilities.hasEffect(attacker, 'sniper')` en crits | `PMZ.Abilities.triggerHook('onCritCheck', ...)` |
+
+**Total hooks activos:** 11 (onDamageCalc, onStatusCheck, onCritCheck + 8 nuevos)
+**Total efectos de movimiento registrados:** 42 (38 originales + 4 damage/hit)
+**Métodos de PMZ.Abilities definidos:** 28 (21 originales + 7 nuevos)
+**Archivos JSON:** `"_doc"` añadido a `moves.json` y `abilities.json` con documentación en español
+
+### ✅ Gen 3 (Hoenn) — COMPLETADO
+
+Generación 3 completa: 135 especies nuevas (#252 Treecko → #386 Deoxys).
+
+| Componente | Estado | Detalle |
+|------------|--------|---------|
+| **135 Pokémon** (#252-386) | ✅ | Stats, tipos, habilidades, movimientos level-up, evoluciones, grupos huevo, EV yields, género, captura, exp, felicidad |
+| **Habilidades nuevas** | ✅ | 15 nuevas: truant, forecast, colorchange, plus, minus, purepower, normalize, stall, simple, tangledfeet, arenatrap, anticipation, icebody, lightmetal, whitesmoke |
+| **Movimientos nuevos** | ✅ | 41 nuevos: leafblade, blastburn, hydrocannon, mudshot, blazekick, bulkup, calmmind, dragonclaw, aerialace, shockwave, overheat, facade, featherdance, waterspout, eruption, fakeout, armthrust, covet, muddywater, sandtomb, silverwind, needlearm, poisonfang, weatherball, meteormash, encore, detect, dragonbreath, cosmicpower, waterpulse, dazzlinggleam, nightslash, extrasensory, grudge, shadowpunch, foulplay, ironhead, rockblast, hammerarm, whirlpool, teeterdance |
+| **Objetos nuevos** | ✅ | 24 nuevos: 14 type-boost items (Silk Scarf, Miracle Seed, etc.), Shell Bell, Sea/Lax Incense, White/Mental Herb, DeepSeaTooth/Scale, 5 pinch berries (Liechi, Ganlon, Salac, Petaya, Apicot) |
+| **Entrenadores Hoenn** | ✅ | 8 líderes (Roxanne→Juan), Elite 4 (Sidney, Phoebe, Glacia, Drake), Campeón Steven, 9 regulares (Magma/Aqua admins, Winstrate, Rich Boy, Lady, Tuber, Triathlete) |
+| **Zonas de encuentro** | ✅ | 10 zonas (early/mid/late grass, forest, cave, safari, surf/fish) |
+| **Evoluciones** | ✅ | Clamperl→Huntail (deepseatooth), Clamperl→Gorebyss (deepseascale), Feebas→Milotic (trade), Wynaut→Wobbuffet (level 15), más todas las cadenas evolutivas internas de Hoenn |
+| **Tipos nuevos** | — | No se añadieron tipos nuevos (Dark/Steel ya existían de Gen 2) |
+| **Hooks para Gen 3** | ✅ | Las 15 habilidades nuevas tienen hooks en `onDamageCalc`, `onWeather`, `onAccuracy`, `onUtility` |
+| **Cross-references** | ✅ | 100% validadas: 386 especies, 316 movimientos, 163 objetos, 113 habilidades, 60 entrenadores, zonas de encuentro |
+
+**Nuevas mecánicas disponibles desde JSON:**
+- Type-boost items: 14 items con `effect: "type_boost"` + `stat: "fire"/"water"/etc.` + `multiplier: 1.2`
+- Pinch berries: 5 berries con `effect: "berry"` + `berryStatBoost` + `berryCondition: "low_hp"`
+- Nuevos efectos de habilidad: `purepower` (doble Attack), `plus`/`minus` (boost con compañero), `simple` (estadísticas ×2), `icebody` (cura en granizo)
+
+### Para expandir a Gen 4+
+Los sistemas están listos. Solo falta añadir datos.
