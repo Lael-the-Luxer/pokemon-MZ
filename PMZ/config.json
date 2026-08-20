@@ -95,5 +95,13 @@
     "treecko",
     "torchic",
     "mudkip"
-  ]
+  ],
+  "hgss": {
+    "enabled": true,
+    "perspectiveDeg": 4,
+    "scaleDepth": true,
+    "minScale": 0.85,
+    "smoothCamera": true,
+    "smoothSpeed": 0.08
+  }
 }

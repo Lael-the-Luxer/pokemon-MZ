@@ -28,7 +28,7 @@
     "captureRate": 255
   },
   "potion": {
-    "id": 10,
+    "id": 5,
     "name": "Potion",
     "type": "medicine",
     "price": 300,
@@ -36,7 +36,7 @@
     "power": 20
   },
   "superpotion": {
-    "id": 11,
+    "id": 6,
     "name": "Super Potion",
     "type": "medicine",
     "price": 700,
@@ -44,7 +44,7 @@
     "power": 50
   },
   "hyperpotion": {
-    "id": 12,
+    "id": 7,
     "name": "Hyper Potion",
     "type": "medicine",
     "price": 1200,
@@ -52,7 +52,7 @@
     "power": 200
   },
   "maxpotion": {
-    "id": 13,
+    "id": 8,
     "name": "Max Potion",
     "type": "medicine",
     "price": 2500,
@@ -60,14 +60,14 @@
     "power": "full"
   },
   "fullrestore": {
-    "id": 14,
+    "id": 9,
     "name": "Full Restore",
     "type": "medicine",
     "price": 3000,
     "effect": "full_heal"
   },
   "antidote": {
-    "id": 15,
+    "id": 10,
     "name": "Antidote",
     "type": "medicine",
     "price": 100,
@@ -75,7 +75,7 @@
     "status": "poison"
   },
   "paralyzeheal": {
-    "id": 16,
+    "id": 11,
     "name": "Paralyze Heal",
     "type": "medicine",
     "price": 200,
@@ -83,7 +83,7 @@
     "status": "paralyze"
   },
   "burnheal": {
-    "id": 17,
+    "id": 12,
     "name": "Burn Heal",
     "type": "medicine",
     "price": 250,
@@ -91,7 +91,7 @@
     "status": "burn"
   },
   "iceheal": {
-    "id": 18,
+    "id": 13,
     "name": "Ice Heal",
     "type": "medicine",
     "price": 250,
@@ -99,7 +99,7 @@
     "status": "freeze"
   },
   "awakening": {
-    "id": 19,
+    "id": 14,
     "name": "Awakening",
     "type": "medicine",
     "price": 200,
@@ -107,14 +107,14 @@
     "status": "sleep"
   },
   "fullheal": {
-    "id": 20,
+    "id": 15,
     "name": "Full Heal",
     "type": "medicine",
     "price": 600,
     "effect": "cure_all_status"
   },
   "revive": {
-    "id": 21,
+    "id": 16,
     "name": "Revive",
     "type": "medicine",
     "price": 1500,
@@ -122,7 +122,7 @@
     "power": "half"
   },
   "maxrevive": {
-    "id": 22,
+    "id": 17,
     "name": "Max Revive",
     "type": "medicine",
     "price": 4000,
@@ -130,7 +130,7 @@
     "power": "full"
   },
   "ether": {
-    "id": 23,
+    "id": 18,
     "name": "Ether",
     "type": "medicine",
     "price": 1200,
@@ -138,7 +138,7 @@
     "power": 10
   },
   "maxether": {
-    "id": 24,
+    "id": 19,
     "name": "Max Ether",
     "type": "medicine",
     "price": 2000,
@@ -146,7 +146,7 @@
     "power": "full"
   },
   "elixir": {
-    "id": 25,
+    "id": 20,
     "name": "Elixir",
     "type": "medicine",
     "price": 3000,
@@ -154,7 +154,7 @@
     "power": 10
   },
   "maxelixir": {
-    "id": 26,
+    "id": 21,
     "name": "Max Elixir",
     "type": "medicine",
     "price": 4500,
@@ -162,70 +162,70 @@
     "power": "full"
   },
   "firestone": {
-    "id": 30,
+    "id": 22,
     "name": "Fire Stone",
     "type": "evolution",
     "price": 2100,
     "description": "Evoluciona ciertos Pokémon."
   },
   "waterstone": {
-    "id": 31,
+    "id": 23,
     "name": "Water Stone",
     "type": "evolution",
     "price": 2100,
     "description": "Evoluciona ciertos Pokémon."
   },
   "thunderstone": {
-    "id": 32,
+    "id": 24,
     "name": "Thunder Stone",
     "type": "evolution",
     "price": 2100,
     "description": "Evoluciona ciertos Pokémon."
   },
   "leafstone": {
-    "id": 33,
+    "id": 25,
     "name": "Leaf Stone",
     "type": "evolution",
     "price": 2100,
     "description": "Evoluciona ciertos Pokémon."
   },
   "moonstone": {
-    "id": 34,
+    "id": 26,
     "name": "Moon Stone",
     "type": "evolution",
     "price": 2100,
     "description": "Evoluciona ciertos Pokémon."
   },
   "sunstone": {
-    "id": 35,
+    "id": 27,
     "name": "Sun Stone",
     "type": "evolution",
     "price": 2100,
     "description": "Evoluciona ciertos Pokémon."
   },
   "duskstone": {
-    "id": 36,
+    "id": 28,
     "name": "Dusk Stone",
     "type": "evolution",
     "price": 2100,
     "description": "Evoluciona ciertos Pokémon."
   },
   "dawnstone": {
-    "id": 37,
+    "id": 29,
     "name": "Dawn Stone",
     "type": "evolution",
     "price": 2100,
     "description": "Evoluciona ciertos Pokémon (Mach♀/Burmy♀)."
   },
   "shinystone": {
-    "id": 38,
+    "id": 30,
     "name": "Shiny Stone",
     "type": "evolution",
     "price": 2100,
     "description": "Evoluciona ciertos Pokémon."
   },
   "repel": {
-    "id": 40,
+    "id": 31,
     "name": "Repel",
     "type": "field",
     "price": 350,
@@ -233,7 +233,7 @@
     "steps": 100
   },
   "superrepel": {
-    "id": 41,
+    "id": 32,
     "name": "Super Repel",
     "type": "field",
     "price": 500,
@@ -241,7 +241,7 @@
     "steps": 200
   },
   "maxrepel": {
-    "id": 42,
+    "id": 33,
     "name": "Max Repel",
     "type": "field",
     "price": 700,
@@ -249,14 +249,14 @@
     "steps": 250
   },
   "escaperope": {
-    "id": 43,
+    "id": 34,
     "name": "Escape Rope",
     "type": "field",
     "price": 550,
     "effect": "escape"
   },
   "hmsurf": {
-    "id": 50,
+    "id": 35,
     "name": "HM03 Surf",
     "type": "hm",
     "price": 0,
@@ -264,7 +264,7 @@
     "description": "Mueve al jugador sobre el agua."
   },
   "hmcut": {
-    "id": 51,
+    "id": 36,
     "name": "HM01 Cut",
     "type": "hm",
     "price": 0,
@@ -272,7 +272,7 @@
     "description": "Corta árboles pequeños."
   },
   "hmfly": {
-    "id": 52,
+    "id": 37,
     "name": "HM02 Fly",
     "type": "hm",
     "price": 0,
@@ -280,7 +280,7 @@
     "description": "Vuela a lugares ya visitados."
   },
   "hmstrength": {
-    "id": 53,
+    "id": 38,
     "name": "HM04 Strength",
     "type": "hm",
     "price": 0,
@@ -288,7 +288,7 @@
     "description": "Mueve rocas pesadas."
   },
   "hmflash": {
-    "id": 54,
+    "id": 39,
     "name": "HM05 Flash",
     "type": "hm",
     "price": 0,
@@ -296,7 +296,7 @@
     "description": "Ilumina cuevas oscuras."
   },
   "tm01": {
-    "id": 70,
+    "id": 48,
     "name": "TM01 Focus Punch",
     "type": "tm",
     "price": 3000,
@@ -304,7 +304,7 @@
     "description": "Enseña un potente puñetazo (versión de Puño Foco)."
   },
   "tm02": {
-    "id": 71,
+    "id": 50,
     "name": "TM02 Dragon Claw",
     "type": "tm",
     "price": 3000,
@@ -312,7 +312,7 @@
     "description": "Enseña un tajo cortante."
   },
   "tm03": {
-    "id": 72,
+    "id": 52,
     "name": "TM03 Water Gun",
     "type": "tm",
     "price": 3000,
@@ -320,7 +320,7 @@
     "description": "Enseña Pistola Agua."
   },
   "tm04": {
-    "id": 73,
+    "id": 54,
     "name": "TM04 Calm Mind",
     "type": "tm",
     "price": 3000,
@@ -328,7 +328,7 @@
     "description": "Enseña a meditar y subir At.Esp."
   },
   "tm05": {
-    "id": 74,
+    "id": 56,
     "name": "TM05 Roar",
     "type": "tm",
     "price": 3000,
@@ -336,7 +336,7 @@
     "description": "Enseña Rugido."
   },
   "tm06": {
-    "id": 75,
+    "id": 58,
     "name": "TM06 Toxic",
     "type": "tm",
     "price": 3000,
@@ -344,7 +344,7 @@
     "description": "Enseña Tóxico."
   },
   "tm07": {
-    "id": 76,
+    "id": 60,
     "name": "TM07 Hail",
     "type": "tm",
     "price": 3000,
@@ -352,7 +352,7 @@
     "description": "Enseña Granizo."
   },
   "tm08": {
-    "id": 77,
+    "id": 62,
     "name": "TM08 Bulk Up",
     "type": "tm",
     "price": 3000,
@@ -360,7 +360,7 @@
     "description": "Enseña a fortalecerse."
   },
   "tm09": {
-    "id": 78,
+    "id": 63,
     "name": "TM09 Bullet Seed",
     "type": "tm",
     "price": 3000,
@@ -368,7 +368,7 @@
     "description": "Enseña hojas cortantes."
   },
   "tm10": {
-    "id": 79,
+    "id": 64,
     "name": "TM10 Hidden Power",
     "type": "tm",
     "price": 3000,
@@ -376,7 +376,7 @@
     "description": "Enseña Swift (nunca falla)."
   },
   "tm11": {
-    "id": 80,
+    "id": 65,
     "name": "TM11 Sunny Day",
     "type": "tm",
     "price": 3000,
@@ -384,7 +384,7 @@
     "description": "Enseña Día Soleado."
   },
   "tm12": {
-    "id": 81,
+    "id": 67,
     "name": "TM12 Taunt",
     "type": "tm",
     "price": 3000,
@@ -392,7 +392,7 @@
     "description": "Enseña un chirrido irritante."
   },
   "tm13": {
-    "id": 82,
+    "id": 69,
     "name": "TM13 Ice Beam",
     "type": "tm",
     "price": 3000,
@@ -400,7 +400,7 @@
     "description": "Enseña Rayo Hielo."
   },
   "tm14": {
-    "id": 83,
+    "id": 71,
     "name": "TM14 Blizzard",
     "type": "tm",
     "price": 3000,
@@ -408,7 +408,7 @@
     "description": "Enseña Ventisca."
   },
   "tm15": {
-    "id": 84,
+    "id": 73,
     "name": "TM15 Hyper Beam",
     "type": "tm",
     "price": 3000,
@@ -416,7 +416,7 @@
     "description": "Enseña Hiperrayo."
   },
   "tm16": {
-    "id": 85,
+    "id": 75,
     "name": "TM16 Light Screen",
     "type": "tm",
     "price": 3000,
@@ -424,7 +424,7 @@
     "description": "Enseña Pantalla de Luz."
   },
   "tm17": {
-    "id": 86,
+    "id": 78,
     "name": "TM17 Protect",
     "type": "tm",
     "price": 3000,
@@ -432,7 +432,7 @@
     "description": "Enseña a crear una barrera."
   },
   "tm18": {
-    "id": 87,
+    "id": 80,
     "name": "TM18 Rain Dance",
     "type": "tm",
     "price": 3000,
@@ -440,7 +440,7 @@
     "description": "Enseña Danza Lluvia."
   },
   "tm19": {
-    "id": 88,
+    "id": 81,
     "name": "TM19 Giga Drain",
     "type": "tm",
     "price": 3000,
@@ -448,7 +448,7 @@
     "description": "Enseña Megadrenado."
   },
   "tm20": {
-    "id": 89,
+    "id": 82,
     "name": "TM20 Safeguard",
     "type": "tm",
     "price": 3000,
@@ -456,7 +456,7 @@
     "description": "Enseña Velo Sagrado."
   },
   "tm21": {
-    "id": 90,
+    "id": 84,
     "name": "TM21 Frustration",
     "type": "tm",
     "price": 3000,
@@ -464,7 +464,7 @@
     "description": "Enseña Furia."
   },
   "tm22": {
-    "id": 91,
+    "id": 86,
     "name": "TM22 Solar Beam",
     "type": "tm",
     "price": 3000,
@@ -472,7 +472,7 @@
     "description": "Enseña Rayo Solar."
   },
   "tm23": {
-    "id": 92,
+    "id": 88,
     "name": "TM23 Iron Tail",
     "type": "tm",
     "price": 3000,
@@ -480,7 +480,7 @@
     "description": "Enseña un coletazo feroz."
   },
   "tm24": {
-    "id": 93,
+    "id": 90,
     "name": "TM24 Thunderbolt",
     "type": "tm",
     "price": 3000,
@@ -488,7 +488,7 @@
     "description": "Enseña Rayo."
   },
   "tm25": {
-    "id": 94,
+    "id": 92,
     "name": "TM25 Thunder",
     "type": "tm",
     "price": 3000,
@@ -496,7 +496,7 @@
     "description": "Enseña Trueno."
   },
   "tm26": {
-    "id": 95,
+    "id": 94,
     "name": "TM26 Earthquake",
     "type": "tm",
     "price": 3000,
@@ -512,7 +512,7 @@
     "description": "Enseña un golpe con retroceso."
   },
   "tm28": {
-    "id": 97,
+    "id": 98,
     "name": "TM28 Dig",
     "type": "tm",
     "price": 3000,
@@ -520,7 +520,7 @@
     "description": "Enseña Excavar."
   },
   "tm29": {
-    "id": 98,
+    "id": 100,
     "name": "TM29 Psychic",
     "type": "tm",
     "price": 3000,
@@ -528,7 +528,7 @@
     "description": "Enseña Psíquico."
   },
   "tm30": {
-    "id": 99,
+    "id": 102,
     "name": "TM30 Shadow Ball",
     "type": "tm",
     "price": 3000,
@@ -536,7 +536,7 @@
     "description": "Enseña un rayo sombrío."
   },
   "tm31": {
-    "id": 100,
+    "id": 104,
     "name": "TM31 Brick Break",
     "type": "tm",
     "price": 3000,
@@ -544,7 +544,7 @@
     "description": "Enseña un lanzamiento de combate."
   },
   "tm32": {
-    "id": 101,
+    "id": 106,
     "name": "TM32 Double Team",
     "type": "tm",
     "price": 3000,
@@ -552,7 +552,7 @@
     "description": "Enseña Doble Equipo."
   },
   "tm33": {
-    "id": 102,
+    "id": 108,
     "name": "TM33 Reflect",
     "type": "tm",
     "price": 3000,
@@ -560,7 +560,7 @@
     "description": "Enseña Reflejo."
   },
   "tm34": {
-    "id": 103,
+    "id": 110,
     "name": "TM34 Shock Wave",
     "type": "tm",
     "price": 3000,
@@ -568,7 +568,7 @@
     "description": "Enseña una descarga rápida."
   },
   "tm35": {
-    "id": 104,
+    "id": 112,
     "name": "TM35 Flamethrower",
     "type": "tm",
     "price": 3000,
@@ -576,7 +576,7 @@
     "description": "Enseña Lanzallamas."
   },
   "tm36": {
-    "id": 105,
+    "id": 114,
     "name": "TM36 Sludge Bomb",
     "type": "tm",
     "price": 3000,
@@ -584,7 +584,7 @@
     "description": "Enseña Bomba Lodo."
   },
   "tm37": {
-    "id": 106,
+    "id": 116,
     "name": "TM37 Sandstorm",
     "type": "tm",
     "price": 3000,
@@ -592,7 +592,7 @@
     "description": "Enseña Tormenta Arena."
   },
   "tm38": {
-    "id": 107,
+    "id": 118,
     "name": "TM38 Fire Blast",
     "type": "tm",
     "price": 3000,
@@ -600,7 +600,7 @@
     "description": "Enseña Llamarada."
   },
   "tm39": {
-    "id": 108,
+    "id": 120,
     "name": "TM39 Rock Tomb",
     "type": "tm",
     "price": 3000,
@@ -608,7 +608,7 @@
     "description": "Enseña Tumba Rocas."
   },
   "tm40": {
-    "id": 109,
+    "id": 122,
     "name": "TM40 Aerial Ace",
     "type": "tm",
     "price": 3000,
@@ -616,7 +616,7 @@
     "description": "Enseña Swift (nunca falla)."
   },
   "tm41": {
-    "id": 110,
+    "id": 124,
     "name": "TM41 Torment",
     "type": "tm",
     "price": 3000,
@@ -624,7 +624,7 @@
     "description": "Enseña Tormento."
   },
   "tm42": {
-    "id": 111,
+    "id": 126,
     "name": "TM42 Facade",
     "type": "tm",
     "price": 3000,
@@ -632,7 +632,7 @@
     "description": "Enseña un golpe directo."
   },
   "tm43": {
-    "id": 112,
+    "id": 127,
     "name": "TM43 Secret Power",
     "type": "tm",
     "price": 3000,
@@ -640,7 +640,7 @@
     "description": "Enseña Poder Secreto."
   },
   "tm44": {
-    "id": 113,
+    "id": 128,
     "name": "TM44 Rest",
     "type": "tm",
     "price": 3000,
@@ -648,7 +648,7 @@
     "description": "Enseña Descanso."
   },
   "tm45": {
-    "id": 114,
+    "id": 129,
     "name": "TM45 Attract",
     "type": "tm",
     "price": 3000,
@@ -656,7 +656,7 @@
     "description": "Enseña Atracción."
   },
   "tm46": {
-    "id": 115,
+    "id": 130,
     "name": "TM46 Thief",
     "type": "tm",
     "price": 3000,
@@ -664,7 +664,7 @@
     "description": "Enseña Ladrón."
   },
   "tm47": {
-    "id": 116,
+    "id": 131,
     "name": "TM47 Steel Wing",
     "type": "tm",
     "price": 3000,
@@ -672,7 +672,7 @@
     "description": "Enseña Ala de Acero."
   },
   "tm48": {
-    "id": 117,
+    "id": 132,
     "name": "TM48 Skill Swap",
     "type": "tm",
     "price": 3000,
@@ -680,7 +680,7 @@
     "description": "Enseña Intercambio."
   },
   "tm49": {
-    "id": 118,
+    "id": 133,
     "name": "TM49 Snatch",
     "type": "tm",
     "price": 3000,
@@ -688,7 +688,7 @@
     "description": "Enseña Robo."
   },
   "tm50": {
-    "id": 119,
+    "id": 134,
     "name": "TM50 Overheat",
     "type": "tm",
     "price": 3000,
@@ -696,7 +696,7 @@
     "description": "Enseña Sofoco."
   },
   "leftovers": {
-    "id": 60,
+    "id": 40,
     "name": "Leftovers",
     "type": "hold",
     "price": 2000,
@@ -704,7 +704,7 @@
     "description": "Recupera 1/16 de PS max por turno."
   },
   "choiceband": {
-    "id": 61,
+    "id": 41,
     "name": "Choice Band",
     "type": "hold",
     "price": 3000,
@@ -714,7 +714,7 @@
     "description": "Aumenta Ataque 1.5x pero solo usa un movimiento."
   },
   "choicespecs": {
-    "id": 62,
+    "id": 42,
     "name": "Choice Specs",
     "type": "hold",
     "price": 3000,
@@ -724,7 +724,7 @@
     "description": "Aumenta At.Esp. 1.5x pero solo usa un movimiento."
   },
   "choicescarf": {
-    "id": 63,
+    "id": 43,
     "name": "Choice Scarf",
     "type": "hold",
     "price": 3000,
@@ -734,7 +734,7 @@
     "description": "Aumenta Velocidad 1.5x pero solo usa un movimiento."
   },
   "lifeorb": {
-    "id": 64,
+    "id": 44,
     "name": "Life Orb",
     "type": "hold",
     "price": 3000,
@@ -744,7 +744,7 @@
     "description": "Aumenta daño 1.3x pero pierde 10% de PS por ataque."
   },
   "quickclaw": {
-    "id": 68,
+    "id": 45,
     "name": "Quick Claw",
     "type": "hold",
     "price": 2000,
@@ -753,7 +753,7 @@
     "description": "20% de probabilidad de atacar primero."
   },
   "kingsrock": {
-    "id": 69,
+    "id": 46,
     "name": "King's Rock",
     "type": "hold",
     "price": 2000,
@@ -762,7 +762,7 @@
     "description": "10% de probabilidad de hacer retroceder."
   },
   "metalcoat": {
-    "id": 70,
+    "id": 47,
     "name": "Metal Coat",
     "type": "steel",
     "price": 1500,
@@ -771,7 +771,7 @@
     "description": "Potencia movimientos de tipo Acero 1.2x."
   },
   "blackbelt": {
-    "id": 71,
+    "id": 49,
     "name": "Black Belt",
     "type": "fighting",
     "price": 1500,
@@ -780,7 +780,7 @@
     "description": "Potencia movimientos de tipo Lucha 1.2x."
   },
   "mysticwater": {
-    "id": 72,
+    "id": 51,
     "name": "Mystic Water",
     "type": "water",
     "price": 1500,
@@ -789,7 +789,7 @@
     "description": "Potencia movimientos de tipo Agua 1.2x."
   },
   "charcoal": {
-    "id": 73,
+    "id": 53,
     "name": "Charcoal",
     "type": "fire",
     "price": 1500,
@@ -798,7 +798,7 @@
     "description": "Potencia movimientos de tipo Fuego 1.2x."
   },
   "magnet": {
-    "id": 74,
+    "id": 55,
     "name": "Magnet",
     "type": "electric",
     "price": 1500,
@@ -807,7 +807,7 @@
     "description": "Potencia movimientos de tipo Eléctrico 1.2x."
   },
   "miracleberry": {
-    "id": 75,
+    "id": 57,
     "name": "Miracle Berry",
     "type": "hold",
     "price": 800,
@@ -816,7 +816,7 @@
     "description": "Cura cualquier problema de estado al recibirlo."
   },
   "focusband": {
-    "id": 76,
+    "id": 59,
     "name": "Focus Band",
     "type": "hold",
     "price": 2000,
@@ -825,7 +825,7 @@
     "description": "10% de probabilidad de sobrevivir a un golpe letal."
   },
   "brightpowder": {
-    "id": 77,
+    "id": 61,
     "name": "Bright Powder",
     "type": "hold",
     "price": 2000,
@@ -834,7 +834,7 @@
     "description": "Aumenta la evasión ligeramente."
   },
   "xattack": {
-    "id": 80,
+    "id": 66,
     "name": "X Attack",
     "type": "battle",
     "price": 500,
@@ -844,7 +844,7 @@
     "description": "Aumenta Ataque 1 nivel."
   },
   "xdefense": {
-    "id": 81,
+    "id": 68,
     "name": "X Defense",
     "type": "battle",
     "price": 550,
@@ -854,7 +854,7 @@
     "description": "Aumenta Defensa 1 nivel."
   },
   "xspatk": {
-    "id": 82,
+    "id": 70,
     "name": "X Sp. Atk",
     "type": "battle",
     "price": 500,
@@ -864,7 +864,7 @@
     "description": "Aumenta At.Esp. 1 nivel."
   },
   "xspdef": {
-    "id": 83,
+    "id": 72,
     "name": "X Sp. Def",
     "type": "battle",
     "price": 550,
@@ -874,7 +874,7 @@
     "description": "Aumenta Def.Esp. 1 nivel."
   },
   "xspeed": {
-    "id": 84,
+    "id": 74,
     "name": "X Speed",
     "type": "battle",
     "price": 350,
@@ -884,7 +884,7 @@
     "description": "Aumenta Velocidad 1 nivel."
   },
   "xaccuracy": {
-    "id": 85,
+    "id": 76,
     "name": "X Accuracy",
     "type": "battle",
     "price": 500,
@@ -894,7 +894,7 @@
     "description": "Aumenta Precision 1 nivel."
   },
   "direhit": {
-    "id": 86,
+    "id": 77,
     "name": "Dire Hit",
     "type": "battle",
     "price": 650,
@@ -902,7 +902,7 @@
     "description": "Aumenta la probabilidad de golpe critico."
   },
   "guardspec": {
-    "id": 87,
+    "id": 79,
     "name": "Guard Spec.",
     "type": "battle",
     "price": 700,
@@ -910,7 +910,7 @@
     "description": "Protege de reduccion de stats por 5 turnos."
   },
   "charizardite_x": {
-    "id": 90,
+    "id": 83,
     "name": "Charizardite X",
     "type": "megastone",
     "price": 0,
@@ -924,7 +924,7 @@
     "description": "Mega piedra de Charizard."
   },
   "charizardite_y": {
-    "id": 91,
+    "id": 85,
     "name": "Charizardite Y",
     "type": "megastone",
     "price": 0,
@@ -938,7 +938,7 @@
     "description": "Mega piedra de Charizard."
   },
   "mewtwonite_x": {
-    "id": 92,
+    "id": 87,
     "name": "Mewtwonite X",
     "type": "megastone",
     "price": 0,
@@ -952,7 +952,7 @@
     "description": "Mega piedra de Mewtwo."
   },
   "mewtwonite_y": {
-    "id": 93,
+    "id": 89,
     "name": "Mewtwonite Y",
     "type": "megastone",
     "price": 0,
@@ -965,7 +965,7 @@
     "description": "Mega piedra de Mewtwo."
   },
   "lucarionite": {
-    "id": 94,
+    "id": 91,
     "name": "Lucarionite",
     "type": "megastone",
     "price": 0,
@@ -979,7 +979,7 @@
     "description": "Mega piedra de Lucario."
   },
   "garchompite": {
-    "id": 95,
+    "id": 93,
     "name": "Garchompite",
     "type": "megastone",
     "price": 0,
@@ -993,7 +993,7 @@
     "description": "Mega piedra de Garchomp."
   },
   "kangaskhanite": {
-    "id": 96,
+    "id": 95,
     "name": "Kangaskhanite",
     "type": "megastone",
     "price": 0,
@@ -1012,7 +1012,7 @@
     "description": "Caña de pescar vieja."
   },
   "goodrod": {
-    "id": 98,
+    "id": 99,
     "name": "Caña Buena",
     "type": "key",
     "price": 0,
@@ -1021,7 +1021,7 @@
     "description": "Caña de pescar buena."
   },
   "superrod": {
-    "id": 99,
+    "id": 101,
     "name": "Super Caña",
     "type": "key",
     "price": 0,
@@ -1030,7 +1030,7 @@
     "description": "La mejor caña de pescar."
   },
   "cheriberry": {
-    "id": 100,
+    "id": 103,
     "name": "Baya Cheri",
     "type": "hold",
     "price": 20,
@@ -1039,7 +1039,7 @@
     "description": "Cura parálisis."
   },
   "oranberry": {
-    "id": 101,
+    "id": 105,
     "name": "Baya Oran",
     "type": "hold",
     "price": 20,
@@ -1048,7 +1048,7 @@
     "description": "Restaura 10 PS."
   },
   "sitrusberry": {
-    "id": 102,
+    "id": 107,
     "name": "Baya Sitrus",
     "type": "hold",
     "price": 30,
@@ -1057,7 +1057,7 @@
     "description": "Restaura 25 PS."
   },
   "lumberry": {
-    "id": 103,
+    "id": 109,
     "name": "Baya Lum",
     "type": "hold",
     "price": 40,
@@ -1066,7 +1066,7 @@
     "description": "Cura cualquier problema de estado."
   },
   "rawstberry": {
-    "id": 104,
+    "id": 111,
     "name": "Baya Rawst",
     "type": "hold",
     "price": 20,
@@ -1075,7 +1075,7 @@
     "description": "Cura quemaduras."
   },
   "aspearberry": {
-    "id": 105,
+    "id": 113,
     "name": "Baya Aspear",
     "type": "hold",
     "price": 20,
@@ -1084,7 +1084,7 @@
     "description": "Cura congelación."
   },
   "pechaberry": {
-    "id": 106,
+    "id": 115,
     "name": "Baya Pecha",
     "type": "hold",
     "price": 20,
@@ -1093,7 +1093,7 @@
     "description": "Cura envenenamiento."
   },
   "persimberry": {
-    "id": 107,
+    "id": 117,
     "name": "Baya Persim",
     "type": "hold",
     "price": 20,
@@ -1102,7 +1102,7 @@
     "description": "Cura confusión."
   },
   "chestoberry": {
-    "id": 108,
+    "id": 119,
     "name": "Baya Chesto",
     "type": "hold",
     "price": 20,
@@ -1111,7 +1111,7 @@
     "description": "Cura sueño."
   },
   "safariball": {
-    "id": 109,
+    "id": 121,
     "name": "Safari Ball",
     "type": "ball",
     "price": 0,
@@ -1119,7 +1119,7 @@
     "description": "Solo usable en la Zona Safari."
   },
   "redorb": {
-    "id": 110,
+    "id": 123,
     "name": "Orbe Rojo",
     "type": "hold",
     "price": 0,
@@ -1133,7 +1133,7 @@
     "description": "Despierta el poder primigenio de Groudon."
   },
   "blueorb": {
-    "id": 111,
+    "id": 125,
     "name": "Orbe Azul",
     "type": "hold",
     "price": 0,

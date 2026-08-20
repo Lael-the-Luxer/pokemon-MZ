@@ -434,7 +434,7 @@ PMZ.Data = {
     _loaded: false,
     _cache: {},
     
-    files: ['config', 'pokemon', 'moves', 'items', 'trainers', 'types', 'encounters', 'abilities', 'badges', 'mechanics'],
+    files: ['config', 'pokemon', 'moves', 'items', 'trainers', 'types', 'encounters', 'abilities', 'badges', 'mechanics', 'natures'],
     
     loadAll: function() {
         this.files.forEach(function(name) {
@@ -505,6 +505,7 @@ PMZ.Data = {
     ability: function(key) { return this._cache.abilities ? this._cache.abilities[key] : null; },
     badges: function() { return this._cache.badges || null; },
     mechanics: function() { return this._cache.mechanics || null; },
+    natures: function() { return this._cache.natures || null; },
     speciesId: function(key) { var p = this.pokemon(key); return p ? p.id : null; },
     
     configValue: function(key) {
@@ -658,7 +659,7 @@ PMZ.Status = {
             return { damaged: false, msg: pokemon.name + ' se curo de ' + oldStatus + ' por Hydration!' };
         }
 
-        if (pokemon.status === 'poison') {
+        if (pokemon.status === 'poison' || pokemon.status === 'toxic') {
             // Magic Guard: immune to indirect damage
             if (PMZ.Abilities && PMZ.Abilities.immuneIndirect && PMZ.Abilities.immuneIndirect(pokemon)) {
                 return { damaged: false, msg: pokemon.name + ' no se ve afectado por el veneno (Magic Guard)!' };
@@ -666,7 +667,7 @@ PMZ.Status = {
             var dmg = Math.max(1, Math.floor(pokemon.maxHp / 8));
             pokemon.currentHp = Math.max(0, pokemon.currentHp - dmg);
             // NOTE: Sturdy / Focus Band / Focus Sash do NOT trigger from status damage
-            // (poison/burn/confusion). They only trigger from attacking moves.
+            // (poison/toxic/burn/confusion). They only trigger from attacking moves.
             return { damaged: true, msg: pokemon.name + ' sufre dano por veneno!' };
         }
 
@@ -818,8 +819,9 @@ PMZ.Effects = {
             return'';
         });
 
-        self.register('random_status', function(a,d){
-            var st=(e.statuses||['poison','burn','paralyze'])[Math.floor(r()*3)];
+        self.register('random_status', function(a,d,md,e){
+            var list=e.statuses||['poison','burn','paralyze'];
+            var st=list[Math.floor(r()*list.length)];
             if(PMZ.Status.apply(d,st)) return d.name+' quedo '+(st==='burn'?'quemado':st)+'!';
             return'';
         });
@@ -859,12 +861,12 @@ PMZ.Effects = {
             return'';
         });
 
-        self.register('heal', function(a){
+        self.register('heal', function(a,d,md,e){
             a.currentHp=Math.min(a.maxHp,a.currentHp+Math.floor(a.maxHp*((e.percent||50)/100)));
             return a.name+' recupero PS!';
         });
 
-        self.register('heal_weather', function(a){
+        self.register('heal_weather', function(a,d,md,e){
             var w=PMZ.Weather.current?PMZ.Weather.current.type:null,pct=e.base||50;
             if(w==='rain'||w==='sandstorm'||w==='hail')pct=e.rain||25;else if(w==='sun')pct=e.sun||67;
             a.currentHp=Math.min(a.maxHp,a.currentHp+Math.floor(a.maxHp*(pct/100)));
@@ -890,7 +892,7 @@ PMZ.Effects = {
             return'';
         });
 
-        self.register('stat_stage_self', function(a){
+        self.register('stat_stage_self', function(a,d,md,e){
             if(e.selfStat)PMZ.Battle.boostStat(a,e.selfStat,e.selfStages||-1);
             if(e.selfStat2)PMZ.Battle.boostStat(a,e.selfStat2,e.selfStages2||-1);
             return a.name+' modifico sus stats!';
@@ -1557,523 +1559,28 @@ PMZ.AI = {
 // PMZ.Pokemon - Creacion y gestion de Pokemon
 // ============================================================================
 PMZ.Pokemon = {
-    
     create: function(speciesKey, level) {
-        level = level || 5;
-        var base = PMZ.Data.pokemon(speciesKey);
-        if (!base) return null;
-        
-        var p = {
-            id: base.id,
-            species: speciesKey.toLowerCase(),
-            name: base.name,
-            types: base.types.slice(),
-            level: level,
-            hp: 0, maxHp: 0,
-            attack: 0, defense: 0,
-            spAttack: 0, spDefense: 0,
-            speed: 0,
-            moves: [],
-            exp: 0, expToNext: 0,
-            status: null,
-            currentHp: 0,
-            ivs: this.generateIVs(),
-            evs: { hp: 0, attack: 0, defense: 0, spAttack: 0, spDefense: 0, speed: 0 },
-            nature: this.randomNature(),
-            catchRate: base.catchRate || 45,
-            gender: PMZ.Pokemon.getGender(speciesKey),
-            shiny: false,
-            happiness: 70,
-            heldItems: []
-        };
-        
-        this.calculateStats(p, base);
-        this.assignMoves(p, base);
-        
-        p.currentHp = p.maxHp;
-        p.exp = this.calcExp(level, base.expRate);
-        p.expToNext = this.calcExp(level + 1, base.expRate) - p.exp;
-        
-        return p;
+        if (!PMZ.Data.pokemon(speciesKey)) return null;
+        return new Game_Pokemon(speciesKey, level);
     },
-    
-    generateIVs: function() {
-        var ivs = {};
-        ['hp', 'attack', 'defense', 'spAttack', 'spDefense', 'speed'].forEach(function(s) {
-            ivs[s] = Math.floor(Math.random() * 32);
-        });
-        return ivs;
-    },
-    
-    _natureMods: {
-        'hardy': { up: null, down: null },
-        'lonely': { up: 'attack', down: 'defense' },
-        'brave': { up: 'attack', down: 'speed' },
-        'adamant': { up: 'attack', down: 'spAttack' },
-        'naughty': { up: 'attack', down: 'spDefense' },
-        'bold': { up: 'defense', down: 'attack' },
-        'docile': { up: null, down: null },
-        'relaxed': { up: 'defense', down: 'speed' },
-        'impish': { up: 'defense', down: 'spAttack' },
-        'lax': { up: 'defense', down: 'spDefense' },
-        'timid': { up: 'speed', down: 'attack' },
-        'hasty': { up: 'speed', down: 'defense' },
-        'serious': { up: null, down: null },
-        'jolly': { up: 'speed', down: 'spAttack' },
-        'naive': { up: 'speed', down: 'spDefense' },
-        'modest': { up: 'spAttack', down: 'attack' },
-        'mild': { up: 'spAttack', down: 'defense' },
-        'quiet': { up: 'spAttack', down: 'speed' },
-        'bashful': { up: null, down: null },
-        'rash': { up: 'spAttack', down: 'spDefense' },
-        'calm': { up: 'spDefense', down: 'attack' },
-        'gentle': { up: 'spDefense', down: 'defense' },
-        'sassy': { up: 'spDefense', down: 'speed' },
-        'careful': { up: 'spDefense', down: 'spAttack' },
-        'quirky': { up: null, down: null }
-    },
-    
-    randomNature: function() {
-        var natures = [
-            'hardy', 'lonely', 'brave', 'adamant', 'naughty',
-            'bold', 'docile', 'relaxed', 'impish', 'lax',
-            'timid', 'hasty', 'serious', 'jolly', 'naive',
-            'modest', 'mild', 'quiet', 'bashful', 'rash',
-            'calm', 'gentle', 'sassy', 'careful', 'quirky'
-        ];
-        return natures[Math.floor(Math.random() * natures.length)];
-    },
-    
-    natureModifier: function(nature, stat) {
-        var mods = this._natureMods[nature] || this._natureMods['hardy'];
-        if (mods.up === stat) return 1.1;
-        if (mods.down === stat) return 0.9;
-        return 1.0;
-    },
-
-    // Returns the boosted stat (or null) and reduced stat (or null) for a given nature
-    natureUpDown: function(nature) {
-        var mods = this._natureMods[nature] || this._natureMods['hardy'];
-        return { up: mods.up, down: mods.down };
-    },
-
-    // Returns true if the pokemon can learn the given moveKey
-    // - via level-up moves
-    // - via tmMoves list (if defined; otherwise all TMs are learnable)
-    // - via egg moves
-    canLearn: function(p, moveKey) {
-        if (!p || !moveKey) return false;
-        var base = PMZ.Data.pokemon(p.species);
-        if (!base) return false;
-        // Already knows it
-        if (p.moves) {
-            for (var i = 0; i < p.moves.length; i++) {
-                if (p.moves[i].name === moveKey || p.moves[i].key === moveKey) return false;
-            }
-        }
-        // Level-up moves
-        if (base.moves) {
-            for (var lvl in base.moves) {
-                if (!base.moves.hasOwnProperty(lvl)) continue;
-                var list = base.moves[lvl];
-                if (Array.isArray(list)) {
-                    if (list.indexOf(moveKey) >= 0) return true;
-                } else if (list === moveKey) {
-                    return true;
-                }
-            }
-        }
-        // Egg moves
-        if (base.eggMoves && base.eggMoves.indexOf(moveKey) >= 0) return true;
-        // TM list (explicit). If undefined or empty, allow all (pragmatic default).
-        if (base.tmMoves && base.tmMoves.length > 0) {
-            if (base.tmMoves.indexOf('*') >= 0) return true;
-            if (base.tmMoves.indexOf(moveKey) >= 0) return true;
-            return false;
-        }
-        // Fallback: type-based filter for TM compatibility
-        var moveData = PMZ.Data.move(moveKey);
-        if (moveData && moveData.type) {
-            if (p.types && p.types.indexOf(moveData.type) >= 0) return true;
-        }
-        return true;
-    },
-
-    // Teach a move to a pokemon. Returns:
-    //   { success: true, learned: true } - move added
-    //   { success: true, learned: false, needReplace: true, move: moveData } - opens MoveLearn
-    //   { success: false, msg: '...' }
-    teachMove: function(p, moveKey) {
-        if (!p || !moveKey) return { success: false, msg: 'Invalid' };
-        if (!this.canLearn(p, moveKey)) return { success: false, msg: p.name + ' no puede aprender este movimiento.' };
-        var moveData = PMZ.Data.move(moveKey);
-        if (!moveData) return { success: false, msg: 'Move not found' };
-        var limit = PMZ.Pokemon.moveLimit();
-        if (p.moves.length < limit) {
-            // Direct add (preserves neverMiss, accuracy etc.)
-            this._pushMove(p, moveKey, moveData);
-            return { success: true, learned: true, msg: p.name + ' aprendio ' + moveData.name + '!' };
-        }
-        // Party full: queue MoveLearn scene
-        $gameTemp._pmzMoveLearn = { pokemon: p, newMove: moveKey };
-        return { success: true, learned: false, needReplace: true, msg: p.name + ' debe olvidar un movimiento para aprender ' + moveData.name };
-    },
-
-    // Internal: push a move object onto a pokemon (mirrors assignMoves structure)
-    _pushMove: function(p, moveKey, moveData) {
-        var md = moveData || PMZ.Data.move(moveKey);
-        p.moves.push({
-            name: moveKey,
-            key: moveKey,
-            pp: md.pp || 10,
-            maxPp: md.pp || 10,
-            id: md.id,
-            type: md.type,
-            power: md.power,
-            accuracy: md.accuracy !== undefined ? md.accuracy : 100,
-            neverMiss: !!md.neverMiss,
-            category: md.category,
-            effect: md.effect,
-            recoil: md.recoil,
-            isSound: md.isSound,
-            isPunch: md.isPunch,
-            drainRatio: md.drainRatio,
-            priority: md.priority,
-            description: md.description
-        });
-    },
-    
-    calculateStats: function(p, base) {
-        var stats = ['hp', 'attack', 'defense', 'spAttack', 'spDefense', 'speed'];
-        
-        stats.forEach(function(stat) {
-            var baseVal = base.baseStats[stat] || 50;
-            var iv = p.ivs[stat] || 0;
-            var ev = p.evs[stat] || 0;
-            var natureMult = (stat === 'hp') ? 1.0 : PMZ.Pokemon.natureModifier(p.nature, stat);
-            
-            if (stat === 'hp') {
-                p[stat] = Math.floor(((2 * baseVal + iv + Math.floor(ev / 4)) * p.level / 100) + p.level + 10);
-            } else {
-                p[stat] = Math.max(1, Math.floor((Math.floor(((2 * baseVal + iv + Math.floor(ev / 4)) * p.level / 100) + 5)) * natureMult));
-            }
-        });
-        
-        p.maxHp = p.hp;
-    },
-    
-    assignMoves: function(p, base) {
-        var limit = PMZ.Data.configValue('battleMovesLimit') || 4;
-        var moves = base.moves || {};
-        
-        if (typeof moves === 'object' && !Array.isArray(moves)) {
-            var learned = [];
-            
-            for (var lvl in moves) {
-                if (moves.hasOwnProperty(lvl) && parseInt(lvl) <= p.level) {
-                    var moveNames = Array.isArray(moves[lvl]) ? moves[lvl] : [moves[lvl]];
-                    moveNames.forEach(function(mn) {
-                        learned.push({ level: parseInt(lvl), name: mn });
-                    });
-                }
-            }
-            
-            learned.sort(function(a, b) { return a.level - b.level; });
-            
-            var take = learned.slice(-limit);
-            take.forEach(function(m) {
-                var md = PMZ.Data.move(m.name);
-                if (md) {
-                    var alreadyHas = false;
-                    for (var j = 0; j < p.moves.length; j++) {
-                        if (p.moves[j].key === m.name.toLowerCase()) { alreadyHas = true; break; }
-                    }
-                    if (!alreadyHas) {
-                        p.moves.push({
-                            key: m.name.toLowerCase(),
-                            name: md.name,
-                            pp: md.pp || 5,
-                            maxPp: md.pp || 5,
-                            power: md.power || 0,
-                            type: md.type || 'normal',
-                            category: md.category || 'physical',
-                            accuracy: md.accuracy !== undefined ? md.accuracy : 100,
-                            neverMiss: !!md.neverMiss,
-                            effect: md.effect || 'none'
-                        });
-                    }
-                }
-            });
-        }
-        // fallback: si es array simple
-        else if (Array.isArray(moves)) {
-            var limit2 = Math.min(limit, moves.length);
-            for (var i = 0; i < limit2; i++) {
-                var md2 = PMZ.Data.move(moves[i]);
-                if (md2) {
-                    var alreadyHas2 = false;
-                    for (var j2 = 0; j2 < p.moves.length; j2++) {
-                        if (p.moves[j2].key === moves[i].toLowerCase()) { alreadyHas2 = true; break; }
-                    }
-                    if (!alreadyHas2) {
-                        p.moves.push({
-                            key: moves[i].toLowerCase(),
-                            name: md2.name,
-                            pp: md2.pp || 5,
-                            maxPp: md2.pp || 5,
-                            power: md2.power || 0,
-                            type: md2.type || 'normal',
-                            category: md2.category || 'physical',
-                            accuracy: md2.accuracy !== undefined ? md2.accuracy : 100,
-                            neverMiss: !!md2.neverMiss,
-                            effect: md2.effect || 'none'
-                        });
-                    }
-                }
-            }
-        }
-    },
-    
-    calcExp: function(level, rate) {
-        if (level <= 0) return 0;
-        var lv3 = level * level * level;
-        var lv2 = level * level;
-        var rates = {
-            'fast': Math.floor(4 * lv3 / 5),
-            'medium': Math.floor(lv3),
-            'slow': Math.floor(5 * lv3 / 4),
-            'medium_slow': Math.floor(6 * lv3 / 5 - 15 * lv2 + 100 * level - 140),
-            'erratic': 0,
-            'fluctuating': 0
-        };
-        return rates[rate] || rates['medium'];
-    },
-    
-    heal: function(p) {
-        p.currentHp = p.maxHp;
-        p.status = null;
-        if (p.moves) p.moves.forEach(function(m) { m.pp = m.maxPp; });
-    },
-    
-    isFainted: function(p) { return p.currentHp <= 0; },
-    
-    // EVs awarded on defeat per species
-    _evYields: {
-        'bulbasaur': { spAttack: 1 }, 'ivysaur': { spAttack: 1, defense: 1 }, 'venusaur': { spAttack: 2, defense: 1 },
-        'charmander': { speed: 1 }, 'charmeleon': { speed: 1, attack: 1 }, 'charizard': { speed: 2, attack: 1 },
-        'squirtle': { defense: 1 }, 'wartortle': { defense: 1, attack: 1 }, 'blastoise': { defense: 2, attack: 1 },
-        'caterpie': { hp: 1 }, 'metapod': { defense: 2 }, 'butterfree': { spDefense: 1, spAttack: 1 },
-        'weedle': { speed: 1 }, 'kakuna': { defense: 2 }, 'beedrill': { attack: 2, spDefense: 1 },
-        'pidgey': { speed: 1 }, 'pidgeotto': { speed: 2 }, 'pidgeot': { speed: 3 },
-        'rattata': { speed: 1 }, 'raticate': { speed: 2 },
-        'spearow': { speed: 1 }, 'fearow': { speed: 2 },
-        'ekans': { attack: 1 }, 'arbok': { attack: 2 },
-        'pikachu': { speed: 2 }, 'raichu': { speed: 3 },
-        'sandshrew': { defense: 1 }, 'sandslash': { defense: 2 },
-        'nidoranf': { hp: 1 }, 'nidorina': { hp: 2 }, 'nidoqueen': { hp: 3 },
-        'nidoranm': { attack: 1 }, 'nidorino': { attack: 2 }, 'nidoking': { attack: 3 },
-        'clefairy': { hp: 2 }, 'clefable': { hp: 3 },
-        'vulpix': { speed: 1 }, 'ninetales': { speed: 1, spDefense: 1 },
-        'jigglypuff': { hp: 2 }, 'wigglytuff': { hp: 3 },
-        'zubat': { speed: 1 }, 'golbat': { speed: 2 },
-        'oddish': { spAttack: 1 }, 'gloom': { spAttack: 2 }, 'vileplume': { spAttack: 3 },
-        'paras': { attack: 1 }, 'parasect': { defense: 1, attack: 1 },
-        'venonat': { spDefense: 1 }, 'venomoth': { speed: 1, spAttack: 1 },
-        'diglett': { speed: 1 }, 'dugtrio': { speed: 2 },
-        'meowth': { speed: 1 }, 'persian': { speed: 2 },
-        'psyduck': { spAttack: 1 }, 'golduck': { spAttack: 2 },
-        'mankey': { attack: 1 }, 'primeape': { attack: 2 },
-        'growlithe': { attack: 1 }, 'arcanine': { attack: 2 },
-        'poliwag': { speed: 1 }, 'poliwhirl': { speed: 2 }, 'poliwrath': { defense: 1, attack: 2 },
-        'abra': { spAttack: 1 }, 'kadabra': { spAttack: 2 }, 'alakazam': { spAttack: 3 },
-        'machop': { attack: 1 }, 'machoke': { attack: 2 }, 'machamp': { attack: 3 },
-        'bellsprout': { attack: 1 }, 'weepinbell': { attack: 2 }, 'victreebel': { attack: 3 },
-        'tentacool': { spDefense: 1 }, 'tentacruel': { spDefense: 2 },
-        'geodude': { defense: 1 }, 'graveler': { defense: 2 }, 'golem': { defense: 3 },
-        'ponyta': { speed: 1 }, 'rapidash': { speed: 2 },
-        'slowpoke': { hp: 1 }, 'slowbro': { defense: 2 },
-        'magnemite': { spAttack: 1 }, 'magneton': { spAttack: 2 },
-        'farfetchd': { attack: 1 },
-        'doduo': { speed: 1 }, 'dodrio': { speed: 2 },
-        'seel': { spDefense: 1 }, 'dewgong': { spDefense: 2 },
-        'grimer': { hp: 1 }, 'muk': { hp: 2 },
-        'shellder': { defense: 1 }, 'cloyster': { defense: 2 },
-        'gastly': { spAttack: 1 }, 'haunter': { spAttack: 2 }, 'gengar': { spAttack: 3 },
-        'onix': { defense: 1 },
-        'drowzee': { spDefense: 1 }, 'hypno': { spDefense: 2 },
-        'krabby': { attack: 1 }, 'kingler': { attack: 2 },
-        'voltorb': { speed: 1 }, 'electrode': { speed: 2 },
-        'exeggcute': { defense: 1 }, 'exeggutor': { spDefense: 2 },
-        'cubone': { defense: 1 }, 'marowak': { defense: 2 },
-        'hitmonlee': { attack: 2 }, 'hitmonchan': { attack: 2 },
-        'lickitung': { hp: 2 },
-        'koffing': { defense: 1 }, 'weezing': { defense: 2 },
-        'rhyhorn': { defense: 1, attack: 1 }, 'rhydon': { defense: 2, attack: 2 },
-        'chansey': { hp: 2 },
-        'tangela': { defense: 1 },
-        'kangaskhan': { hp: 2 },
-        'horsea': { spAttack: 1 }, 'seadra': { spAttack: 1, defense: 1 },
-        'goldeen': { attack: 1 }, 'seaking': { attack: 2 },
-        'staryu': { speed: 1 }, 'starmie': { speed: 2 },
-        'mr_mime': { spDefense: 2 },
-        'scyther': { attack: 1 },
-        'jynx': { spAttack: 2 },
-        'electabuzz': { speed: 2 },
-        'magmar': { spAttack: 2 },
-        'pinsir': { attack: 2 },
-        'tauros': { speed: 1, attack: 1 },
-        'magikarp': { speed: 1 }, 'gyarados': { attack: 2 },
-        'lapras': { hp: 2 },
-        'ditto': { hp: 1 },
-        'eevee': { speed: 1 }, 'vaporeon': { hp: 2 }, 'jolteon': { speed: 2 }, 'flareon': { attack: 2 },
-        'porygon': { spAttack: 1 },
-        'omanyte': { defense: 1 }, 'omastar': { defense: 2 },
-        'kabuto': { defense: 1 }, 'kabutops': { attack: 2 },
-        'aerodactyl': { speed: 2 },
-        'snorlax': { hp: 2 },
-        'articuno': { spDefense: 3 }, 'zapdos': { spAttack: 3 }, 'moltres': { spAttack: 3 },
-        'dratini': { attack: 1 }, 'dragonair': { attack: 2 }, 'dragonite': { attack: 3 },
-        'mewtwo': { spAttack: 3 }, 'mew': { hp: 3 }
-    },
-    
-    gainEVs: function(p, defeatedSpecies) {
-        var yields = this._evYields[defeatedSpecies] || { speed: 1 };
-        for (var stat in yields) {
-            if (yields.hasOwnProperty(stat)) {
-                p.evs[stat] = Math.min(255, (p.evs[stat] || 0) + yields[stat]);
-            }
-        }
-        var totalEv = 0;
-        for (var s in p.evs) { if (p.evs.hasOwnProperty(s)) totalEv += p.evs[s]; }
-        if (totalEv > 510) {
-            // Scale back proportionally
-            var factor = 510 / totalEv;
-            for (var s2 in p.evs) { if (p.evs.hasOwnProperty(s2)) p.evs[s2] = Math.floor(p.evs[s2] * factor); }
-        }
-        var base = PMZ.Data.pokemon(p.species);
-        if (base) {
-            PMZ.Pokemon.calculateStats(p, base);
-            // In stat-evolution mode, check for evolution after stat change
-            if (PMZ.Config.isStatEvolution()) {
-                var evo = PMZ.Evolution.checkAll(p);
-                if (evo) {
-                    PMZ.Evolution.evolve(p, evo);
-                }
-            }
-        }
-    },
-    
-    gainExp: function(p, amount) {
-        if (!p || PMZ.Pokemon.isFainted(p)) return { leveled: false, evolved: false, newMoves: [], pendingMoves: [] };
-        p.exp += amount;
-        var result = { leveled: false, evolved: false, newMoves: [], pendingMoves: [] };
-        var tries = 0;
-        var base = PMZ.Data.pokemon(p.species);
-        while (p.expToNext > 0 && p.exp >= p.expToNext && tries < 100) {
-            tries++;
-            p.exp -= p.expToNext;
-            p.level++;
-            result.leveled = true;
-            if (base) {
-                PMZ.Pokemon.calculateStats(p, base);
-                p.maxHp = p.hp;
-                p.currentHp = Math.min(p.currentHp, p.maxHp);
-                var expNext = this.calcExp(p.level + 1, base.expRate);
-                var expCur = this.calcExp(p.level, base.expRate);
-                p.expToNext = expNext - expCur;
-                if (p.expToNext <= 0) p.expToNext = 100;
-                var learnResult = this.learnNewMoves(p, base);
-                if (learnResult.learned.length > 0) result.newMoves = result.newMoves.concat(learnResult.learned);
-                if (learnResult.pending.length > 0) result.pendingMoves = result.pendingMoves.concat(learnResult.pending);
-                var evo = PMZ.Evolution.checkAll(p);
-                if (evo) {
-                    PMZ.Evolution.evolve(p, evo);
-                    base = PMZ.Data.pokemon(p.species);
-                    result.evolved = true;
-                    break;
-                }
-            }
-        }
-        return result;
-    },
-    
-    learnNewMoves: function(p, base) {
-        var learned = [];
-        var pending = [];
-        var moves = base.moves || {};
-        if (typeof moves !== 'object' || Array.isArray(moves)) return { learned: learned, pending: pending };
-        var limit = PMZ.Data.configValue('battleMovesLimit') || 4;
-        for (var lvl in moves) {
-            if (moves.hasOwnProperty(lvl) && parseInt(lvl) === p.level) {
-                var moveNames = Array.isArray(moves[lvl]) ? moves[lvl] : [moves[lvl]];
-                for (var i = 0; i < moveNames.length; i++) {
-                    var md = PMZ.Data.move(moveNames[i]);
-                    if (md) {
-                        var alreadyHas = false;
-                        for (var j = 0; j < p.moves.length; j++) {
-                            if (p.moves[j].key === moveNames[i].toLowerCase()) { alreadyHas = true; break; }
-                        }
-                        if (!alreadyHas) {
-                            if (p.moves.length < limit) {
-                                // Add directly
-                                p.moves.push({
-                                    key: moveNames[i].toLowerCase(),
-                                    name: md.name,
-                                    pp: md.pp || 5,
-                                    maxPp: md.pp || 5,
-                                    power: md.power || 0,
-                                    type: md.type || 'normal',
-                                    category: md.category || 'physical',
-                                    accuracy: md.accuracy !== undefined ? md.accuracy : 100,
-                                    neverMiss: !!md.neverMiss,
-                                    effect: md.effect || 'none'
-                                });
-                                learned.push(md.name);
-                            } else {
-                                // At limit — return as pending so UI can prompt
-                                pending.push({
-                                    key: moveNames[i].toLowerCase(),
-                                    name: md.name,
-                                    pp: md.pp || 5,
-                                    maxPp: md.pp || 5,
-                                    power: md.power || 0,
-                                    type: md.type || 'normal',
-                                    category: md.category || 'physical',
-                                    accuracy: md.accuracy !== undefined ? md.accuracy : 100,
-                                    neverMiss: !!md.neverMiss,
-                                    effect: md.effect || 'none'
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return { learned: learned, pending: pending };
-    },
-
-    // Replace a move at given index with a new move object
-    replaceMove: function(p, index, newMove) {
-        if (!p || index < 0 || index >= p.moves.length) return false;
-        p.moves[index] = {
-            key: newMove.key || newMove.name.toLowerCase().replace(/[^a-z]/g, ''),
-            name: newMove.name,
-            pp: newMove.pp || 5,
-            maxPp: newMove.pp || 5,
-            power: newMove.power || 0,
-            type: newMove.type || 'normal',
-            category: newMove.category || 'physical',
-            accuracy: newMove.accuracy !== undefined ? newMove.accuracy : 100,
-            neverMiss: !!newMove.neverMiss,
-            effect: newMove.effect || 'none'
-        };
-        return true;
-    },
-
-    // Get the configured move limit
-    moveLimit: function() {
-        return PMZ.Data.configValue('battleMovesLimit') || 4;
-    }
+    generateIVs: function() { return Game_Pokemon.prototype.generateIVs(); },
+    randomNature: function() { return Game_Pokemon.prototype.randomNature(); },
+    natureModifier: function(nature, stat) { return Game_Pokemon.natureModifier(nature, stat); },
+    natureUpDown: function(nature) { return Game_Pokemon.natureUpDown(nature); },
+    getGender: function(species) { return Game_Pokemon.getGender(species); },
+    moveLimit: function() { return Game_Pokemon.moveLimit(); },
+    calcExp: function(level, rate) { return Game_Pokemon.prototype.calcExp(level, rate); },
+    calculateStats: function(p, base) { if (p) p.calculateStats(base); },
+    assignMoves: function(p, base) { if (p) p.assignMoves(base); },
+    heal: function(p) { if (p) p.heal(); },
+    isFainted: function(p) { return p ? p.isFainted() : true; },
+    gainEVs: function(p, defeatedSpecies) { if (p) p.gainEVs(defeatedSpecies); },
+    gainExp: function(p, amount) { return p ? p.gainExp(amount) : { leveled: false, evolved: false, newMoves: [], pendingMoves: [] }; },
+    learnNewMoves: function(p, base) { return p ? p.learnNewMoves(base) : { learned: [], pending: [] }; },
+    replaceMove: function(p, index, newMove) { return p ? p.replaceMove(index, newMove) : false; },
+    canLearn: function(p, moveKey) { return p ? p.canLearn(moveKey) : false; },
+    teachMove: function(p, moveKey) { return p ? p.teachMove(moveKey) : { success: false, msg: 'Invalid' }; },
+    _pushMove: function(p, moveKey, moveData) { if (p) p._pushMove(moveKey, moveData); },
 };
 
 // ============================================================================
@@ -2537,62 +2044,10 @@ PMZ.Berries = {
 };
 
 // ============================================================================
-// PMZ.Pokemon gender ratio map (0-8; 0=male only, 4=50:50, 8=female only)
+// genderRatio en pokemon.json: % macho (0=100% hembra, 100=100% macho, null=sin género)
 // ============================================================================
-PMZ.Pokemon._genderRatios = {
-    'bulbasaur': 1, 'ivysaur': 1, 'venusaur': 1, 'charmander': 1, 'charmeleon': 1, 'charizard': 1,
-    'squirtle': 1, 'wartortle': 1, 'blastoise': 1, 'caterpie': 4, 'metapod': 4, 'butterfree': 4,
-    'weedle': 4, 'kakuna': 4, 'beedrill': 4, 'pidgey': 4, 'pidgeotto': 4, 'pidgeot': 4,
-    'rattata': 4, 'raticate': 4, 'spearow': 4, 'fearow': 4, 'ekans': 4, 'arbok': 4,
-    'pikachu': 4, 'raichu': 4, 'sandshrew': 4, 'sandslash': 4,
-    'nidoranf': 8, 'nidorina': 8, 'nidoqueen': 8,
-    'nidoranm': 0, 'nidorino': 0, 'nidoking': 0,
-    'clefairy': 6, 'clefable': 6, 'vulpix': 6, 'ninetales': 6,
-    'jigglypuff': 6, 'wigglytuff': 6, 'zubat': 4, 'golbat': 4,
-    'oddish': 4, 'gloom': 4, 'vileplume': 4, 'paras': 4, 'parasect': 4,
-    'venonat': 4, 'venomoth': 4, 'diglett': 4, 'dugtrio': 4,
-    'meowth': 4, 'persian': 4, 'psyduck': 4, 'golduck': 4,
-    'mankey': 4, 'primeape': 4, 'growlithe': 3, 'arcanine': 3,
-    'poliwag': 4, 'poliwhirl': 4, 'poliwrath': 4,
-    'abra': 4, 'kadabra': 4, 'alakazam': 4,
-    'machop': 3, 'machoke': 3, 'machamp': 3,
-    'bellsprout': 4, 'weepinbell': 4, 'victreebel': 4,
-    'tentacool': 4, 'tentacruel': 4,
-    'geodude': 4, 'graveler': 4, 'golem': 4,
-    'ponyta': 4, 'rapidash': 4, 'slowpoke': 4, 'slowbro': 4,
-    'magnemite': -1, 'magneton': -1,
-    'farfetchd': 4, 'doduo': 4, 'dodrio': 4,
-    'seel': 4, 'dewgong': 4, 'grimer': 4, 'muk': 4,
-    'shellder': 4, 'cloyster': 4,
-    'gastly': 4, 'haunter': 4, 'gengar': 4,
-    'onix': 4, 'drowzee': 4, 'hypno': 4,
-    'krabby': 4, 'kingler': 4,
-    'voltorb': -1, 'electrode': -1,
-    'exeggcute': 4, 'exeggutor': 4,
-    'cubone': 4, 'marowak': 4, 'hitmonlee': 0, 'hitmonchan': 0,
-    'lickitung': 4, 'koffing': 4, 'weezing': 4,
-    'rhyhorn': 4, 'rhydon': 4, 'chansey': 8,
-    'tangela': 4, 'kangaskhan': 8, 'horsea': 4, 'seadra': 4,
-    'goldeen': 4, 'seaking': 4, 'staryu': 4, 'starmie': 4,
-    'mr_mime': 4, 'scyther': 4, 'jynx': 8, 'electabuzz': 3, 'magmar': 3,
-    'pinsir': 4, 'tauros': 0, 'magikarp': 4, 'gyarados': 4,
-    'lapras': 4, 'ditto': -1,
-    'eevee': 1, 'vaporeon': 1, 'jolteon': 1, 'flareon': 1,
-    'porygon': -1,
-    'omanyte': 1, 'omastar': 1, 'kabuto': 1, 'kabutops': 1,
-    'aerodactyl': 1, 'snorlax': 1,
-    'articuno': -1, 'zapdos': -1, 'moltres': -1,
-    'dratini': 4, 'dragonair': 4, 'dragonite': 4,
-    'mewtwo': -1, 'mew': -1
-};
 
-PMZ.Pokemon.getGender = function(species) {
-    var ratio = this._genderRatios[species];
-    if (ratio === -1) return 'genderless';
-    if (ratio === 0) return 'male';
-    if (ratio === 8) return 'female';
-    return Math.random() * 8 < ratio ? 'female' : 'male';
-};
+PMZ.Pokemon.getGender = function(species) { return Game_Pokemon.getGender(species); };
 
 // ============================================================================
 // PMZ.Evolution - Sistema de evolucion
@@ -3440,11 +2895,13 @@ PMZ.Daycare = {
         if (!this.compatible(p1, p2)) return null;
         // Determine mother (female or non-Ditto)
         var father = p1, mother = p2;
-        var p1Ratio = PMZ.Pokemon._genderRatios[p1.species];
-        var p2Ratio = PMZ.Pokemon._genderRatios[p2.species];
+        var p1Data = PMZ.Data.pokemon(p1.species);
+        var p2Data = PMZ.Data.pokemon(p2.species);
+        var p1Ratio = p1Data ? p1Data.genderRatio : undefined;
+        var p2Ratio = p2Data ? p2Data.genderRatio : undefined;
         if (p1.species === 'ditto') { mother = p2; father = p1; }
         else if (p2.species === 'ditto') { mother = p1; father = p2; }
-        else if (p2Ratio !== undefined && p2Ratio === 8) { mother = p2; father = p1; }
+        else if (p2Ratio !== undefined && p2Ratio === 0) { mother = p2; father = p1; }
         else { mother = p1; father = p2; }
         // If both are the same species, first slot is mother
         if (p1.species === p2.species) { mother = p1; father = p2; }
@@ -3626,6 +3083,14 @@ PMZ.Pokedex = {
         }).sort(function(a, b) {
             return (cache[a].id || 0) - (cache[b].id || 0);
         });
+    },
+    
+    registerAllSeen: function() {
+        if (!$gamePMZ) return;
+        var cache = PMZ.Data._cache.pokemon;
+        if (!cache) return;
+        var seen = $gamePMZ.pokedexSeen();
+        Object.keys(cache).forEach(function(k) { seen[k] = true; });
     },
     
     getArea: function(key) {
@@ -4244,12 +3709,44 @@ PMZ.Battle = {
             ) / 50 + 2
         );
 
-        // STAB: 1.5x, or 2x with Adaptability
+        // Critical hit (focus_energy x2, Shell Armor previene, Sniper x2.25)
+        var critChance = PMZ.Effects.isMarker(moveData.effect, 'critical_high') ? 0.125 : 0.0625;
+        if (PMZ.Battle._focusEnergy && PMZ.Battle._focusEnergy[attacker._battleId]) critChance *= 2;
+        var defenderHasShellArmor = defender && PMZ.Abilities && PMZ.Abilities.preventCrit && PMZ.Abilities.preventCrit(defender);
+        var isCrit = !defenderHasShellArmor && Math.random() < critChance;
+        if (isCrit) {
+            var critCtx = { attacker: attacker, defender: defender };
+            var critResults = PMZ.Abilities.triggerHook('onCritCheck', critCtx);
+            var critMult = 1.5;
+            for (var ci = 0; ci < critResults.length; ci++) {
+                if (critResults[ci] && critResults[ci].critMult) critMult = critResults[ci].critMult;
+            }
+            damage = Math.floor(damage * critMult);
+        }
+
+        // Modificador de clima (fuego/agua reforzado o debilitado, Solar Beam en sol)
+        if (PMZ.Weather && PMZ.Weather._weather !== 'none') {
+            var wEffect = PMZ.Weather.getEffect();
+            if (moveData.type === 'fire' && wEffect.typeResist && wEffect.typeResist.fire) {
+                damage = Math.floor(damage * wEffect.typeResist.fire);
+            }
+            if (moveData.type === 'water' && wEffect.typeResist && wEffect.typeResist.water) {
+                damage = Math.floor(damage * wEffect.typeResist.water);
+            }
+            if (moveData.key === 'solarbeam' && PMZ.Weather._weather === 'sun') {
+                damage = Math.floor(damage * 1.5);
+            }
+        }
+
+        // STAB: 1.5x, o 2x con Adaptability
         var hasStab = attacker.types && attacker.types.indexOf(moveData.type) >= 0;
         var stab = hasStab ? (PMZ.Abilities.hasEffect(attacker, 'adaptability') ? 2.0 : 1.5) : 1;
 
         // Type effectiveness
         var typeEff = this.typeEffectiveness(moveData.type, defender.types);
+
+        // Hold items (Choice, tipo, Life Orb)
+        damage = PMZ.HoldItems.modifyAttack(attacker, defender, moveData, damage);
 
         // Random factor
         var random = 0.85 + Math.random() * 0.15;
@@ -4295,9 +3792,6 @@ PMZ.Battle = {
             damage = Math.floor(damage * 1.2);
         }
 
-        // Hold items
-        damage = PMZ.HoldItems.modifyAttack(attacker, defender, moveData, damage);
-
         // Ability: type_boost_low_hp (Overgrow, Blaze, Torrent, Swarm)
         if (attacker.currentHp < attacker.maxHp * 0.33) {
             var abilityBoost = PMZ.Abilities.getAbilityData(attacker, 'type_boost_low_hp');
@@ -4314,20 +3808,20 @@ PMZ.Battle = {
         var hpMax = pokemon.maxHp;
         var hpCur = pokemon.currentHp;
         var statusMul = 1;
-        
+
         if (pokemon.status === 'sleep' || pokemon.status === 'freeze') statusMul = 2.5;
         else if (pokemon.status) statusMul = 1.5;
-        
-        var rate = ((3 * hpMax - 2 * hpCur) * a * (ballMultiplier || 1)) / (3 * hpMax) * statusMul;
-        
-        if (rate >= 255) return true;
-        
+
+        var rate = Math.floor(((3 * hpMax - 2 * hpCur) * a * (ballMultiplier || 1)) / (3 * hpMax) * statusMul);
+
+        if (rate >= 255) return { rate: rate, shakes: 4, captured: true };
+
         var shake = Math.floor(1048560 / Math.sqrt(Math.sqrt(16711680 / Math.max(1, rate))));
         var shakes = 0;
         for (var i = 0; i < 4; i++) {
             if (Math.floor(Math.random() * 65536) < shake) shakes++;
         }
-        
+
         return { rate: rate, shakes: shakes, captured: shakes >= 4 };
     }
 };
@@ -4383,10 +3877,14 @@ PMZ.Icons = {
         return this._cache[key];
     },
     
-    drawIcon: function(contents, id, x, y, w, h, suffix) {
+    drawIcon: function(contents, id, x, y, w, h, suffix, onReady) {
         var bmp = this.getBitmap(id, suffix);
-        if (bmp && bmp.isReady()) {
+        if (bmp.isReady()) {
             contents.blt(bmp, 0, 0, bmp.width, bmp.height, x, y, w, h);
+        } else if (onReady) {
+            // El bitmap carga asincronico: al estar listo, redibuja el
+            // contenedor (sin esto el icono no aparece hasta reentrar)
+            bmp.addLoadListener(function() { onReady(); });
         }
     }
 };
@@ -4764,6 +4262,14 @@ PMZ.Icons = {
         info.forEach(function(line) { console.log('[PMZ] ' + line); });
         if ($gameMessage) {
             $gameMessage.add('Debug info written to console (F8)');
+        }
+    });
+
+    PluginManager.registerCommand('PMZ_Core', 'pokedexSeenAll', function(args) {
+        PMZ.Pokedex.registerAllSeen();
+        console.log('[PMZ] Todos los Pokemon marcados como vistos en la Pokedex.');
+        if ($gameMessage) {
+            $gameMessage.add('Todos los Pokemon han sido registrados en la Pokedex!');
         }
     });
 

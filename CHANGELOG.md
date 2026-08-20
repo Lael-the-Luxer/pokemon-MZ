@@ -1,15 +1,16 @@
 # PMZ — Pokémon Essential para RPG Maker MZ
 
-**Versión:** v0.9.9 (Beta Pública) + **Expansión Hoenn** + **PMZ Editor**
+**Versión:** v0.9.13 (Animaciones de batalla) → v0.9.12 (UI encuadre + iconos) → v0.9.11 (Cobertura total + bugfixes)
 **Estado del motor:** ✅ Listo para crear contenido (mapas, eventos, historia)
 **Estado del editor:** ✅ Edición visual de todos los JSON desde el navegador
+**Estado de calidad:** ✅ Suites de tests unitarios con `node:test` (482 tests, `npm test`)
 
 ## Ficha Técnica
 
 | Métrica | Valor |
 |---|---|
-| **Plugins** | 3 (`PMZ_Core.js`, `PMZ_Menu.js`, `PMZ_Battle.js`) |
-| **Líneas de código** | ~11.400 |
+| **Plugins** | 4 (`PMZ_Core.js`, `PMZ_GamePokemon.js`, `PMZ_BattleCore.js`, `PMZ_Battle.js`) + `PMZ_Menu.js` |
+| **Líneas de código** | ~12.400 |
 | **Archivos de datos** | 11 JSON (mechanics, items, pokemon, moves, abilities, types, trainers, encounters, config, badges, icons) |
 | **Especies Pokémon** | 386 (Gen 1 + Gen 2 + Gen 3 Hoenn completa: Treecko → Deoxys) |
 | **Movimientos** | 316 (Gen 1 + Gen 2 + 41 Gen 3: leafblade, blastburn, bulkup, dragonclaw, overheat, meteor mash, etc.) |
@@ -17,28 +18,105 @@
 | **Habilidades** | 113 (Gen 1 + Gen 2 + 15 Gen 3: truant, forecast, colorchange, purepower, normalize, etc.) |
 | **Entrenadores** | 60 (Kanto + Johto + 22 Hoenn: Roxanne → Juan, Elite 4, Steven, regulares) |
 | **Efectos de movimiento implementados** | 63 (recoil, drain, OHKO, multi-hit, fixed damage, trap, weather, etc.) |
+| **Tests unitarios** | 482 (`node --test`, sin dependencias) en `tests/` sobre datos reales de `PMZ/*.json`, incl. barrido de cobertura (316 movimientos + 113 habilidades) |
+
+## v0.9.13 — Animaciones de batalla
+
+### Animaciones centradas en los sprites
+- `playMoveAnimation` ahora siempre dispara un **impacto de color del tipo** centrado en el sprite del objetivo (anillo + núcleo) además de la animación de la base de datos de MZ, si está configurada.
+- El atacante **embiste** hacia el objetivo (avance con easing rápido y retorno yoyo) y recibe una leve sacudida/squash al impacto.
+- Flash de pantalla tintado con el color del tipo del movimiento con desvanecido suave.
+
+### Barra de HP animada
+- Las barras de HP del HUD de batalla ahora se **animan** hacia el valor real con easing (daño, curas y drenajes): la barra se vacía/llena gradualmente en vez de saltar al valor final.
+- La animación se dispara automáticamente en el flujo del turno (tras daño de ataque, ticks de estado, clima, Leech Seed, Bind y Bide) tanto para el jugador como para el rival.
+
+### Animaciones de debilitado y cambio
+- **Debilitado:** el Pokémon que cae se **desploma** (rota y se hunde hacia el suelo) con desvanecimiento antes de salir del combate; luego el sprite se restaura automáticamente para el siguiente Pokémon.
+- **Cambio de Pokémon:** al enviar un reemplazo (jugador o rival) el sprite **entra con rebote** desde arriba con un pequeño balanceo, y el atacante queda limpio para el próximo turno.
+
+## v0.9.12 — Encuadre de interfaz + fix de iconos
+
+### Fix: iconos que no aparecían hasta salir y entrar
+- Causa: `PMZ.Icons.drawIcon` dibujaba **una sola vez** sobre el `contents` estático de la ventana; si el PNG aún cargaba (carga asincrónica de MZ), el dibujo se perdía para siempre hasta reentrar a la escena (la caché ya lo tenía listo).
+- Solución: `drawIcon` ahora acepta `onReady` y registra `bmp.addLoadListener` → al terminar la carga redibuja la ventana sola (los `Sprite` de MZ ya auto-redibujan, por eso solo fallaban las listas/windows).
+- Aplicado en: lista de Party, lista de Pokédex, detalle de Pokédex e ítems de la Caja PC.
+- Se restauró el bloque `scripts.test` de `package.json` (se había perdido al guardar el archivo).
+
+### Encuadre y alineación (márgenes, solapamientos y cortes)
+- **Menú principal:** ventana de comandos con ancho/alto exactos y margen de 12px; contador de Pokédex usa el total real de especies (386) en vez de 151 quemado.
+- **Party:** lista alineada bajo el header (ya no se superponía 4px); panel de stats con altura mínima garantizada (230px) para que las 5 filas de stats nunca se corten; corregido el solapamiento entre Dinero/Slots/mensajes en el header.
+- **Resumen:** las pestañas quedan dentro de pantalla (alto exacto 60px) y las 5 páginas ajustadas para no quedar debajo de las pestañas.
+- **Mochila:** la lista ya no se monta sobre la fila de filtros (barra de filtros 48–102px, lista desde 106px).
+- **Tienda:** comando Comprar/Vender/Salir con tamaño correcto (antes era una ventana gigante fuera de pantalla).
+- **PC/Caja:** barra de comandos con alto de 60px acoplada al borde inferior, sin tapar la última fila de la caja.
+- **Tarjeta de entrenador:** botón Volver con tamaño y margen correctos.
+- **Batalla:** barra de HP y texto de PS sin solaparse en el HUD.
+- **Bug de UI:** el filtro "Evol" de la mochila registraba su handler como `Evolucion` (nunca coincidía con el comando `Evol`) → el botón era inútil; corregido.
+
+## v0.9.11 — Cobertura total + bugfixes
+
+### Barrido de cobertura (`tests/coverage.test.js`)
+- **Los 316 movimientos** de `moves.json` se ejecutan de verdad (dos veces, atacando ambos lados) cada uno sin excepciones
+- **Las 113 habilidades** de `abilities.json` se activan en una batería de interacciones (ataques de ambos lados, ticks de estado, daño de clima en 4 climas y los 11 hooks registrados) sin excepciones
+- Cada subtest fallido reporta el nombre exacto del movimiento/habilidad culpable
+
+### Bugfixes encontrados por el barrido (bugs reales de juego)
+- **`Recover`, `Soft-Boiled`, `Milk Drink`, `Slack Off`, `Synthesis`, `Moonlight`, `Morning Sun` crasheaban** (ReferenceError `e` no definido) → handlers `heal` y `heal_weather` recibían el efecto sin declararlo
+- **`Teeter Dance`/`Tri Attack` crasheaban** → handler `random_status` idem; además elegía el primer estado con `r()*3` fijo en vez de la lista del movimiento
+- **`Hammer Arm`, `Superpower`, `Close Combat`, `Overheat`, `Bulk Up`, `Calm Mind`, `Cosmic Power` crasheaban** al aterrizar el golpe → handler `stat_stage_self` sin el parámetro `e`
+- En `PMZ_BattleCore.js`: `_confusedUser` inicializado (autoconfusión de Outrage/Thrash etc. en contexto sin Scene)
+
+## v0.9.10 — BattleCore + Tests automatizados
+
+### Separación de lógica pura y gráficos
+- Nuevo plugin **`PMZ_BattleCore.js`**: toda la lógica de batalla que vivía adentro de `Scene_PMZ_Battle` ahora es **pura y testeable** (sin Windows, Sprites ni SceneManager):
+  - Cola de turnos (`buildActionQueue`: orden por velocidad, Quick Claw, doble batalla)
+  - Selección de acciones enemigas (`chooseEnemyActions`)
+  - Resolución de ataque (`executeMove`: protect, precisión, OHKO, fixed damage, survive-KO por Sturdy/Focus Band, flinch, Life Orb, tracking de daño para counter/mirrorcoat)
+  - Efectos de movimiento (`applyMoveEffects` con sustituo, mist, bide)
+  - Autogolpe por confusión, huida, captura (calculo + registro), fin de turno (clima, Leech Seed, ataduras, bide), derrota/reemplazo, veredictos de victoria, EXP de victoria y recompensas de entrenador
+- `Scene_PMZ_Battle` ahora **solo delega y anima**: `_buildActionQueue`, `_aiChooseActions`, `_resolveEndTurnState`, `updatePlayerAttack`/`updateOpponentAttack` (case 2), `checkDefeat`, `tryFlee`, `updateCaptured`, `updateVictory` (EXP), `_finishTrainerVictory`, efectos de fin de turno, confusion check y captura por item
+- Eliminados **duplicados de cálculo** que vivían en `PMZ_Battle.js` (`typeEffectiveness`, `calcDamage`, `calcCapture`)
+- `calcCapture` ahora devuelve **siempre** `{ rate, shakes, captured }` (rate ≥ 255 → 4 shakes, captura garantizada)
+
+### Tests unitarios (`npm test`)
+- Runner **nativo `node:test`** (sin dependencias, Node ≥ 18)
+- `tests/harness.js`: sandbox `vm` con stubs mínimos del runtime MZ, carga los plugins reales y los 11 JSON (`PMZ/*.json`), `Math.random` determinista (semilla manipulable)
+- `tests/battle_logic.test.js` (14): tabla de tipos contra `types.json`, STAB ×1.5, críticos, dano mínimo, escala por nivel, captura (fórmula, dormido, shakes, RNG), stat stages, precisión/evasión
+- `tests/effects.test.js` (15): Thunder Wave, Growl, Swords Dance, Dragon Rage, Fissure (OHKO), Rest, Mega Drain, Confuse Ray, Toxic, Leech Seed, Protect, Sandstorm, evasion
+- `tests/battlecore.test.js` (22): cola de turnos, IA, protect/miss, huida, veredictos de turno, derrota/reemplazo, leech/bind/bide, EXP de victoria (killer ×1.0, EVs), recompensas de entrenador (medalla una sola vez), captura registrada
+
+### Bugfixes encontrados por los tests
+- **`PMZ.Status.tick` no dabaña con el estado `toxic`** (solo `poison`) → Toxic ahora hace el tick de veneno (1/8 PS)
+- **`Rest` crasheaba** (TypeError) al ejecutarse vía BattleCore → `_sleepTurns` inicializado en BattleCore
+
+### Orden de carga
+`PMZ_Core.js` → `PMZ_GamePokemon.js` → `PMZ_BattleCore.js` → `PMZ_Battle.js` → `PMZ_Menu.js` → `PMZ_HGSS.js`
 
 ## Arquitectura
 
 ```
-PMZ_Core.js     → Datos, evolución extendida, combate, objetos, equipo, PC,
-                   encuentros, estados, habilidades, IA, objetos retenidos,
-                   dinero, badges/MOs, Safari, cría, Pokédex, pesca, bayas,
-                   género, felicidad, clima, ciclo día/noche, EV/IV, Sprites,
-                   sistema de mecánicas de combate (mechanics.json)
-PMZ_Menu.js     → Menú de equipo, resumen 5 pestañas, mochila, centro,
-                  tienda, equipar, Pokédex con búsqueda, tarjeta entrenador
-                  (grid 4x2 de medallas con líderes), PC (cajas),
-                  tienda personalizada, filtro horizontal
-PMZ_Battle.js   → Escena de batalla (wild/trainer/safari/doble), captura,
-                  sprites, fondos, gritos, mega evolución, X-items,
-                  clima en batalla, captura one-shot, turno por velocidad,
-                  cola de acciones, selección de objetivo, animaciones,
-                   63 efectos de movimiento, tracking (Leech Seed, Bind, etc.),
-                  encuentro por lista de probabilidades, UI mejorada
+PMZ_Core.js        → Datos, evolución extendida, combate, objetos, equipo, PC,
+                     encuentros, estados, habilidades, IA, objetos retenidos,
+                     dinero, badges/MOs, Safari, cría, Pokédex, pesca, bayas,
+                     género, felicidad, clima, ciclo día/noche, EV/IV, Sprites,
+                     sistema de mecánicas de combate (mechanics.json)
+PMZ_GamePokemon.js → Clase Game_Pokemon real (objeto Pokémon con métodos)
+PMZ_BattleCore.js  → LÓGICA PURA de batalla (testeable sin gráficos): cola de
+                     turnos, resolución de ataques, efectos, fin de turno,
+                     captura, huida, EXP y recompensas (PMZ.BattleCore)
+PMZ_Battle.js      → Escena de batalla SOLO VISUAL (delega en BattleCore):
+                     wild/trainer/safari/doble, captura animada, sprites,
+                     fondos, gritos, mega evolución, X-items, clima en batalla,
+                     UI mejorada
+PMZ_Menu.js        → Menú de equipo, resumen 5 pestañas, mochila, centro,
+                     tienda, equipar, Pokédex con búsqueda, tarjeta entrenador
+                     (grid 4x2 de medallas con líderes), PC (cajas),
+                     tienda personalizada, filtro horizontal
 ```
 
-**Orden de carga obligatorio:** `PMZ_Core.js` → `PMZ_Menu.js` → `PMZ_Battle.js`
+**Orden de carga obligatorio:** `PMZ_Core.js` → `PMZ_GamePokemon.js` → `PMZ_BattleCore.js` → `PMZ_Battle.js` → `PMZ_Menu.js`
 
 ## Sistemas Completos
 
@@ -899,6 +977,18 @@ Generación 3 completa: 135 especies nuevas (#252 Treecko → #386 Deoxys).
 - Type-boost items: 14 items con `effect: "type_boost"` + `stat: "fire"/"water"/etc.` + `multiplier: 1.2`
 - Pinch berries: 5 berries con `effect: "berry"` + `berryStatBoost` + `berryCondition: "low_hp"`
 - Nuevos efectos de habilidad: `purepower` (doble Attack), `plus`/`minus` (boost con compañero), `simple` (estadísticas ×2), `icebody` (cura en granizo)
+
+### PMZ_HGSS.js v0.3 — Render 2.5D estilo HeartGold/SoulSilver
+
+Plugin que añade perspectiva 2.5D y cámara suave al mapa.
+
+**Características:**
+- **CSS 3D perspective**: `perspective()` + `rotateX()` en el canvas del juego. Solo activo durante Scene_Map (se desactiva en batallas, menús, etc.). Params: `perspectiveDeg` (0-10°) y `perspectiveDistance` (200-3000px)
+- **Cámara suave**: lerp de `_displayX/_displayY` hacia el jugador con `smoothSpeed` (0.02-0.2). Desactiva edge-scrolling nativo
+- **Configurable**: Plugin Manager params + `PMZ/config.json` sección `hgss` (leída en Scene_Boot)
+- **Bugfix v0.3**: reemplazado PIXI.Filter GLSL (incompatible con Tilemap custom renderer de RPG Maker MZ) por CSS transforms
+
+**Orden de carga:** `PMZ_Core.js` → `PMZ_Menu.js` → `PMZ_Battle.js` → `PMZ_HGSS.js`
 
 ### Para expandir a Gen 4+
 Los sistemas están listos. Solo falta añadir datos.

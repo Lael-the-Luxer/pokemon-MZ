@@ -4169,7 +4169,7 @@
     "eggGroups": [
       "mineral"
     ],
-    "genderRatio": 50,
+    "genderRatio": null,
     "evYields": {
       "spAttack": 1
     }
@@ -4220,7 +4220,7 @@
     "eggGroups": [
       "mineral"
     ],
-    "genderRatio": 50,
+    "genderRatio": null,
     "evYields": {
       "spAttack": 2
     }
@@ -5534,7 +5534,7 @@
     "eggGroups": [
       "humanlike"
     ],
-    "genderRatio": 75,
+    "genderRatio": 100,
     "evYields": {
       "spDefense": 2
     }
@@ -5871,7 +5871,7 @@
     "eggGroups": [
       "fairy"
     ],
-    "genderRatio": 25,
+    "genderRatio": 0,
     "evYields": {
       "hp": 2
     }
@@ -6484,7 +6484,7 @@
     "eggGroups": [
       "humanlike"
     ],
-    "genderRatio": 25,
+    "genderRatio": 0,
     "evYields": {
       "spAttack": 2
     }
@@ -6705,7 +6705,7 @@
     "eggGroups": [
       "field"
     ],
-    "genderRatio": 50,
+    "genderRatio": 100,
     "evYields": {
       "attack": 1,
       "defense": 1
@@ -12661,7 +12661,7 @@
     "eggGroups": [
       "noegg"
     ],
-    "genderRatio": 0,
+    "genderRatio": 100,
     "evYields": {
       "attack": 1
     },
@@ -12712,7 +12712,7 @@
     "eggGroups": [
       "field"
     ],
-    "genderRatio": 0,
+    "genderRatio": 100,
     "evYields": {
       "spDefense": 2
     },
@@ -12772,7 +12772,7 @@
     "eggGroups": [
       "noegg"
     ],
-    "genderRatio": 100,
+    "genderRatio": 0,
     "evYields": {
       "spAttack": 1
     },
@@ -12939,7 +12939,7 @@
     "eggGroups": [
       "field"
     ],
-    "genderRatio": 100,
+    "genderRatio": 0,
     "evYields": {
       "defense": 2
     },

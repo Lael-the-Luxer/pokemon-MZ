@@ -3,6 +3,9 @@
 var $plugins =
 [
 {"name":"PMZ_Core","status":true,"description":"Pokemon MZ Essential - Core System","parameters":{"maxPartySize":"6","boxCount":"24","boxSize":"30","battleMovesLimit":"4","encounterRate":"15"}},
+{"name":"PMZ_GamePokemon","status":true,"description":"PMZ Game_Pokemon - objeto Pokemon real (clase)","parameters":{}},
+{"name":"PMZ_BattleCore","status":true,"description":"PMZ BattleCore - logica de batalla pura (testeable, sin graficos)","parameters":{}},
 {"name":"PMZ_Battle","status":true,"description":"Pokemon MZ Essential - Battle & Capture System","parameters":{}},
-{"name":"PMZ_Menu","status":true,"description":"Pokemon MZ Essential - Party Menu System","parameters":{}}
+{"name":"PMZ_Menu","status":true,"description":"Pokemon MZ Essential - Party Menu System","parameters":{}},
+{"name":"PMZ_HGSS","status":false,"description":"v0.2 PMZ HGSS 2.5D Renderer — perspectiva sutil en el mapa","parameters":{"enabled":"true","perspectiveStrength":"0.06","smoothCamera":"true","smoothSpeed":"0.08"}}
 ];

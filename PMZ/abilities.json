@@ -156,14 +156,14 @@
     "hook": "onContact"
   },
   "innerfocus": {
-    "id": 93,
+    "id": 92,
     "name": "Inner Focus",
     "description": "No se amedrenta",
     "effect": "inner_focus",
     "hook": "onPreventFlinch"
   },
   "stench": {
-    "id": 22,
+    "id": 21,
     "name": "Stench",
     "description": "10% de hacer retroceder al atacar",
     "effect": "stench",
@@ -171,32 +171,32 @@
     "hook": "onContact"
   },
   "drizzle": {
-    "id": 23,
+    "id": 22,
     "name": "Drizzle",
     "description": "Cambia el clima a Lluvia",
     "effect": "rain"
   },
   "drought": {
-    "id": 24,
+    "id": 23,
     "name": "Drought",
     "description": "Cambia el clima a Sol intenso",
     "effect": "sun"
   },
   "sandstream": {
-    "id": 25,
+    "id": 24,
     "name": "Sand Stream",
     "description": "Cambia el clima a Tormenta de Arena",
     "effect": "sandstorm"
   },
   "naturalcure": {
-    "id": 26,
+    "id": 25,
     "name": "Natural Cure",
     "description": "Cura problemas de estado al cambiar",
     "effect": "natural_cure",
     "hook": "onUtility"
   },
   "roughskin": {
-    "id": 27,
+    "id": 26,
     "name": "Rough Skin",
     "description": "Dana al contacto 1/8 del max HP",
     "effect": "rough_skin",
@@ -204,14 +204,14 @@
     "hook": "onContact"
   },
   "pressure": {
-    "id": 28,
+    "id": 27,
     "name": "Pressure",
     "description": "Duplica el consumo de PP del rival",
     "effect": "pressure",
     "hook": "onUtility"
   },
   "immunity": {
-    "id": 29,
+    "id": 28,
     "name": "Immunity",
     "description": "Inmunidad a Veneno",
     "effect": "status_immunity",
@@ -219,7 +219,7 @@
     "hook": "onStatusCheck"
   },
   "limber": {
-    "id": 30,
+    "id": 29,
     "name": "Limber",
     "description": "Inmunidad a Paralisis",
     "effect": "status_immunity",
@@ -227,7 +227,7 @@
     "hook": "onStatusCheck"
   },
   "waterabsorb": {
-    "id": 31,
+    "id": 30,
     "name": "Water Absorb",
     "description": "Absorbe movimientos de Agua y recupera PS",
     "effect": "type_absorb",
@@ -235,7 +235,7 @@
     "hook": "onDamageCalc"
   },
   "voltabsorb": {
-    "id": 32,
+    "id": 31,
     "name": "Volt Absorb",
     "description": "Absorbe movimientos Electric y recupera PS",
     "effect": "type_absorb",
@@ -243,21 +243,21 @@
     "hook": "onDamageCalc"
   },
   "flashfire": {
-    "id": 33,
+    "id": 32,
     "name": "Flash Fire",
     "description": "Inmunidad a Fuego, potencia movimientos Fire",
     "effect": "flash_fire",
     "hook": "onDamageCalc"
   },
   "chlorophyll": {
-    "id": 34,
+    "id": 33,
     "name": "Chlorophyll",
     "description": "Duplica Velocidad bajo Sol intenso",
     "effect": "chlorophyll",
     "hook": "onWeather"
   },
   "insomnia": {
-    "id": 35,
+    "id": 34,
     "name": "Insomnia",
     "description": "Inmunidad a Sueno",
     "effect": "status_immunity",
@@ -265,14 +265,14 @@
     "hook": "onStatusCheck"
   },
   "oblivious": {
-    "id": 36,
+    "id": 35,
     "name": "Oblivious",
     "description": "Inmunidad a Atraccion",
     "effect": "oblivious",
     "hook": "onUtility"
   },
   "owntempo": {
-    "id": 37,
+    "id": 36,
     "name": "Own Tempo",
     "description": "Inmunidad a Confusion",
     "effect": "status_immunity",
@@ -280,7 +280,7 @@
     "hook": "onStatusCheck"
   },
   "magmaarmor": {
-    "id": 38,
+    "id": 37,
     "name": "Magma Armor",
     "description": "Inmunidad a Congelacion",
     "effect": "status_immunity",
@@ -288,7 +288,7 @@
     "hook": "onStatusCheck"
   },
   "waterveil": {
-    "id": 39,
+    "id": 38,
     "name": "Water Veil",
     "description": "Inmunidad a Quemaduras",
     "effect": "status_immunity",
@@ -296,306 +296,306 @@
     "hook": "onStatusCheck"
   },
   "guts": {
-    "id": 40,
+    "id": 39,
     "name": "Guts",
     "description": "1.5x Ataque cuando tiene problema de estado",
     "effect": "guts",
     "hook": "onDamageCalc"
   },
   "marvelscale": {
-    "id": 41,
+    "id": 40,
     "name": "Marvel Scale",
     "description": "1.5x Defensa cuando tiene problema de estado",
     "effect": "marvel_scale",
     "hook": "onUtility"
   },
   "sandveil": {
-    "id": 42,
+    "id": 41,
     "name": "Sand Veil",
     "description": "Aumenta evasion 1.25x en tormenta de arena",
     "effect": "sand_veil",
     "hook": "onAccuracy"
   },
   "rivalry": {
-    "id": 43,
+    "id": 42,
     "name": "Rivalry",
     "description": "1.25x dano contra rival del mismo genero",
     "effect": "rivalry",
     "hook": "onDamageCalc"
   },
   "magicguard": {
-    "id": 44,
+    "id": 43,
     "name": "Magic Guard",
     "description": "Inmune a dano indirecto (veneno, clima, recoil)",
     "effect": "magic_guard",
     "hook": "onDamageCalc"
   },
   "competitive": {
-    "id": 45,
+    "id": 44,
     "name": "Competitive",
     "description": "+2 At.Esp. cuando algun stat propio baja",
     "effect": "competitive",
     "hook": "onUtility"
   },
   "dryskin": {
-    "id": 46,
+    "id": 45,
     "name": "Dry Skin",
     "description": "Recupera PS bajo lluvia, debilidad a fuego",
     "effect": "dry_skin",
     "hook": "onWeather"
   },
   "tintedlens": {
-    "id": 47,
+    "id": 46,
     "name": "Tinted Lens",
     "description": "Movimientos super-efectivos hacen 2x dano (en vez de 1x)",
     "effect": "tinted_lens",
     "hook": "onDamageCalc"
   },
   "arenaveil": {
-    "id": 48,
+    "id": 47,
     "name": "Arena Veil",
     "description": "1.5x evasion en tormenta de arena",
     "effect": "arena_veil",
     "hook": "onUtility"
   },
   "pickup": {
-    "id": 49,
+    "id": 48,
     "name": "Pickup",
     "description": "Recoge items despues de batalla",
     "effect": "pickup",
     "hook": "onUtility"
   },
   "technician": {
-    "id": 50,
+    "id": 49,
     "name": "Technician",
     "description": "Movimientos de poder ≤ 60 hacen 1.5x dano",
     "effect": "technician",
     "hook": "onDamageCalc"
   },
   "damp": {
-    "id": 51,
+    "id": 50,
     "name": "Damp",
     "description": "Previene Self-Destruct/Explosion",
     "effect": "damp",
     "hook": "onUtility"
   },
   "cloudnine": {
-    "id": 52,
+    "id": 51,
     "name": "Cloud Nine",
     "description": "Anula efectos del clima",
     "effect": "cloud_nine",
     "hook": "onWeather"
   },
   "vitalheart": {
-    "id": 53,
+    "id": 52,
     "name": "Vital Heart",
     "description": "Inmune a todos los problemas de estado",
     "effect": "full_immunity"
   },
   "angerpoint": {
-    "id": 54,
+    "id": 53,
     "name": "Anger Point",
     "description": "Ataque sube a +6 cuando recibe un golpe critico",
     "effect": "anger_point",
     "hook": "onCritCheck"
   },
   "noguard": {
-    "id": 55,
+    "id": 54,
     "name": "No Guard",
     "description": "Todos los movimientos siempre aciertan",
     "effect": "no_guard",
     "hook": "onAccuracy"
   },
   "liquidooze": {
-    "id": 56,
+    "id": 55,
     "name": "Liquid Ooze",
     "description": "Leech Seed causa dano al que drena",
     "effect": "liquid_ooze",
     "hook": "onDamageCalc"
   },
   "rockhead": {
-    "id": 57,
+    "id": 56,
     "name": "Rock Head",
     "description": "Inmune a recoil de movimientos",
     "effect": "rock_head",
     "hook": "onDamageCalc"
   },
   "sturdy": {
-    "id": 58,
+    "id": 57,
     "name": "Sturdy",
     "description": "No cae en 1 golpe (sobrevive con 1 PS)",
     "effect": "sturdy",
     "hook": "onDamageCalc"
   },
   "magnetpull": {
-    "id": 59,
+    "id": 58,
     "name": "Magnet Pull",
     "description": "Previene huida de Pokemon tipo Steel",
     "effect": "magnet_pull",
     "hook": "onUtility"
   },
   "earlybird": {
-    "id": 60,
+    "id": 59,
     "name": "Early Bird",
     "description": "Despierta de sueno el doble de rapido",
     "effect": "early_bird",
     "hook": "onUtility"
   },
   "thickfat": {
-    "id": 61,
+    "id": 60,
     "name": "Thick Fat",
     "description": "Recibe 0.5x dano de Fire e Ice",
     "effect": "thick_fat",
     "hook": "onDamageCalc"
   },
   "hydration": {
-    "id": 62,
+    "id": 61,
     "name": "Hydration",
     "description": "Cura problemas de estado al final del turno bajo lluvia",
     "effect": "hydration",
     "hook": "onWeather"
   },
   "stickyhold": {
-    "id": 63,
+    "id": 62,
     "name": "Sticky Hold",
     "description": "Item equipado no puede ser robado",
     "effect": "sticky_hold",
     "hook": "onUtility"
   },
   "shellarmor": {
-    "id": 64,
+    "id": 63,
     "name": "Shell Armor",
     "description": "Inmune a golpes criticos del rival",
     "effect": "shell_armor",
     "hook": "onCritCheck"
   },
   "skilllink": {
-    "id": 65,
+    "id": 64,
     "name": "Skill Link",
     "description": "Multi-hit siempre pega maximo numero de golpes",
     "effect": "skill_link",
     "hook": "onOverride"
   },
   "forewarn": {
-    "id": 66,
+    "id": 65,
     "name": "Forewarn",
     "description": "Al entrar, alerta del movimiento mas poderoso del rival",
     "effect": "forewarn",
     "hook": "onEntry"
   },
   "hypercutter": {
-    "id": 67,
+    "id": 66,
     "name": "Hyper Cutter",
     "description": "Ataque propio no puede ser reducido",
     "effect": "prevent_attack_drop"
   },
   "soundproof": {
-    "id": 68,
+    "id": 67,
     "name": "Soundproof",
     "description": "Inmune a movimientos de sonido",
     "effect": "soundproof",
     "hook": "onDamageCalc"
   },
   "reckless": {
-    "id": 69,
+    "id": 68,
     "name": "Reckless",
     "description": "Movimientos con recoil hacen 1.2x dano",
     "effect": "reckless",
     "hook": "onDamageCalc"
   },
   "ironfist": {
-    "id": 70,
+    "id": 69,
     "name": "Iron Fist",
     "description": "Movimientos de puno hacen 1.2x dano",
     "effect": "iron_fist",
     "hook": "onDamageCalc"
   },
   "leafguard": {
-    "id": 71,
+    "id": 70,
     "name": "Leaf Guard",
     "description": "Inmune a problemas de estado bajo sol intenso",
     "effect": "leaf_guard",
     "hook": "onWeather"
   },
   "scrappy": {
-    "id": 72,
+    "id": 71,
     "name": "Scrappy",
     "description": "Movimientos Normal/Fighting golpean Ghost",
     "effect": "scrappy",
     "hook": "onDamageCalc"
   },
   "swiftswim": {
-    "id": 73,
+    "id": 72,
     "name": "Swift Swim",
     "description": "Duplica Velocidad bajo lluvia",
     "effect": "swift_swim",
     "hook": "onWeather"
   },
   "sniper": {
-    "id": 74,
+    "id": 73,
     "name": "Sniper",
     "description": "Golpes criticos hacen 2.25x en vez de 1.5x",
     "effect": "sniper",
     "hook": "onCritCheck"
   },
   "illuminate": {
-    "id": 75,
+    "id": 74,
     "name": "Illuminate",
     "description": "Doble tasa de encuentro, previene reduccion de precision",
     "effect": "illuminate",
     "hook": "onUtility"
   },
   "filter": {
-    "id": 76,
+    "id": 75,
     "name": "Filter",
     "description": "Recibe 0.75x dano de movimientos super-efectivos",
     "effect": "filter",
     "hook": "onDamageCalc"
   },
   "moldbreaker": {
-    "id": 77,
+    "id": 76,
     "name": "Mold Breaker",
     "description": "Ignora abilities defensivas del rival al atacar",
     "effect": "mold_breaker",
     "hook": "onOverride"
   },
   "adaptability": {
-    "id": 78,
+    "id": 77,
     "name": "Adaptability",
     "description": "STAB hace 2x dano en vez de 1.5x",
     "effect": "adaptability",
     "hook": "onDamageCalc"
   },
   "trace": {
-    "id": 79,
+    "id": 78,
     "name": "Trace",
     "description": "Copia la ability del rival al entrar",
     "effect": "trace",
     "hook": "onEntry"
   },
   "download": {
-    "id": 80,
+    "id": 79,
     "name": "Download",
     "description": "Boost At.Esp. o Ataque segun la Defensa del rival",
     "effect": "download",
     "hook": "onEntry"
   },
   "battlearmor": {
-    "id": 81,
+    "id": 80,
     "name": "Battle Armor",
     "description": "Inmune a golpes criticos del rival",
     "effect": "shell_armor",
     "hook": "onCritCheck"
   },
   "suctioncups": {
-    "id": 82,
+    "id": 81,
     "name": "Suction Cups",
     "description": "Protege de ser forzado a cambiar (Whirlwind, Roar, etc.)",
     "effect": "suction_cups",
     "hook": "onUtility"
   },
   "vitalspirit": {
-    "id": 83,
+    "id": 82,
     "name": "Vital Spirit",
     "description": "Inmunidad a Sueño",
     "effect": "status_immunity",
@@ -603,205 +603,205 @@
     "hook": "onStatusCheck"
   },
   "wonderguard": {
-    "id": 84,
+    "id": 83,
     "name": "Wonder Guard",
     "description": "Solo movimientos super-efectivos golpean",
     "effect": "wonder_guard",
     "hook": "onDamageCalc"
   },
   "hugepower": {
-    "id": 85,
+    "id": 84,
     "name": "Huge Power",
     "description": "Duplica el Ataque",
     "effect": "huge_power",
     "hook": "onDamageCalc"
   },
   "multiscale": {
-    "id": 86,
+    "id": 85,
     "name": "Multiscale",
     "description": "Reduce el daño recibido a la mitad cuando tiene PS maximo",
     "effect": "multi_scale",
     "hook": "onDamageCalc"
   },
   "overcoat": {
-    "id": 87,
+    "id": 86,
     "name": "Overcoat",
     "description": "Inmune a daño por clima (granizo, tormenta arena)",
     "effect": "overcoat",
     "hook": "onWeather"
   },
   "speedboost": {
-    "id": 88,
+    "id": 87,
     "name": "Speed Boost",
     "description": "Aumenta Velocidad 1 nivel cada turno",
     "effect": "speed_boost",
     "hook": "onTurnEnd"
   },
   "regen": {
-    "id": 89,
+    "id": 88,
     "name": "Regenerator",
     "description": "Recupera 1/3 de PS max al cambiar",
     "effect": "regenerator",
     "hook": "onTurnEnd"
   },
   "solarpower": {
-    "id": 90,
+    "id": 89,
     "name": "Solar Power",
     "description": "Aumenta Sp.Atk en sol pero pierde PS cada turno",
     "effect": "solar_power",
     "hook": "onWeather"
   },
   "superluck": {
-    "id": 91,
+    "id": 90,
     "name": "Super Luck",
     "description": "Aumenta el ratio de golpe crítico",
     "effect": "super_luck",
     "hook": "onCritCheck"
   },
   "shadowtag": {
-    "id": 92,
+    "id": 91,
     "name": "Shadow Tag",
     "description": "Impide que el rival huya o sea cambiado",
     "effect": "shadow_tag",
     "hook": "onUtility"
   },
   "gluttony": {
-    "id": 94,
+    "id": 93,
     "name": "Gluttony",
     "description": "Usa la baya antes de lo normal",
     "effect": "gluttony",
     "hook": "onUtility"
   },
   "quickfeet": {
-    "id": 95,
+    "id": 94,
     "name": "Quick Feet",
     "description": "Aumenta Velocidad si tiene un problema de estado",
     "effect": "quick_feet",
     "hook": "onUtility"
   },
   "snowcloak": {
-    "id": 96,
+    "id": 95,
     "name": "Snow Cloak",
     "description": "Aumenta Evasión en granizo",
     "effect": "snow_cloak",
     "hook": "onAccuracy"
   },
   "hustle": {
-    "id": 97,
+    "id": 96,
     "name": "Hustle",
     "description": "Aumenta Ataque pero reduce Precisión",
     "effect": "hustle",
     "hook": "onAccuracy"
   },
   "frisk": {
-    "id": 98,
+    "id": 97,
     "name": "Frisk",
     "description": "Revela el objeto del rival",
     "effect": "frisk",
     "hook": "onEntry"
   },
   "steadfast": {
-    "id": 99,
+    "id": 98,
     "name": "Steadfast",
     "description": "Aumenta Velocidad si se amedrenta",
     "effect": "steadfast",
     "hook": "onPreventFlinch"
   },
   "truant": {
-    "id": 100,
+    "id": 99,
     "name": "Truant",
     "description": "Ataca cada 2 turnos",
     "effect": "truant"
   },
   "forecast": {
-    "id": 101,
+    "id": 100,
     "name": "Forecast",
     "description": "Cambia de forma con el clima",
     "effect": "forecast"
   },
   "colorchange": {
-    "id": 102,
+    "id": 101,
     "name": "Color Change",
     "description": "Cambia de tipo al del ultimo movimiento recibido",
     "effect": "color_change",
     "hook": "onUtility"
   },
   "plus": {
-    "id": 103,
+    "id": 102,
     "name": "Plus",
     "description": "Aumenta Sp.Atk 1.5x si el aliado tiene Minus",
     "effect": "plus",
     "hook": "onDamageCalc"
   },
   "minus": {
-    "id": 104,
+    "id": 103,
     "name": "Minus",
     "description": "Aumenta Sp.Atk 1.5x si el aliado tiene Plus",
     "effect": "minus",
     "hook": "onDamageCalc"
   },
   "purepower": {
-    "id": 105,
+    "id": 104,
     "name": "Pure Power",
     "description": "Duplica el Ataque",
     "effect": "pure_power",
     "hook": "onDamageCalc"
   },
   "normalize": {
-    "id": 106,
+    "id": 105,
     "name": "Normalize",
     "description": "Todos los movimientos se vuelven tipo Normal",
     "effect": "normalize"
   },
   "stall": {
-    "id": 107,
+    "id": 106,
     "name": "Stall",
     "description": "Siempre ataca de ultimo",
     "effect": "stall"
   },
   "simple": {
-    "id": 108,
+    "id": 107,
     "name": "Simple",
     "description": "Duplica los cambios de stats (subidas y bajadas)",
     "effect": "simple",
     "hook": "onOverride"
   },
   "tangledfeet": {
-    "id": 109,
+    "id": 108,
     "name": "Tangled Feet",
     "description": "Duplica evasion cuando esta confuso",
     "effect": "tangled_feet",
     "hook": "onAccuracy"
   },
   "arenatrap": {
-    "id": 110,
+    "id": 109,
     "name": "Arena Trap",
     "description": "Impide la huida del rival",
     "effect": "arena_trap",
     "hook": "onUtility"
   },
   "anticipation": {
-    "id": 111,
+    "id": 110,
     "name": "Anticipation",
     "description": "Alerta de movimientos super-efectivos del rival",
     "effect": "anticipation",
     "hook": "onUtility"
   },
   "icebody": {
-    "id": 112,
+    "id": 111,
     "name": "Ice Body",
     "description": "Recupera 1/16 de PS max en granizo",
     "effect": "ice_body",
     "hook": "onWeather"
   },
   "lightmetal": {
-    "id": 113,
+    "id": 112,
     "name": "Light Metal",
     "description": "Reduce el peso a la mitad",
     "effect": "light_metal"
   },
   "whitesmoke": {
-    "id": 114,
+    "id": 113,
     "name": "White Smoke",
     "description": "Protege de reduccion de stats",
     "effect": "prevent_stat_drop",

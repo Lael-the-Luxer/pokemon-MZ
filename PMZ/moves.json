@@ -3120,7 +3120,7 @@
     }
   },
   "nightslash": {
-    "id": 308,
+    "id": 307,
     "name": "Night Slash",
     "type": "dark",
     "power": 70,
@@ -3132,7 +3132,7 @@
     }
   },
   "sweetkiss": {
-    "id": 237,
+    "id": 236,
     "name": "Sweet Kiss",
     "type": "fairy",
     "power": 0,
@@ -3145,7 +3145,7 @@
     }
   },
   "nastyplot": {
-    "id": 238,
+    "id": 237,
     "name": "Nasty Plot",
     "type": "dark",
     "power": 0,
@@ -3160,7 +3160,7 @@
     }
   },
   "magiccoat": {
-    "id": 239,
+    "id": 238,
     "name": "Magic Coat",
     "type": "psychic",
     "power": 0,
@@ -3172,7 +3172,7 @@
     }
   },
   "copycat": {
-    "id": 240,
+    "id": 239,
     "name": "Copycat",
     "type": "normal",
     "power": 0,
@@ -3184,7 +3184,7 @@
     }
   },
   "yawn": {
-    "id": 241,
+    "id": 240,
     "name": "Yawn",
     "type": "normal",
     "power": 0,
@@ -3196,7 +3196,7 @@
     }
   },
   "futuresight": {
-    "id": 242,
+    "id": 241,
     "name": "Future Sight",
     "type": "psychic",
     "power": 120,
@@ -3208,7 +3208,7 @@
     }
   },
   "powergem": {
-    "id": 243,
+    "id": 242,
     "name": "Power Gem",
     "type": "rock",
     "power": 80,
@@ -3220,7 +3220,7 @@
     }
   },
   "helpinghand": {
-    "id": 244,
+    "id": 243,
     "name": "Helping Hand",
     "type": "normal",
     "power": 0,
@@ -3232,7 +3232,7 @@
     }
   },
   "flail": {
-    "id": 245,
+    "id": 244,
     "name": "Flail",
     "type": "normal",
     "power": 0,
@@ -3244,7 +3244,7 @@
     }
   },
   "stoneedge": {
-    "id": 246,
+    "id": 245,
     "name": "Stone Edge",
     "type": "rock",
     "power": 100,
@@ -3259,7 +3259,7 @@
     }
   },
   "perishsong": {
-    "id": 247,
+    "id": 246,
     "name": "Perish Song",
     "type": "normal",
     "power": 0,
@@ -3271,7 +3271,7 @@
     }
   },
   "bulletseed": {
-    "id": 248,
+    "id": 247,
     "name": "Bullet Seed",
     "type": "grass",
     "power": 25,
@@ -3285,7 +3285,7 @@
     }
   },
   "astonish": {
-    "id": 249,
+    "id": 248,
     "name": "Astonish",
     "type": "ghost",
     "power": 30,
@@ -3298,7 +3298,7 @@
     }
   },
   "mirrorcoat": {
-    "id": 250,
+    "id": 249,
     "name": "Mirror Coat",
     "type": "psychic",
     "power": 0,
@@ -3310,7 +3310,7 @@
     }
   },
   "bugbite": {
-    "id": 251,
+    "id": 250,
     "name": "Bug Bite",
     "type": "bug",
     "power": 60,
@@ -3322,7 +3322,7 @@
     }
   },
   "knockoff": {
-    "id": 252,
+    "id": 251,
     "name": "Knock Off",
     "type": "dark",
     "power": 65,
@@ -3334,7 +3334,7 @@
     }
   },
   "spikes": {
-    "id": 253,
+    "id": 252,
     "name": "Spikes",
     "type": "ground",
     "power": 0,
@@ -3346,7 +3346,7 @@
     }
   },
   "strugglebug": {
-    "id": 254,
+    "id": 253,
     "name": "Struggle Bug",
     "type": "bug",
     "power": 50,
@@ -3362,7 +3362,7 @@
     }
   },
   "powersplit": {
-    "id": 255,
+    "id": 254,
     "name": "Power Split",
     "type": "psychic",
     "power": 0,
@@ -3374,7 +3374,7 @@
     }
   },
   "guardsplit": {
-    "id": 256,
+    "id": 255,
     "name": "Guard Split",
     "type": "psychic",
     "power": 0,
@@ -3386,7 +3386,7 @@
     }
   },
   "megahorn": {
-    "id": 257,
+    "id": 256,
     "name": "Megahorn",
     "type": "bug",
     "power": 120,
@@ -3398,7 +3398,7 @@
     }
   },
   "reversal": {
-    "id": 258,
+    "id": 257,
     "name": "Reversal",
     "type": "fighting",
     "power": 0,
@@ -3410,7 +3410,7 @@
     }
   },
   "shellsmash": {
-    "id": 259,
+    "id": 258,
     "name": "Shell Smash",
     "type": "normal",
     "power": 0,
@@ -3422,7 +3422,7 @@
     }
   },
   "odorsleuth": {
-    "id": 260,
+    "id": 259,
     "name": "Odor Sleuth",
     "type": "normal",
     "power": 0,
@@ -3434,7 +3434,7 @@
     }
   },
   "icyshard": {
-    "id": 261,
+    "id": 260,
     "name": "Icy Shard",
     "type": "ice",
     "power": 40,
@@ -3446,7 +3446,7 @@
     }
   },
   "lockon": {
-    "id": 262,
+    "id": 261,
     "name": "Lock-On",
     "type": "normal",
     "power": 0,
@@ -3458,7 +3458,7 @@
     }
   },
   "bounce": {
-    "id": 263,
+    "id": 262,
     "name": "Bounce",
     "type": "flying",
     "power": 85,
@@ -3472,7 +3472,7 @@
     }
   },
   "steelwing": {
-    "id": 264,
+    "id": 263,
     "name": "Steel Wing",
     "type": "steel",
     "power": 70,
@@ -3488,7 +3488,7 @@
     }
   },
   "howl": {
-    "id": 265,
+    "id": 264,
     "name": "Howl",
     "type": "normal",
     "power": 0,
@@ -3503,7 +3503,7 @@
     }
   },
   "sketch": {
-    "id": 266,
+    "id": 265,
     "name": "Sketch",
     "type": "normal",
     "power": 0,
@@ -3515,7 +3515,7 @@
     }
   },
   "triplekick": {
-    "id": 267,
+    "id": 266,
     "name": "Triple Kick",
     "type": "fighting",
     "power": 10,
@@ -3529,7 +3529,7 @@
     }
   },
   "closecombat": {
-    "id": 268,
+    "id": 267,
     "name": "Close Combat",
     "type": "fighting",
     "power": 120,
@@ -3545,7 +3545,7 @@
     }
   },
   "heartstamp": {
-    "id": 269,
+    "id": 268,
     "name": "Heart Stamp",
     "type": "psychic",
     "power": 60,
@@ -3558,7 +3558,7 @@
     }
   },
   "gigaimpact": {
-    "id": 270,
+    "id": 269,
     "name": "Giga Impact",
     "type": "normal",
     "power": 150,
@@ -3570,7 +3570,7 @@
     }
   },
   "slackoff": {
-    "id": 271,
+    "id": 270,
     "name": "Slack Off",
     "type": "normal",
     "power": 0,
@@ -3583,7 +3583,7 @@
     }
   },
   "machpunch": {
-    "id": 272,
+    "id": 271,
     "name": "Mach Punch",
     "type": "fighting",
     "power": 40,
@@ -3595,7 +3595,7 @@
     }
   },
   "highjumpkick": {
-    "id": 273,
+    "id": 272,
     "name": "High Jump Kick",
     "type": "fighting",
     "power": 130,
@@ -3607,7 +3607,7 @@
     }
   },
   "sludgebomb": {
-    "id": 274,
+    "id": 273,
     "name": "Sludge Bomb",
     "type": "poison",
     "power": 90,
@@ -3621,7 +3621,7 @@
     }
   },
   "aircutter": {
-    "id": 275,
+    "id": 274,
     "name": "Air Cutter",
     "type": "flying",
     "power": 60,
@@ -3636,7 +3636,7 @@
     }
   },
   "superpower": {
-    "id": 276,
+    "id": 275,
     "name": "Superpower",
     "type": "fighting",
     "power": 120,
@@ -3652,7 +3652,7 @@
     }
   },
   "leafblade": {
-    "id": 277,
+    "id": 276,
     "name": "Leaf Blade",
     "type": "grass",
     "power": 90,
@@ -3664,7 +3664,7 @@
     }
   },
   "blastburn": {
-    "id": 278,
+    "id": 277,
     "name": "Blast Burn",
     "type": "fire",
     "power": 150,
@@ -3676,7 +3676,7 @@
     }
   },
   "hydrocannon": {
-    "id": 279,
+    "id": 278,
     "name": "Hydro Cannon",
     "type": "water",
     "power": 150,
@@ -3688,7 +3688,7 @@
     }
   },
   "mudshot": {
-    "id": 280,
+    "id": 279,
     "name": "Mud Shot",
     "type": "ground",
     "power": 55,
@@ -3703,7 +3703,7 @@
     }
   },
   "blazekick": {
-    "id": 281,
+    "id": 280,
     "name": "Blaze Kick",
     "type": "fire",
     "power": 85,
@@ -3717,7 +3717,7 @@
     }
   },
   "bulkup": {
-    "id": 282,
+    "id": 281,
     "name": "Bulk Up",
     "type": "fighting",
     "power": 0,
@@ -3733,7 +3733,7 @@
     }
   },
   "calmmind": {
-    "id": 283,
+    "id": 282,
     "name": "Calm Mind",
     "type": "psychic",
     "power": 0,
@@ -3749,7 +3749,7 @@
     }
   },
   "dragonclaw": {
-    "id": 284,
+    "id": 283,
     "name": "Dragon Claw",
     "type": "dragon",
     "power": 80,
@@ -3761,7 +3761,7 @@
     }
   },
   "aerialace": {
-    "id": 285,
+    "id": 284,
     "name": "Aerial Ace",
     "type": "flying",
     "power": 60,
@@ -3774,7 +3774,7 @@
     }
   },
   "shockwave": {
-    "id": 286,
+    "id": 285,
     "name": "Shock Wave",
     "type": "electric",
     "power": 60,
@@ -3787,7 +3787,7 @@
     }
   },
   "overheat": {
-    "id": 287,
+    "id": 286,
     "name": "Overheat",
     "type": "fire",
     "power": 140,
@@ -3801,7 +3801,7 @@
     }
   },
   "facade": {
-    "id": 288,
+    "id": 287,
     "name": "Facade",
     "type": "normal",
     "power": 70,
@@ -3813,7 +3813,7 @@
     }
   },
   "featherdance": {
-    "id": 289,
+    "id": 288,
     "name": "Feather Dance",
     "type": "flying",
     "power": 0,
@@ -3828,7 +3828,7 @@
     }
   },
   "waterspout": {
-    "id": 290,
+    "id": 289,
     "name": "Water Spout",
     "type": "water",
     "power": 150,
@@ -3840,7 +3840,7 @@
     }
   },
   "eruption": {
-    "id": 291,
+    "id": 290,
     "name": "Eruption",
     "type": "fire",
     "power": 150,
@@ -3852,7 +3852,7 @@
     }
   },
   "armthrust": {
-    "id": 292,
+    "id": 291,
     "name": "Arm Thrust",
     "type": "fighting",
     "power": 15,
@@ -3866,7 +3866,7 @@
     }
   },
   "fakeout": {
-    "id": 293,
+    "id": 292,
     "name": "Fake Out",
     "type": "normal",
     "power": 40,
@@ -3878,7 +3878,7 @@
     }
   },
   "covet": {
-    "id": 294,
+    "id": 293,
     "name": "Covet",
     "type": "normal",
     "power": 60,
@@ -3890,7 +3890,7 @@
     }
   },
   "muddywater": {
-    "id": 295,
+    "id": 294,
     "name": "Muddy Water",
     "type": "water",
     "power": 90,
@@ -3906,7 +3906,7 @@
     }
   },
   "sandtomb": {
-    "id": 296,
+    "id": 295,
     "name": "Sand Tomb",
     "type": "ground",
     "power": 35,
@@ -3920,7 +3920,7 @@
     }
   },
   "silverwind": {
-    "id": 297,
+    "id": 296,
     "name": "Silver Wind",
     "type": "bug",
     "power": 60,
@@ -3932,7 +3932,7 @@
     }
   },
   "needlearm": {
-    "id": 298,
+    "id": 297,
     "name": "Needle Arm",
     "type": "grass",
     "power": 60,
@@ -3945,7 +3945,7 @@
     }
   },
   "poisonfang": {
-    "id": 299,
+    "id": 298,
     "name": "Poison Fang",
     "type": "poison",
     "power": 50,
@@ -3959,7 +3959,7 @@
     }
   },
   "weatherball": {
-    "id": 300,
+    "id": 299,
     "name": "Weather Ball",
     "type": "normal",
     "power": 50,
@@ -3971,7 +3971,7 @@
     }
   },
   "meteormash": {
-    "id": 301,
+    "id": 300,
     "name": "Meteor Mash",
     "type": "steel",
     "power": 100,
@@ -3987,7 +3987,7 @@
     }
   },
   "encore": {
-    "id": 302,
+    "id": 301,
     "name": "Encore",
     "type": "normal",
     "power": 0,
@@ -3999,7 +3999,7 @@
     }
   },
   "detect": {
-    "id": 303,
+    "id": 302,
     "name": "Detect",
     "type": "fighting",
     "power": 0,
@@ -4011,7 +4011,7 @@
     }
   },
   "dragonbreath": {
-    "id": 304,
+    "id": 303,
     "name": "Dragon Breath",
     "type": "dragon",
     "power": 60,
@@ -4025,7 +4025,7 @@
     }
   },
   "cosmicpower": {
-    "id": 305,
+    "id": 304,
     "name": "Cosmic Power",
     "type": "psychic",
     "power": 0,
@@ -4041,7 +4041,7 @@
     }
   },
   "waterpulse": {
-    "id": 306,
+    "id": 305,
     "name": "Water Pulse",
     "type": "water",
     "power": 60,
@@ -4055,7 +4055,7 @@
     }
   },
   "dazzlinggleam": {
-    "id": 307,
+    "id": 306,
     "name": "Dazzling Gleam",
     "type": "fairy",
     "power": 80,
@@ -4067,7 +4067,7 @@
     }
   },
   "extrasensory": {
-    "id": 309,
+    "id": 308,
     "name": "Extrasensory",
     "type": "psychic",
     "power": 80,
@@ -4080,7 +4080,7 @@
     }
   },
   "grudge": {
-    "id": 310,
+    "id": 309,
     "name": "Grudge",
     "type": "ghost",
     "power": 0,
@@ -4092,7 +4092,7 @@
     }
   },
   "shadowpunch": {
-    "id": 311,
+    "id": 310,
     "name": "Shadow Punch",
     "type": "ghost",
     "power": 60,
@@ -4104,7 +4104,7 @@
     }
   },
   "foulplay": {
-    "id": 312,
+    "id": 311,
     "name": "Foul Play",
     "type": "dark",
     "power": 95,
@@ -4116,7 +4116,7 @@
     }
   },
   "ironhead": {
-    "id": 313,
+    "id": 312,
     "name": "Iron Head",
     "type": "steel",
     "power": 80,
@@ -4129,7 +4129,7 @@
     }
   },
   "rockblast": {
-    "id": 314,
+    "id": 313,
     "name": "Rock Blast",
     "type": "rock",
     "power": 25,
@@ -4143,7 +4143,7 @@
     }
   },
   "hammerarm": {
-    "id": 315,
+    "id": 314,
     "name": "Hammer Arm",
     "type": "fighting",
     "power": 100,
@@ -4157,7 +4157,7 @@
     }
   },
   "whirlpool": {
-    "id": 316,
+    "id": 315,
     "name": "Whirlpool",
     "type": "water",
     "power": 35,
@@ -4171,7 +4171,7 @@
     }
   },
   "teeterdance": {
-    "id": 317,
+    "id": 316,
     "name": "Teeter Dance",
     "type": "normal",
     "power": 0,

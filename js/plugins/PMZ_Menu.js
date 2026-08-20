@@ -358,7 +358,7 @@ Window_PMZ_PartyList.prototype.drawItem = function(index) {
     var iconW = 36;
     var ix = rect.x + 4;
     var iy = rect.y + (this.itemHeight() - iconW) / 2;
-    PMZ.Icons.drawIcon(this.contents, pkmn.id, ix, iy, iconW, iconW, (pkmn._formSuffix || pkmn._megaForm || ''));
+    PMZ.Icons.drawIcon(this.contents, pkmn.id, ix, iy, iconW, iconW, (pkmn._formSuffix || pkmn._megaForm || ''), this.refresh.bind(this));
 
     var isFainted = PMZ.Pokemon.isFainted(pkmn);
     var x = rect.x + 4 + iconW + 6;
@@ -485,7 +485,8 @@ Window_PMZ_Summary_Stats.prototype.refresh = function() {
     this.drawText(natureName, x, y + 44, 80, 'left');
     this.resetTextColor();
     // Show up/down arrows if nature modifies a stat
-    var nMods = PMZ.Pokemon._natureMods[p.nature] || PMZ.Pokemon._natureMods['hardy'];
+    var nData = PMZ.Data.natures() || {};
+    var nMods = nData[p.nature] || nData['hardy'] || { up: null, down: null };
     if (nMods.up || nMods.down) {
         this.contents.fontSize = 11;
         var labels = { attack: 'Atk', defense: 'Def', spAttack: 'At.E', spDefense: 'D.E', speed: 'Vel' };
@@ -663,7 +664,8 @@ Window_PMZ_Data.prototype.refresh = function() {
     lines.push('Felicidad: ' + (p.happiness || 70) + '/255');
     lines.push('Shiny: ' + (p.shiny ? 'Si!' : 'No'));
     lines.push('Genero: ' + (p.gender === 'male' ? 'Macho' : (p.gender === 'female' ? 'Hembra' : 'Sin genero')));
-    var nMods = PMZ.Pokemon._natureMods[p.nature] || PMZ.Pokemon._natureMods['hardy'];
+    var nData2 = PMZ.Data.natures() || {};
+    var nMods = nData2[p.nature] || nData2['hardy'] || { up: null, down: null };
     var labels2 = { attack: 'Atk', defense: 'Def', spAttack: 'At.E', spDefense: 'D.E', speed: 'Vel' };
     var natureStr = PMZ.Utils.capitalize(p.nature || 'serious');
     if (nMods.up || nMods.down) {
@@ -844,7 +846,7 @@ Scene_PMZ_Party.prototype.createHelpWindow = function() {
 
 Scene_PMZ_Party.prototype.createPartyWindow = function() {
     var w = Graphics.boxWidth;
-    this._partyWindow = new Window_PMZ_PartyList(0, 54, Math.floor(w * 0.55), Graphics.boxHeight - 54);
+    this._partyWindow = new Window_PMZ_PartyList(0, 62, Math.floor(w * 0.55), Graphics.boxHeight - 62);
     this._partyWindow.setHandler('ok', this.onPartyOk.bind(this));
     this._partyWindow.setHandler('cancel', this.onPartyCancel.bind(this));
     this.addWindow(this._partyWindow);
@@ -856,10 +858,10 @@ Scene_PMZ_Party.prototype.createInfoWindow = function() {
     var rightW = w - x;
     var iconArea = 100;
 
-    var statsY = 50;
+    var statsY = 62;
     var cmdH = 244;
-    var statsH = Graphics.boxHeight - statsY - cmdH;
-    this._statsWindow = new Window_PMZ_Summary_Stats(x, statsY, rightW - iconArea, Math.max(180, statsH));
+    var statsH = Math.max(230, Graphics.boxHeight - statsY - cmdH);
+    this._statsWindow = new Window_PMZ_Summary_Stats(x, statsY, rightW - iconArea, Math.max(230, statsH));
     this.addWindow(this._statsWindow);
 
     this._partySprite = new Sprite_PMZ_Icon();
@@ -959,17 +961,17 @@ Scene_PMZ_Party.prototype.refreshHeader = function(msg, pkmn) {
     w.resetTextColor();
     w.contents.fontSize = 18;
     w.drawText('\u2666 ' + PMZ.Money.get(), 12, 32, 160, 'left');
-    // Held-item slot indicator (right of money)
+    // Held-item slot indicator (right of money, no overlap)
     if (pkmn) {
         var max = PMZ.HoldItems.maxSlots();
         var used = PMZ.HoldItems.heldItems(pkmn).length;
         w.changeTextColor(used >= max ? '#ff8888' : '#aaffaa');
-        w.drawText('Slots: ' + used + '/' + max, 12, 32, 160, 'right');
+        w.drawText('Slots: ' + used + '/' + max, 220, 32, 140, 'left');
         w.resetTextColor();
     }
     if (msg) {
         w.contents.fontSize = 18;
-        w.drawText(msg, 140, 32, 400, 'left');
+        w.drawText(msg, 380, 32, Graphics.boxWidth - 392, 'left');
     }
 };
 
@@ -1005,7 +1007,7 @@ Window_PMZ_SummaryTabs.prototype = Object.create(Window_Command.prototype);
 Window_PMZ_SummaryTabs.prototype.constructor = Window_PMZ_SummaryTabs;
 
 Window_PMZ_SummaryTabs.prototype.initialize = function(x, y, commands) {
-    Window_Command.prototype.initialize.call(this, x, y, commands, Graphics.boxWidth);
+    Window_Command.prototype.initialize.call(this, x, y, commands, Graphics.boxWidth, 60);
 };
 
 Window_PMZ_SummaryTabs.prototype.maxCols = function() { return 5; };
@@ -1079,7 +1081,7 @@ Scene_PMZ_Summary.prototype.createStatsPage = function() {
     if (!pkmn) return;
 
     var w = Graphics.boxWidth;
-    var h = Graphics.boxHeight - 96;
+    var h = Graphics.boxHeight - 48 - 60;
     this._statsPage = new Window_PMZ_Summary_Stats(0, 48, w, h);
     this._statsPage.setPokemon(pkmn);
     this._statsPage.hide();
@@ -1091,7 +1093,7 @@ Scene_PMZ_Summary.prototype.createMovesPage = function() {
     if (!pkmn) return;
 
     var w = Graphics.boxWidth;
-    var h = Graphics.boxHeight - 96;
+    var h = Graphics.boxHeight - 48 - 60;
     this._movesPage = new Window_PMZ_Summary_Moves(0, 48, w, h);
     this._movesPage.setPokemon(pkmn);
     this._movesPage.hide();
@@ -1103,7 +1105,7 @@ Scene_PMZ_Summary.prototype.createIvEvPage = function() {
     if (!pkmn) return;
 
     var w = Graphics.boxWidth;
-    var h = Graphics.boxHeight - 96;
+    var h = Graphics.boxHeight - 48 - 60;
     this._ivEvPage = new Window_PMZ_Summary_StatsIV(0, 48, w, h);
     this._ivEvPage.setPokemon(pkmn);
     this._ivEvPage.hide();
@@ -1115,7 +1117,7 @@ Scene_PMZ_Summary.prototype.createDataPage = function() {
     if (!pkmn) return;
 
     var w = Graphics.boxWidth;
-    var h = Graphics.boxHeight - 96;
+    var h = Graphics.boxHeight - 48 - 60;
     this._dataPage = new Window_PMZ_Data(0, 48, w, h);
     this._dataPage.setPokemon(pkmn);
     this._dataPage.hide();
@@ -1124,12 +1126,12 @@ Scene_PMZ_Summary.prototype.createDataPage = function() {
 
 Scene_PMZ_Summary.prototype.createTabWindow = function() {
     var w = Graphics.boxWidth;
-    var h = Graphics.boxHeight - 96;
+    var h = Graphics.boxHeight - 48 - 60;
     this._infoPage = new Window_PMZ_Info(0, 48, w, h);
     this._infoPage.hide();
     this.addWindow(this._infoPage);
 
-    this._tabWindow = new Window_PMZ_SummaryTabs(0, Graphics.boxHeight - 48, ['Stats', 'Movimientos', 'IV/EV', 'Datos', 'Info']);
+    this._tabWindow = new Window_PMZ_SummaryTabs(0, Graphics.boxHeight - 60, ['Stats', 'Movimientos', 'IV/EV', 'Datos', 'Info']);
     this._tabWindow.setHandler('Stats', this.showStats.bind(this));
     this._tabWindow.setHandler('Movimientos', this.showMoves.bind(this));
     this._tabWindow.setHandler('IV/EV', this.showIvEv.bind(this));
@@ -1197,7 +1199,7 @@ Scene_PMZ_Summary.prototype.showInfo = function() {
 
     if (!this._infoPage) {
         var w = Graphics.boxWidth;
-        var h = Graphics.boxHeight - 96;
+        var h = Graphics.boxHeight - 48 - 60;
         this._infoPage = new Window_PMZ_Info(0, 48, w, h);
         this.addWindow(this._infoPage);
     }
@@ -1468,7 +1470,7 @@ Scene_PMZ_Shop.prototype.create = function() {
     this.addWindow(this._detailWindow);
 
     // Commands - full screen, hidden when in list mode
-    this._cmdWindow = new Window_Command(0, 60, ['Comprar', 'Vender', 'Salir']);
+    this._cmdWindow = new Window_Command(12, 60, ['Comprar', 'Vender', 'Salir'], 200, 3 * 44 + 24);
     console.log('[PMZ Shop] cmd commands:', this._cmdWindow._list.length, this._cmdWindow._list.map(function(c){return c.symbol;}));
     this._cmdWindow.setHandler('Comprar', this.onBuy.bind(this));
     this._cmdWindow.setHandler('Vender', this.onSell.bind(this));
@@ -1764,7 +1766,7 @@ Scene_PMZ_Bag.prototype.create = function() {
     this._filter = 'all';
     this.buildItemList();
 
-    this._listWindow = new Window_PMZ_ItemList(0, 85, Graphics.boxWidth, Graphics.boxHeight - 115);
+    this._listWindow = new Window_PMZ_ItemList(0, 106, Graphics.boxWidth, Graphics.boxHeight - 116);
     this._listWindow.setItems(this._itemList);
     this._listWindow.setHandler('ok', this.onItemOk.bind(this));
     this._listWindow.setHandler('cancel', this.onCancel.bind(this));
@@ -1783,7 +1785,7 @@ Scene_PMZ_Bag.prototype.createFilterWindow = function() {
     this._filterWindow.setHandler('Bayas', this.onFilter.bind(this, 'berry'));
     this._filterWindow.setHandler('Equipar', this.onFilter.bind(this, 'hold'));
     this._filterWindow.setHandler('Campo', this.onFilter.bind(this, 'field'));
-    this._filterWindow.setHandler('Evolucion', this.onFilter.bind(this, 'evolution'));
+    this._filterWindow.setHandler('Evol', this.onFilter.bind(this, 'evolution'));
     this._filterWindow.setHandler('TMs', this.onFilter.bind(this, 'tm'));
     this._filterWindow.setHandler('Otros', this.onFilter.bind(this, 'other'));
     this._filterWindow.setHandler('cancel', this.popScene.bind(this));
@@ -2235,7 +2237,7 @@ Scene_PMZ_Pokedex.prototype.createListWindow = function() {
         // Icon (28x28) on the left
         var iconSize = 28;
         if (seen) {
-            PMZ.Icons.drawIcon(this.contents, base.id, rect.x + 4, rect.y + 4, iconSize, iconSize);
+            PMZ.Icons.drawIcon(this.contents, base.id, rect.x + 4, rect.y + 4, iconSize, iconSize, '', this.refresh.bind(this));
         } else {
             // Draw ??? placeholder
             this.changeTextColor('#606060');
@@ -2309,7 +2311,7 @@ Scene_PMZ_Pokedex.prototype.updateDetail = function() {
     }
     
     // Icon (64x64) on the top-left of detail
-    PMZ.Icons.drawIcon(this._detailWindow.contents, base.id, x, y, 64, 64);
+    PMZ.Icons.drawIcon(this._detailWindow.contents, base.id, x, y, 64, 64, '', this.updateDetail.bind(this));
 
     // ID + name
     this._detailWindow.drawText('#' + String(base.id || 0).padStart(3, '0') + ' ' + base.name, x + 72, y + 6, 250, 'left');
@@ -2427,7 +2429,7 @@ Scene_PMZ_TrainerCard.prototype.create = function() {
     this.addWindow(this._infoWindow);
     
     // Back button
-    this._backWindow = new Window_Command(0, h - 50, ['Volver']);
+    this._backWindow = new Window_Command(12, h - 60, ['Volver'], 140, 60);
     this._backWindow.setHandler('Volver', this.popScene.bind(this));
     this._backWindow.activate();
     this.addWindow(this._backWindow);
@@ -2455,7 +2457,7 @@ Scene_PMZ_MainMenu.prototype.create = function() {
     Scene_MenuBase.prototype.create.call(this);
     
     var cmds = ['EQUIPO', 'MOCHILA', 'GUARDAR', 'PERSONAJE', 'POKEDEX', 'OPCIONES'];
-    this._cmdWindow = new Window_Command(0, 60, cmds);
+    this._cmdWindow = new Window_Command(12, 64, cmds, 220, 6 * 44 + 24);
     this._cmdWindow.setHandler('EQUIPO', this.onPokemon.bind(this));
     this._cmdWindow.setHandler('MOCHILA', this.onBag.bind(this));
     this._cmdWindow.setHandler('GUARDAR', this.onSave.bind(this));
@@ -2469,8 +2471,8 @@ Scene_PMZ_MainMenu.prototype.create = function() {
     this._infoWindow = new Window_Base(0, 0, Graphics.boxWidth, 60);
     this._infoWindow.drawText('EQUIPO: ' + PMZ.Party.count() + '/' + (PMZ.Data.configValue('maxPartySize') || 6), 10, 8, 200, 'left');
     this._infoWindow.drawText('\u2666 ' + PMZ.Money.get(), 10, 34, 150, 'left');
-    this._infoWindow.drawText('MEDALLAS ' + ($gamePMZ ? $gamePMZ.badgeCount() : 0) + '/' + (PMZ.Badges.list().length || 8), Graphics.boxWidth - 200, 8, 190, 'right');
-    this._infoWindow.drawText('POKEDEX: ' + ($gamePMZ ? $gamePMZ.caughtCount() : 0) + '/' + 151, Graphics.boxWidth - 200, 34, 190, 'right');
+    this._infoWindow.drawText('MEDALLAS ' + ($gamePMZ ? $gamePMZ.badgeCount() : 0) + '/' + (PMZ.Badges.list().length || 8), Graphics.boxWidth - 212, 8, 200, 'right');
+    this._infoWindow.drawText('POKEDEX: ' + ($gamePMZ ? $gamePMZ.caughtCount() : 0) + '/' + (PMZ.Pokedex.allSpecies().length || 151), Graphics.boxWidth - 212, 34, 200, 'right');
     this.addWindow(this._infoWindow);
 };
 
@@ -2513,7 +2515,7 @@ Window_PMZ_PCCommands.prototype = Object.create(Window_Command.prototype);
 Window_PMZ_PCCommands.prototype.constructor = Window_PMZ_PCCommands;
 
 Window_PMZ_PCCommands.prototype.initialize = function(x, y) {
-    Window_Command.prototype.initialize.call(this, x, y, ['Depositar', 'Retirar', 'Soltar', 'Renombrar', 'Salir'], Graphics.boxWidth);
+    Window_Command.prototype.initialize.call(this, x, y, ['Depositar', 'Retirar', 'Soltar', 'Renombrar', 'Salir'], Graphics.boxWidth, 60);
 };
 
 Window_PMZ_PCCommands.prototype.maxCols = function() { return 5; };
@@ -2571,7 +2573,7 @@ Scene_PMZ_PC.prototype.createBoxWindow = function() {
 
 Scene_PMZ_PC.prototype.createListWindow = function() {
     var w = Graphics.boxWidth;
-    this._listWindow = new Window_PMZ_PCList(0, 48, w, Graphics.boxHeight - 48);
+    this._listWindow = new Window_PMZ_PCList(0, 48, w, Graphics.boxHeight - 48 - 60);
     this._listWindow.setHandler('ok', this.onListOk.bind(this));
     this._listWindow.setHandler('cancel', this.onListCancel.bind(this));
     this._listWindow.activate();
@@ -2579,7 +2581,7 @@ Scene_PMZ_PC.prototype.createListWindow = function() {
 };
 
 Scene_PMZ_PC.prototype.createCommandWindow = function() {
-    this._cmdWindow = new Window_PMZ_PCCommands(0, Graphics.boxHeight - 48);
+    this._cmdWindow = new Window_PMZ_PCCommands(0, Graphics.boxHeight - 60);
     this._cmdWindow.setHandler('Depositar', this.onDeposit.bind(this));
     this._cmdWindow.setHandler('Retirar', this.onWithdraw.bind(this));
     this._cmdWindow.setHandler('Soltar', this.onRelease.bind(this));
@@ -2786,7 +2788,7 @@ Window_PMZ_PCList.prototype.drawItem = function(index) {
     }
 
     var iconW = 32;
-    PMZ.Icons.drawIcon(this.contents, pkmn.id, rect.x + 4, rect.y + (48 - iconW) / 2, iconW, iconW, (pkmn._formSuffix || pkmn._megaForm || ''));
+    PMZ.Icons.drawIcon(this.contents, pkmn.id, rect.x + 4, rect.y + (48 - iconW) / 2, iconW, iconW, (pkmn._formSuffix || pkmn._megaForm || ''), this.refresh.bind(this));
 
     var x = rect.x + 4 + iconW + 6;
 
