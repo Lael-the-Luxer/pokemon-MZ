@@ -463,12 +463,13 @@ Window_PMZ_Summary_Stats.prototype.refresh = function() {
     var p = this._pkmn;
     var x = 8;
     var y = 4;
-    var w = this.contentsWidth() - 16;
-    var barW = Math.min(120, w - 100);
+    // El sprite grande vive en la esquina derecha: el contenido nunca pasa de ahi
+    var w = this.contentsWidth() - 330;
+    var barW = Math.min(130, w - 110);
 
     // Line 1: Name
     this.contents.fontSize = 18;
-    this.drawText(p.name, x, y, 160, 'left');
+    this.drawText(p.name, x, y, Math.min(150, w - 110), 'left');
 
     // Line 2: Lv + Gender (with extra vertical spacing)
     this.changeTextColor('#f8d030');
@@ -491,9 +492,9 @@ Window_PMZ_Summary_Stats.prototype.refresh = function() {
         this.contents.fontSize = 11;
         var labels = { attack: 'Atk', defense: 'Def', spAttack: 'At.E', spDefense: 'D.E', speed: 'Vel' };
         this.changeTextColor('#88dd66');
-        if (nMods.up) this.drawText('↑' + (labels[nMods.up] || nMods.up), x + 82, y + 45, 32, 'left');
+        if (nMods.up) this.drawText('\u2191' + (labels[nMods.up] || nMods.up), x + 82, y + 45, 32, 'left');
         this.changeTextColor('#dd6666');
-        if (nMods.down) this.drawText('↓' + (labels[nMods.down] || nMods.down), x + 116, y + 45, 32, 'left');
+        if (nMods.down) this.drawText('\u2193' + (labels[nMods.down] || nMods.down), x + 116, y + 45, 32, 'left');
         this.resetTextColor();
     }
 
@@ -507,7 +508,7 @@ Window_PMZ_Summary_Stats.prototype.refresh = function() {
     // Line 5: HP bar (with extra spacing from types)
     this.contents.fontSize = 15;
     this.drawText('HP', x, y + 90, 18, 'left');
-    this.drawText(p.currentHp + '/' + p.maxHp, x + 20, y + 90, 60, 'left');
+    this.drawText(p.currentHp + '/' + p.maxHp, x + 20, y + 90, 62, 'left');
     var hpRatio = p.maxHp > 0 ? p.currentHp / p.maxHp : 0;
     var hpBarX = x + 86;
     this.contents.fillRect(hpBarX, y + 92, barW, 8, '#202020');
@@ -595,24 +596,29 @@ Window_PMZ_Summary_StatsIV.prototype.refresh = function() {
     if (!this._pkmn) return;
     var p = this._pkmn;
     var x = 10, y = 10;
+    var w = this.contentsWidth() - 330;
 
-    this.drawText('IVs (Valores Individuales)', x, y, 250, 'left');
+    this.contents.fontSize = 18;
+    this.drawText('IVs (Valores Individuales)', x, y, w, 'left');
     var stats = ['hp', 'attack', 'defense', 'spAttack', 'spDefense', 'speed'];
     var labels = ['HP', 'Ataque', 'Defensa', 'At.Esp.', 'Def.Esp.', 'Vel.'];
+    this.contents.fontSize = 16;
     for (var i = 0; i < stats.length; i++) {
         var iv = p.ivs[stats[i]] || 0;
         var ivColor = iv >= 31 ? '#f8d030' : (iv >= 20 ? '#48c848' : '#c8c8c8');
         this.changeTextColor(ivColor);
-        this.drawText(labels[i] + ': ' + iv + '/31', x + (i % 2) * 160, y + 22 + Math.floor(i / 2) * 22, 150, 'left');
+        this.drawText(labels[i] + ': ' + iv + '/31', x + (i % 2) * 150, y + 24 + Math.floor(i / 2) * 24, 140, 'left');
     }
 
     this.resetTextColor();
-    this.drawText('EVs (Puntos de Esfuerzo)', x, y + 95, 250, 'left');
+    this.contents.fontSize = 18;
+    this.drawText('EVs (Puntos de Esfuerzo)', x, y + 102, w, 'left');
+    this.contents.fontSize = 16;
     for (var j = 0; j < stats.length; j++) {
         var ev = p.evs[stats[j]] || 0;
         var evCol = ev >= 252 ? '#f8d030' : (ev > 0 ? '#48c848' : '#c8c8c8');
         this.changeTextColor(evCol);
-        this.drawText(labels[j] + ': ' + ev + '/255', x + (j % 2) * 160, y + 117 + Math.floor(j / 2) * 22, 150, 'left');
+        this.drawText(labels[j] + ': ' + ev + '/255', x + (j % 2) * 150, y + 124 + Math.floor(j / 2) * 24, 140, 'left');
     }
     this.resetTextColor();
 };
@@ -641,8 +647,10 @@ Window_PMZ_Data.prototype.refresh = function() {
     if (!this._pkmn) return;
     var p = this._pkmn;
     var x = 10, y = 10;
+    var w = this.contentsWidth() - 330;
 
-    this.drawText('Datos de ' + p.name, x, y, 250, 'left');
+    this.contents.fontSize = 18;
+    this.drawText('Datos de ' + p.name, x, y, w, 'left');
     var lines = [];
     var base = PMZ.Data.pokemon(p.species);
     if (base && base.abilities && base.abilities.length > 0) {
@@ -685,9 +693,11 @@ Window_PMZ_Data.prototype.refresh = function() {
         lines.push('(No evoluciona)');
     }
 
+    this.contents.fontSize = 16;
     for (var i = 0; i < lines.length; i++) {
-        this.drawText(lines[i], x, y + 22 + i * 20, 350, 'left');
+        this.drawText(lines[i], x, y + 24 + i * 22, w, 'left');
     }
+    this.contents.fontSize = 22;
 };
 
 // ============================================================================
@@ -717,48 +727,57 @@ Window_PMZ_Summary_Moves.prototype.refresh = function() {
     var p = this._pkmn;
     var x = 10;
     var y = 10;
+    var w = this.contentsWidth() - 330;
 
+    this.contents.fontSize = 18;
     this.drawText('Movimientos', x, y, 300, 'left');
 
     if (!p.moves || p.moves.length === 0) {
+        this.contents.fontSize = 16;
         this.drawText('(Sin movimientos)', x + 10, y + 30, 200, 'left');
+        this.contents.fontSize = 22;
         return;
     }
 
     for (var i = 0; i < Math.min(4, p.moves.length); i++) {
         var m = p.moves[i];
-        var my = y + 30 + i * 58;
+        var my = y + 30 + i * 60;
 
         // Type icon
         PMZ.Utils.drawTypeBadge(this.contents, m.type || 'normal', x, my, 50, 22);
 
         // Name
-        this.drawText(m.name || '???', x + 68, my, 150, 'left');
+        this.contents.fontSize = 18;
+        this.drawText(m.name || '???', x + 62, my, Math.min(200, w - 62), 'left');
 
-        // Category
+        // Grid: Categoria | Potencia | Precision (line 2)
         var catLabel = '';
-        if (m.category === 'physical') catLabel = 'Fis';
-        else if (m.category === 'special') catLabel = 'Esp';
-        else catLabel = 'Sta';
-        this.drawText(catLabel, x + 68, my + 20, 40, 'left');
-
-        // Power
+        if (m.category === 'physical') catLabel = 'Fisica';
+        else if (m.category === 'special') catLabel = 'Especial';
+        else catLabel = 'Estado';
         var powText = m.power > 0 ? String(m.power) : '---';
-        this.drawText('Pot: ' + powText, x + 120, my + 20, 80, 'left');
-
-        // PP
-        var ppText = m.pp + '/' + m.maxPp;
-        this.drawText('PP: ' + ppText, x + 68, my + 36, 100, 'left');
-
-        // Accuracy
         var accText = m.accuracy ? String(m.accuracy) : '---';
-        this.drawText('Pre: ' + accText, x + 68, my + 50, 80, 'left');
+
+        this.contents.fontSize = 15;
+        this.changeTextColor('#e0e0e0');
+        var gx = x + 62;
+        this.drawText(catLabel, gx, my + 22, 80, 'left');
+        this.drawText('Pot: ' + powText, gx + 90, my + 22, 80, 'left');
+        this.drawText('Pre: ' + accText, gx + 180, my + 22, 80, 'left');
+        this.resetTextColor();
+
+        // PP (line 3)
+        this.contents.fontSize = 15;
+        this.changeTextColor('#88dd66');
+        this.drawText('PP: ' + m.pp + '/' + m.maxPp, gx, my + 40, 120, 'left');
+        this.resetTextColor();
 
         // Separator line
         if (i < Math.min(3, p.moves.length - 1)) {
-            this.contents.fillRect(x + 68, my + 56, 230, 1, '#404040');
+            this.contents.fillRect(x, my + 59, w - 10, 1, '#404040');
         }
     }
+    this.contents.fontSize = 22;
 };
 
 // ============================================================================
@@ -786,7 +805,9 @@ Window_PMZ_Info.prototype.refresh = function() {
     if (!this._pkmn) return;
 
     var p = this._pkmn;
+    var w = this.contentsWidth() - 330;
 
+    this.contents.fontSize = 18;
     this.drawText('Datos', 10, 10, 200, 'left');
 
     var info = [];
@@ -804,9 +825,11 @@ Window_PMZ_Info.prototype.refresh = function() {
         info.push('Equipado: ' + held);
     }
 
+    this.contents.fontSize = 16;
     for (var i = 0; i < info.length; i++) {
-        this.drawText(info[i], 10, 30 + i * 22, 280, 'left');
+        this.drawText(info[i], 10, 30 + i * 22, w, 'left');
     }
+    this.contents.fontSize = 22;
 };
 
 // ============================================================================
@@ -846,7 +869,7 @@ Scene_PMZ_Party.prototype.createHelpWindow = function() {
 
 Scene_PMZ_Party.prototype.createPartyWindow = function() {
     var w = Graphics.boxWidth;
-    this._partyWindow = new Window_PMZ_PartyList(0, 62, Math.floor(w * 0.55), Graphics.boxHeight - 62);
+    this._partyWindow = new Window_PMZ_PartyList(0, 62, Math.floor(w * 0.52), Graphics.boxHeight - 62);
     this._partyWindow.setHandler('ok', this.onPartyOk.bind(this));
     this._partyWindow.setHandler('cancel', this.onPartyCancel.bind(this));
     this.addWindow(this._partyWindow);
@@ -854,7 +877,7 @@ Scene_PMZ_Party.prototype.createPartyWindow = function() {
 
 Scene_PMZ_Party.prototype.createInfoWindow = function() {
     var w = Graphics.boxWidth;
-    var x = Math.floor(w * 0.55);
+    var x = Math.floor(w * 0.52);
     var rightW = w - x;
     var iconArea = 100;
 
@@ -867,10 +890,10 @@ Scene_PMZ_Party.prototype.createInfoWindow = function() {
     this._partySprite = new Sprite_PMZ_Icon();
     this._partySprite.anchor.x = 0.5;
     this._partySprite.anchor.y = 0.5;
-    this._partySprite.x = x + rightW - 50;
+    this._partySprite.x = Math.max(x + 60, Math.min(x + rightW - 60, w - 128));
     this._partySprite.y = statsY + 50;
-    this._partySprite.scale.x = 2.5;
-    this._partySprite.scale.y = 2.5;
+    this._partySprite.scale.x = 2.0;
+    this._partySprite.scale.y = 2.0;
     if (this._windowLayer) {
         this._windowLayer.addChild(this._partySprite);
     } else {
@@ -880,7 +903,7 @@ Scene_PMZ_Party.prototype.createInfoWindow = function() {
 
 Scene_PMZ_Party.prototype.createCommandWindow = function() {
     var w = Graphics.boxWidth;
-    var x = Math.floor(w * 0.55);
+    var x = Math.floor(w * 0.52);
     var rightW = w - x;
     var cmdH = 244;
     var cmdY = Graphics.boxHeight - cmdH;
@@ -890,6 +913,7 @@ Scene_PMZ_Party.prototype.createCommandWindow = function() {
     this._commandWindow.setHandler('Objeto', this.onItem.bind(this));
     this._commandWindow.setHandler('Equipar', this.onEquip.bind(this));
     this._commandWindow.setHandler('Salir', this.onCancel.bind(this));
+    this._commandWindow.setHandler('cancel', this.onCancel.bind(this));
     this._commandWindow.deactivate();
     this.addWindow(this._commandWindow);
 };
@@ -917,6 +941,8 @@ Scene_PMZ_Party.prototype.onPartyOk = function() {
         this._moveMode = false;
         this._moveSource = -1;
         this.refreshHeader();
+        this._selectedPkmn = party[index];
+        this.updateInfoWindows();
         this._commandWindow.activate();
         this._partyWindow.deactivate();
         return;
@@ -936,8 +962,11 @@ Scene_PMZ_Party.prototype.updateInfoWindows = function() {
 };
 
 Scene_PMZ_Party.prototype.onSummary = function() {
-    if (this._selectedPkmn) {
-        PMZ.Menu._summaryIndex = this._partyWindow.index();
+    var idx = this._partyWindow.index();
+    var pkmn = $gamePMZ.party()[idx] || null;
+    if (pkmn) {
+        this._selectedPkmn = pkmn;
+        PMZ.Menu._summaryIndex = idx;
         SceneManager.push(Scene_PMZ_Summary);
     }
 };
@@ -1057,23 +1086,39 @@ Scene_PMZ_Summary.prototype.createHeader = function() {
     if (!pkmn) return;
 
     this._headerWindow = new Window_Base(0, 0, Graphics.boxWidth, 48);
-    this._headerWindow.drawText(pkmn.name + (PMZ.Config.isStatEvolution() ? '' : '  Lv' + pkmn.level), 10, 12, 300, 'left');
+    this._headerWindow.contents.fontSize = 20;
+    var nameText = '#' + String(pkmn.id).padStart(3, '0') + ' ' + pkmn.name;
+    if (!PMZ.Config.isStatEvolution()) {
+        this._headerWindow.changeTextColor('#f8d030');
+        nameText += '  Nv' + pkmn.level;
+    }
+    this._headerWindow.drawText(nameText, 10, 12, Graphics.boxWidth - 190, 'left');
+    this._headerWindow.resetTextColor();
 
     if (pkmn.types) {
         for (var i = 0; i < pkmn.types.length; i++) {
-            PMZ.Utils.drawTypeBadge(this._headerWindow.contents, pkmn.types[i], Graphics.boxWidth - 160 + i * 72, 12, 68, 22);
+            PMZ.Utils.drawTypeBadge(this._headerWindow.contents, pkmn.types[i], Graphics.boxWidth - 150 + i * 72, 12, 68, 22);
         }
     }
 
     this.addWindow(this._headerWindow);
 
-    this._sprite = new Sprite_PMZ_Pokemon();
-    this._sprite.setPokemon(pkmn, false);
-    this._sprite.x = Graphics.boxWidth - 260;
-    this._sprite.y = 56;
-    this._sprite.scale.x = 1.2;
-    this._sprite.scale.y = 1.2;
-    this.addChild(this._sprite);
+    // Icono grande del pokemon en la esquina (no hay sprites frontales
+    // img/nXXX.png, por eso se usa el icono de Gen 1-6 Icons)
+    this._sprite = new Sprite_PMZ_Icon();
+    this._sprite.setPokemon(pkmn);
+    this._sprite.anchor.x = 0.5;
+    this._sprite.anchor.y = 0.5;
+    this._sprite.x = Graphics.boxWidth - 170;
+    this._sprite.y = 160;
+    this._sprite.scale.x = 2.4;
+    this._sprite.scale.y = 2.4;
+    // Va sobre el windowLayer para no quedar tapado por las paginas
+    if (this._windowLayer) {
+        this._windowLayer.addChild(this._sprite);
+    } else {
+        this.addChild(this._sprite);
+    }
 };
 
 Scene_PMZ_Summary.prototype.createStatsPage = function() {
@@ -1125,6 +1170,9 @@ Scene_PMZ_Summary.prototype.createDataPage = function() {
 };
 
 Scene_PMZ_Summary.prototype.createTabWindow = function() {
+    var pkmn = this.getPokemon();
+    if (!pkmn) return;
+
     var w = Graphics.boxWidth;
     var h = Graphics.boxHeight - 48 - 60;
     this._infoPage = new Window_PMZ_Info(0, 48, w, h);
@@ -1256,6 +1304,21 @@ Window_PMZ_ItemList.prototype.drawItem = function(index) {
     var name = data ? data.name : item.key;
     this.resetTextColor();
 
+    // Icono del item (si tiene icono conocido o es una ball)
+    var iconX = rect.x + 8;
+    var textX = rect.x + 48;
+    if (PMZ.ItemIcons) {
+        var iconName = PMZ.ItemIcons.iconName(item.key, data);
+        if (iconName) {
+            PMZ.ItemIcons.drawIcon(this.contents, item.key, data, iconX, rect.y + 6, 32, 32,
+                this.refresh.bind(this));
+        } else {
+            textX = rect.x + 8;
+        }
+    } else {
+        textX = rect.x + 8;
+    }
+
     // Shop mode: show prices + color-code
     if (this._shopMode === 'buy') {
         var price = (item.customPrice > 0) ? item.customPrice : (data ? data.price : 0);
@@ -1271,7 +1334,7 @@ Window_PMZ_ItemList.prototype.drawItem = function(index) {
         } else {
             this.changeTextColor('#ffffff');
         }
-        this.drawText(name, rect.x + 8, rect.y + 10, rect.width - 200, 'left');
+        this.drawText(name, textX, rect.y + 10, rect.width - 200, 'left');
 
         this.changeTextColor(outOfStock ? '#666666' : (canAfford ? '#ffd700' : '#ff6666'));
         this.drawText('$' + price, rect.x + rect.width - 140, rect.y + 10, 60, 'right');
@@ -1283,14 +1346,14 @@ Window_PMZ_ItemList.prototype.drawItem = function(index) {
         }
     } else if (this._shopMode === 'sell') {
         var sellPrice = data ? Math.floor((data.price || 0) / 2) : 0;
-        this.drawText(name, rect.x + 8, rect.y + 10, rect.width - 200, 'left');
+        this.drawText(name, textX, rect.y + 10, rect.width - 200, 'left');
         this.changeTextColor('#ffd700');
         this.drawText('$' + sellPrice, rect.x + rect.width - 140, rect.y + 10, 60, 'right');
         this.changeTextColor('#aaaaaa');
         this.drawText('x' + item.count, rect.x + rect.width - 60, rect.y + 10, 56, 'right');
     } else {
         this.changeTextColor(data ? '#ffffff' : '#888888');
-        this.drawText(name, rect.x + 4, rect.y + 10, 160, 'left');
+        this.drawText(name, textX, rect.y + 10, 160, 'left');
         this.drawText('x' + item.count, rect.x + rect.width - 70, rect.y + 10, 60, 'right');
     }
     this.resetTextColor();
@@ -2456,14 +2519,15 @@ Scene_PMZ_MainMenu.prototype.initialize = function() {
 Scene_PMZ_MainMenu.prototype.create = function() {
     Scene_MenuBase.prototype.create.call(this);
     
-    var cmds = ['EQUIPO', 'MOCHILA', 'GUARDAR', 'PERSONAJE', 'POKEDEX', 'OPCIONES'];
-    this._cmdWindow = new Window_Command(12, 64, cmds, 220, 6 * 44 + 24);
+    var cmds = ['EQUIPO', 'MOCHILA', 'GUARDAR', 'PERSONAJE', 'POKEDEX', 'OPCIONES', 'SALIR'];
+    this._cmdWindow = new Window_Command(12, 64, cmds, 220, 7 * 44 + 24);
     this._cmdWindow.setHandler('EQUIPO', this.onPokemon.bind(this));
     this._cmdWindow.setHandler('MOCHILA', this.onBag.bind(this));
     this._cmdWindow.setHandler('GUARDAR', this.onSave.bind(this));
     this._cmdWindow.setHandler('PERSONAJE', this.onTrainer.bind(this));
     this._cmdWindow.setHandler('POKEDEX', this.onPokedex.bind(this));
     this._cmdWindow.setHandler('OPCIONES', this.onOptions.bind(this));
+    this._cmdWindow.setHandler('SALIR', this.onExit.bind(this));
     this._cmdWindow.setHandler('cancel', this.onCancel.bind(this));
     this.addWindow(this._cmdWindow);
     
@@ -2498,6 +2562,11 @@ Scene_PMZ_MainMenu.prototype.onPokedex = function() {
 
 Scene_PMZ_MainMenu.prototype.onOptions = function() {
     SceneManager.push(Scene_Options);
+};
+
+Scene_PMZ_MainMenu.prototype.onExit = function() {
+    SoundManager.playOk();
+    SceneManager.goto(Scene_Title);
 };
 
 Scene_PMZ_MainMenu.prototype.onCancel = function() {

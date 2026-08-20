@@ -961,9 +961,18 @@ Window_PMZ_BattleBag.prototype.drawItem = function(index) {
     var itemData = PMZ.Data.item(item.key);
     var name = itemData ? itemData.name : item.key;
 
+    // Icono del item (si tiene icono conocido o es una ball)
+    if (PMZ.ItemIcons) {
+        var iconName = PMZ.ItemIcons.iconName(item.key, itemData);
+        if (iconName) {
+            PMZ.ItemIcons.drawIcon(this.contents, item.key, itemData, rect.x + 6, rect.y + 4, 24, 24,
+                this.refresh.bind(this));
+        }
+    }
+
     // Item name
     this.contents.fontSize = 22;
-    this.drawText(name, rect.x + 10, rect.y + 6, 160, 'left');
+    this.drawText(name, rect.x + 38, rect.y + 6, 160, 'left');
 
     // Quantity
     this.changeTextColor('#f8d030');
@@ -1079,6 +1088,14 @@ Scene_PMZ_Battle.prototype.constructor = Scene_PMZ_Battle;
 
 Scene_PMZ_Battle.prototype.create = function() {
     Scene_Base.prototype.create.call(this);
+    // La ball y el flash se crean primero: si cualquier createX posterior
+    // lanza, no pueden quedarse sin sprite (que congelaba el juego al lanzar
+    // una Pokebola por setear .visible sobre undefined).
+    try {
+        this.createCaptureSprite();
+    } catch (e) {
+        console.error('[PMZ] Battle capture sprite create error:', e.message, e.stack);
+    }
     try {
         this.createBackground();
         this.createPokemonSprites();
@@ -1090,11 +1107,18 @@ Scene_PMZ_Battle.prototype.create = function() {
         this.createFightWindow();
         this.createBagWindow();
         this.createPartyWindow();
-        this.createCaptureSprite();
         this.updateBackground();
         this._state = 'transition';
         this._transitionTimer = 20;
         this._flashSprite.opacity = 255;
+        // La ball y el flash se crearon primero (fix crash); subirlos al frente
+        // para que el fondo, los sprites y las ventanas no los tapen.
+        try {
+            if (this._ballSprite) this.setChildIndex(this._ballSprite, this.children.length - 1);
+            if (this._flashSprite) this.setChildIndex(this._flashSprite, this.children.length - 1);
+        } catch (e) {
+            console.error('[PMZ] Battle z-order fix error:', e.message);
+        }
     } catch (e) {
         console.error('[PMZ] Battle create error:', e.message, e.stack);
         if ($gameMessage) {
@@ -1519,39 +1543,91 @@ Scene_PMZ_Battle.prototype.safariThrowBall = function() {
 
 Scene_PMZ_Battle.prototype.updateSafariBall = function() {
     if (!this._captureStep) this._captureStep = 0;
+    if (!this._ballSprite) {
+        this.createCaptureSprite();
+        this._ballSprite.visible = false;
+    }
+    var ball = this._ballSprite;
+    var ws = this._wildSprite;
+    if (!ws) this._captureStep = 7;
+    if (!this._captureResult) {
+        this.afterSafariAction();
+        return;
+    }
     switch (this._captureStep) {
-        case 0: this._ballSprite.visible = true; this._wildHP.hide(); this._msgWindow.setText('...'); this._captureStep = 1; this._captureShakes = 0; this._waitCount = 30; break;
+        case 0:
+            var sbmp = PMZ.ItemIcons.getBitmap('safariball', null);
+            if (sbmp) ball.bitmap = sbmp;
+            ball.scale.x = ball.scale.y = 1;
+            ball.anchor.x = 0.5;
+            ball.anchor.y = 0.5;
+            if (ball.bitmap && ball.bitmap.isReady && ball.bitmap.isReady() && ball.bitmap.width > 0) {
+                var s = Math.min(1, 58 / ball.bitmap.width);
+                ball.scale.x = ball.scale.y = s;
+            }
+            ball.rotation = 0;
+            ball.opacity = 255;
+            ball.x = ws.x + (ws.bitmap ? ws.bitmap.width * ws.scale.x / 2 : 0);
+            ball.y = ws.y + (ws.bitmap ? ws.bitmap.height * ws.scale.y / 2 : 0) - 40;
+            ball.visible = true;
+            this._wildHP.hide();
+            this._msgWindow.setText('...');
+            this._captureStep = 1; this._captureShakes = 0; this._waitCount = 25;
+            break;
         case 1:
+            this._resetSprite(ws);
+            ws.visible = false;
+            ball.y = Math.floor(Graphics.boxHeight * 0.55) - 30;
+            this._beginTween(ball, { y: ball.y + 40 }, 14, { easing: 'outBounce' });
+            this._captureStep = 2; this._waitCount = 20;
+            break;
+        case 2:
             this._captureShakes++;
             if (this._captureShakes <= this._captureResult.shakes) {
                 this._msgWindow.setText('Shake ' + this._captureShakes + '...');
-                this._ballSprite.y = Math.floor(Graphics.boxHeight * 0.55) - 48 + (this._captureShakes % 2 === 1 ? -12 : 12);
-                this._waitCount = 30;
-            } else { this._captureStep = 2; this._waitCount = 10; }
-            break;
-        case 2:
-            if (this._captureResult.captured) { this._captureStep = 3; this._waitCount = 10; }
-            else { this._captureStep = 4; this._waitCount = 10; }
+                ball.rotation = 0;
+                this._beginTween(ball, { rotation: this._captureShakes % 2 === 1 ? 0.35 : -0.35 }, 6, {
+                    easing: 'outQuad', yoyo: true, duration: 6
+                });
+                this._waitCount = 26;
+            } else { this._captureStep = 3; this._waitCount = 10; }
             break;
         case 3:
-            this._msgWindow.setText('Atrapado! ' + PMZ.Battle._wildPokemon.name + ' fue capturado!');
-            this._captureStep = 5; this._waitCount = 50;
+            if (this._captureResult.captured) { this._captureStep = 4; this._waitCount = 10; }
+            else { this._captureStep = 5; this._waitCount = 10; }
             break;
         case 4:
-            this._ballSprite.visible = false; this._wildHP.show(); this._captureStep = 0;
-            this._msgWindow.setText('Oh no! El Pokemon se escapo!');
-            this._waitCount = 40;
-            this.afterSafariAction();
+            this._msgWindow.setText('Atrapado! ' + PMZ.Battle._wildPokemon.name + ' fue capturado!');
+            this._spawnImpact(ball, '#f8d030', { cx: ball.x, cy: ball.y });
+            this._captureStep = 6; this._waitCount = 50;
             break;
         case 5:
+            ball.scale.x = ball.scale.y = 1;
+            this._beginTween(ball, { scaleX: 1.6, scaleY: 1.6, opacity: 0 }, 14, { easing: 'outQuad' });
+            this._resetSprite(ws);
+            ws.visible = true;
+            this._wildHP.show();
+            this._captureStep = 7;
+            this._msgWindow.setText('Oh no! El Pokemon se escapo!');
+            this._waitCount = 40;
+            break;
+        case 6:
             this._captureStep = 0;
             var wild = PMZ.Battle._wildPokemon;
             if (wild) {
                 if (!PMZ.Party.add(wild)) PMZ.PC.deposit(wild);
                 this._msgWindow.setText(wild.name + ' fue capturado!');
             }
+            this._resetSprite(ball);
+            ball.visible = false;
             this._waitCount = 50;
             this._state = 'endBattle';
+            break;
+        case 7:
+            this._resetSprite(ball);
+            ball.visible = false;
+            this._captureStep = 0;
+            this.afterSafariAction();
             break;
     }
 };
@@ -2011,14 +2087,65 @@ Scene_PMZ_Battle.prototype.activateMechanic = function(mech, pkmn) {
 
     var result = PMZ.Battle.Mechanics.activate(pkmn, mech.key);
     if (result) {
+        var meta = PMZ.Battle.Mechanics.get(mech.key) || {};
+        var animColor = meta.animColor || '#a0d8ff';
+        var sprite = this._getTargetSprite(pkmn);
+
+        // Flash suave de pantalla tintado con el color de la mecanica
+        try {
+            this._flashSprite.bitmap = this._flashSprite.bitmap || new Bitmap(Graphics.boxWidth, Graphics.boxHeight);
+            this._flashSprite.bitmap.fillRect(0, 0, Graphics.boxWidth, Graphics.boxHeight, animColor);
+            this._flashSprite.opacity = 220;
+            this._beginTween(this._flashSprite, { opacity: 0 }, 24, { easing: 'outQuad' });
+        } catch (e) {
+            console.error('[PMZ] Mechanic flash error:', e.message);
+        }
+
+        // Impacto con el color de la mecanica centrado en el pokemon
+        var applyForm = function(s) {
+            if (!s) return;
+            var oSX = s.scale.x, oSY = s.scale.y;
+            this._spawnImpact(s, animColor);
+            // El sprite viejo pulsa; al terminar el pulso se aplica la nueva forma
+            this._beginTween(s, { scaleX: oSX * 1.3, scaleY: oSY * 1.3 }, 9, {
+                easing: 'outQuad',
+                onComplete: function() {
+                    s.scale.x = oSX;
+                    s.scale.y = oSY;
+                    s.setPokemon(pkmn, true);
+                    s.visible = true;
+                }
+            });
+            // Rayos ascendentes: burbujas blancas que suben desde el pokemon
+            this._initFX();
+            for (var i = 0; i < 5; i++) {
+                var sp = new Sprite();
+                sp.bitmap = new Bitmap(10, 10);
+                sp.bitmap.drawCircle(5, 5, 5, i % 2 === 0 ? '#ffffff' : animColor);
+                sp.x = s.x + (s.bitmap ? s.bitmap.width * s.scale.x / 2 : 0) + (Math.random() * 60 - 30);
+                sp.y = s.y + (s.bitmap ? s.bitmap.height * s.scale.y / 2 : 0) - 10;
+                this.addChild(sp);
+                this._fxSprites.push(sp);
+                this._beginTween(sp, { y: sp.y - 70 - Math.random() * 40 }, 18 + Math.random() * 8, { easing: 'outQuad' });
+            }
+        }.bind(this);
+
+        if (sprite) {
+            applyForm(sprite);
+        }
+
         var msg = mech.message ? mech.message.replace('{name}', pkmn.name) : pkmn.name + ' activo ' + mech.name + '!';
         this._msgWindow.setText(msg);
-        this._getTargetSprite(pkmn).setPokemon(pkmn, true);
+        // La nueva forma se aplica al terminar el pulso (ver applyForm); solo se
+        // refrescan el HP si el sprite no pudo animarse
+        if (!sprite) {
+            this._getTargetSprite(pkmn).setPokemon(pkmn, true);
+        }
         this._getTargetHP(pkmn).setPokemon(pkmn);
         this._getTargetHP(pkmn).refresh();
         this._fightWindow.hide();
         this._fightWindow.deactivate();
-        this._waitCount = 60;
+        this._waitCount = 70;
         if (PMZ.Battle._doubleBattle) {
             if (!this._playerAction) {
                 this._playerAction = { _mechanic: true };
@@ -2539,6 +2666,9 @@ Scene_PMZ_Battle.prototype.tryCapture = function(key, itemData) {
 
     PMZ.Items.remove(key);
 
+    this._usedBallKey = key;
+    this._usedBallData = itemData;
+
     this._msgWindow.setText('Usaste ' + itemData.name + '!');
     this._waitCount = 30;
     this._captureShakes = 0;
@@ -2552,60 +2682,115 @@ Scene_PMZ_Battle.prototype.tryCapture = function(key, itemData) {
 Scene_PMZ_Battle.prototype.updateCapture = function() {
     if (!this._captureStep) this._captureStep = 0;
 
+    if (!this._ballSprite) {
+        this.createCaptureSprite();
+        this._ballSprite.visible = false;
+    }
+    var ball = this._ballSprite;
+    var ws = this._getTargetSprite(PMZ.Battle._wildPokemon);
+    if (!ws) this._captureStep = 7;
+    if (!this._captureResult) {
+        this._state = 'opponentAttack';
+        this._enemyStep = 0;
+        return;
+    }
+
     switch (this._captureStep) {
         case 0:
-            this._ballSprite.visible = true;
-            this._ballSprite.y = Math.floor(Graphics.boxHeight * 0.55) - 48;
-            this._ballSprite.x = Math.floor(Graphics.boxWidth / 2) - 24;
+            var itemData = this._usedBallData || PMZ.Data.item(this._usedBallKey);
+            var bmp = PMZ.ItemIcons.getBitmap(this._usedBallKey, itemData);
+            if (bmp) ball.bitmap = bmp;
+            ball.scale.x = ball.scale.y = 1;
+            var ws = this._getTargetSprite(PMZ.Battle._wildPokemon);
+            if (!ws) ws = this._wildSprite;
+            ball.anchor.x = 0.5;
+            ball.anchor.y = 0.5;
+            if (ball.bitmap && ball.bitmap.isReady && ball.bitmap.isReady() && ball.bitmap.width > 0) {
+                var s = Math.min(1, 58 / ball.bitmap.width);
+                ball.scale.x = ball.scale.y = s;
+            }
+            ball.rotation = 0;
+            ball.opacity = 255;
+            ball.x = ws.x + (ws.bitmap ? ws.bitmap.width * ws.scale.x / 2 : 0);
+            ball.y = ws.y + (ws.bitmap ? ws.bitmap.height * ws.scale.y / 2 : 0) - 40;
+            ball.visible = true;
             this._wildHP.hide();
             this._msgWindow.setText('...');
             this._captureStep = 1;
             this._captureShakes = 0;
-            this._waitCount = 30;
+            this._waitCount = 25;
             break;
 
         case 1:
-            this._captureShakes++;
-            if (this._captureShakes <= this._captureResult.shakes) {
-                this._msgWindow.setText('Shake ' + this._captureShakes + '...');
-                this._ballSprite.y = Math.floor(Graphics.boxHeight * 0.55) - 48 +
-                    (this._captureShakes % 2 === 1 ? -12 : 12);
-                this._waitCount = 30;
-            } else {
-                this._captureStep = 2;
-                this._waitCount = 10;
-            }
+            // El pokemon entra en la ball y esta cae al suelo con rebote
+            this._resetSprite(ws);
+            ws.visible = false;
+            ball.y = Math.floor(Graphics.boxHeight * 0.55) - 30;
+            this._beginTween(ball, { y: ball.y + 40 }, 14, { easing: 'outBounce' });
+            this._captureStep = 2;
+            this._waitCount = 20;
             break;
 
         case 2:
-            if (this._captureResult.captured) {
-                this._captureStep = 3;
-                this._waitCount = 10;
+            this._captureShakes++;
+            if (this._captureShakes <= this._captureResult.shakes) {
+                this._msgWindow.setText('Shake ' + this._captureShakes + '...');
+                ball.rotation = 0;
+                this._beginTween(ball, { rotation: this._captureShakes % 2 === 1 ? 0.35 : -0.35 }, 6, {
+                    easing: 'outQuad', yoyo: true, duration: 6
+                });
+                this._waitCount = 26;
             } else {
-                this._captureStep = 4;
+                this._captureStep = 3;
                 this._waitCount = 10;
             }
             break;
 
         case 3:
-            this._msgWindow.setText('Atrapado! ' + PMZ.Battle._wildPokemon.name + ' fue capturado!');
-            this._captureStep = 5;
-            this._waitCount = 50;
+            if (this._captureResult.captured) {
+                this._captureStep = 4;
+                this._waitCount = 10;
+            } else {
+                this._captureStep = 5;
+                this._waitCount = 10;
+            }
             break;
 
         case 4:
-            this._ballSprite.visible = false;
-            this._wildHP.show();
-            this._captureStep = 0;
-            this._msgWindow.setText('Oh no! El Pokemon se libero!');
-            this._waitCount = 40;
-            this._state = 'opponentAttack';
-            this._enemyStep = 0;
+            this._msgWindow.setText('Atrapado! ' + PMZ.Battle._wildPokemon.name + ' fue capturado!');
+            this._spawnImpact(ball, '#f8d030', { cx: ball.x, cy: ball.y });
+            this._captureStep = 6;
+            this._waitCount = 50;
             break;
 
         case 5:
+            // La ball se abre y el pokemon escapa
+            ball.scale.x = ball.scale.y = 1;
+            this._beginTween(ball, { scaleX: 1.6, scaleY: 1.6, opacity: 0 }, 14, { easing: 'outQuad' });
+            this._resetSprite(ws);
+            ws.visible = true;
+            this._wildHP.show();
+            this._captureStep = 7;
+            this._msgWindow.setText('Oh no! El Pokemon se libero!');
+            this._waitCount = 40;
+            break;
+
+        case 6:
+            this._resetSprite(ball);
+            ball.scale.x = ball.scale.y = 1;
+            ball.visible = false;
             this._state = 'captured';
             this._captureStep = 0;
+            this._waitCount = 10;
+            break;
+
+        case 7:
+            this._resetSprite(ball);
+            ball.scale.x = ball.scale.y = 1;
+            ball.visible = false;
+            this._captureStep = 0;
+            this._state = 'opponentAttack';
+            this._enemyStep = 0;
             this._waitCount = 10;
             break;
     }
@@ -2698,6 +2883,21 @@ Scene_PMZ_Battle.prototype.playMoveAnimation = function(moveData, targetSprite, 
         var anim = new Sprite_Animation();
         var targets = [targetSprite];
         anim.setup(targets, $dataAnimations[animId], false, 0, null);
+        // MZ posiciona los efectos asumiendo sprites con anchor (0.5, 1) y saca
+        // el centro con point(0, -height/2). Nuestros sprites usan anchor (0,0),
+        // asi que sobrescribimos el calculo para centrar en el sprite real.
+        anim.targetSpritePosition = function(sprite) {
+            var point = new Point(
+                sprite.width * (0.5 - sprite.anchor.x),
+                sprite.height * (0.5 - sprite.anchor.y)
+            );
+            if (this._animation.alignBottom) {
+                point.x = sprite.width * (0.5 - sprite.anchor.x);
+                point.y = sprite.height * (1 - sprite.anchor.y);
+            }
+            sprite.updateTransform();
+            return sprite.worldTransform.apply(point);
+        };
         this.addChild(anim);
         this._currentAnimation = anim;
     }
@@ -2818,7 +3018,8 @@ Scene_PMZ_Battle.prototype._lungeSprite = function(atkSprite, targetSprite) {
 };
 
 // Impacto: burbuja de color centrada en el sprite objetivo
-Scene_PMZ_Battle.prototype._spawnImpact = function(targetSprite, color) {
+// (opcional: forzar posición con opts.cx/opts.cy, útil si el sprite tiene anchor centrado)
+Scene_PMZ_Battle.prototype._spawnImpact = function(targetSprite, color, opts) {
     if (!targetSprite) return;
     this._initFX();
     var size = 56;
@@ -2828,13 +3029,18 @@ Scene_PMZ_Battle.prototype._spawnImpact = function(targetSprite, color) {
     // Anillo exterior del color del tipo + nucleo blanco
     sp.bitmap.drawCircle(cx, cy, size / 2 - 2, color);
     sp.bitmap.drawCircle(cx, cy, size / 2 - 12, 'rgba(255,255,255,0.85)');
-    var bmpW = targetSprite.bitmap ? targetSprite.bitmap.width : 0;
-    var bmpH = targetSprite.bitmap ? targetSprite.bitmap.height : 0;
-    // Centro real del sprite (x,y es esquina top-left en el ancla por defecto)
     sp.anchor.x = 0.5;
     sp.anchor.y = 0.5;
-    sp.x = targetSprite.x + (bmpW * targetSprite.scale.x) / 2;
-    sp.y = targetSprite.y + (bmpH * targetSprite.scale.y) / 2;
+    if (opts && (opts.cx !== undefined || opts.cy !== undefined)) {
+        sp.x = opts.cx !== undefined ? opts.cx : targetSprite.x;
+        sp.y = opts.cy !== undefined ? opts.cy : targetSprite.y;
+    } else {
+        var bmpW = targetSprite.bitmap ? targetSprite.bitmap.width : 0;
+        var bmpH = targetSprite.bitmap ? targetSprite.bitmap.height : 0;
+        // Centro real del sprite (x,y es esquina top-left en el ancla por defecto)
+        sp.x = targetSprite.x + (bmpW * targetSprite.scale.x) / 2;
+        sp.y = targetSprite.y + (bmpH * targetSprite.scale.y) / 2;
+    }
     sp.opacity = 230;
     sp.scale.x = 0.3;
     sp.scale.y = 0.3;
@@ -2877,9 +3083,20 @@ Scene_PMZ_Battle.prototype._animateSendIn = function(sprite, fromTop) {
     this._beginTween(sprite, { rotation: -0.06 }, 8, { easing: 'outQuad', yoyo: true, duration: 8 });
 };
 
+// Cancela cualquier tween activo que apunte al sprite dado (para reemplazos)
+Scene_PMZ_Battle.prototype._cancelTweens = function(target) {
+    if (!target || !this._tweens) return;
+    var kept = [];
+    for (var i = 0; i < this._tweens.length; i++) {
+        if (this._tweens[i].target !== target) kept.push(this._tweens[i]);
+    }
+    this._tweens = kept;
+};
+
 // Restaura la transformacion base de un sprite de batalla
 Scene_PMZ_Battle.prototype._resetSprite = function(sprite) {
     if (!sprite) return;
+    this._cancelTweens(sprite);
     sprite.visible = true;
     sprite.opacity = 255;
     sprite.rotation = 0;

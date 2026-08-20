@@ -341,10 +341,13 @@ Sprite_PMZ_Icon.prototype.setPokemon = function(pkmn) {
 };
 
 Sprite_PMZ_Icon.prototype.refresh = function() {
-    this.bitmap = null;
     if (!this._pokemon) return;
     var suffix = this._pokemon._formSuffix || this._pokemon._megaForm || '';
-    this.bitmap = PMZ.Icons.getBitmap(this._pokemon.id, suffix);
+    var bmp = PMZ.Icons.getBitmap(this._pokemon.id, suffix);
+    // No borra el icono anterior si la carga falla (bitmap en error)
+    if (bmp && !bmp.isError()) {
+        this.bitmap = bmp;
+    }
 };
 
 // ============================================================================
@@ -3881,9 +3884,113 @@ PMZ.Icons = {
         var bmp = this.getBitmap(id, suffix);
         if (bmp.isReady()) {
             contents.blt(bmp, 0, 0, bmp.width, bmp.height, x, y, w, h);
+        } else if (!bmp.isError()) {
+            // El bitmap carga asincronico: dibuja SOLO el icono cuando este
+            // listo (blt directo). No se redibuja el contenedor completo:
+            // con listas grandes (pokedex 386) un refresh por carga encadena
+            // cientos de refrescos y congela el juego. Los bitmaps que
+            // fallaron (icono inexistente) no registran listener, evitando
+            // acumular callbacks muertos en cada refresh.
+            bmp.addLoadListener(function(loaded) {
+                if (contents && loaded && loaded.isReady()) {
+                    try { contents.blt(loaded, 0, 0, loaded.width, loaded.height, x, y, w, h); } catch (e) {}
+                }
+            });
+        }
+    }
+};
+
+// ============================================================================
+// PMZ.ItemIcons - Iconos de objetos desde img/pictures/Gen 1-6 Items.
+// Cada item puede definir "icon": "nombre" (sin extension) en items.json;
+// si no lo define, se intenta con el key del item. Cuando el icono no existe
+// en la carpeta (carga fallida), se cae a un fallback de color por tipo.
+// ============================================================================
+PMZ.ItemIcons = {
+    _folder: 'Gen 1-6 Items',
+    _cache: {},
+    // Keys cuyo archivo no coincide con el nombre del item
+    // ("Caña Vieja" -> old-rod, "TwistedSpoon" -> twisted-spoon, ...)
+    _aliases: {
+        'kingsrock': 'kings-rock',
+        'guardspec': 'guard-spec',
+        'oldrod': 'old-rod',
+        'goodrod': 'good-rod',
+        'superrod': 'super-rod',
+        'cheriberry': 'cheri-berry',
+        'oranberry': 'oran-berry',
+        'sitrusberry': 'sitrus-berry',
+        'lumberry': 'lum-berry',
+        'rawstberry': 'rawst-berry',
+        'aspearberry': 'aspear-berry',
+        'pechaberry': 'pecha-berry',
+        'persimberry': 'persim-berry',
+        'chestoberry': 'chesto-berry',
+        'leppaberry': 'leppa-berry',
+        'redorb': 'red-orb',
+        'blueorb': 'blue-orb',
+        'upgrade': 'up-grade',
+        'twistedspoon': 'twisted-spoon',
+        'silverpowder': 'silver-powder',
+        'blackglasses': 'black-glasses',
+        'deepseatooth': 'deep-sea-tooth',
+        'deepseascale': 'deep-sea-scale'
+    },
+    // Items sin arte en la carpeta; no intentar cargar
+    _noArt: { 'miracleberry': true, 'berserkgene': true },
+
+    // "Super Potion" -> "super-potion", "X Attack" -> "x-attack", "Poké Ball" -> "poke-ball"
+    _slug: function(str) {
+        return String(str || '')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    },
+
+    iconName: function(key, itemData) {
+        var d = itemData || PMZ.Data.item(key);
+        if (!d) return null;
+        if (d.icon) return d.icon;
+        if (this._aliases[key]) return this._aliases[key];
+        // TMs/HMs: el archivo se nombra por el tipo del movimiento
+        if (d.type === 'tm' || d.type === 'hm') {
+            var mv = PMZ.Data.move ? PMZ.Data.move(d.move) : null;
+            var mt = (mv && mv.type) ? String(mv.type).toLowerCase() : '';
+            if (mt) return (d.type === 'hm' ? 'hm-' : 'tm-') + mt;
+        }
+        var slug = this._slug(d.name);
+        if (slug) return slug;
+        return this._slug(key);
+    },
+
+    // Devuelve la ruta del archivo (con o sin sufijo -B)
+    resolvePath: function(name) {
+        var base = 'img/pictures/' + this._folder + '/' + name;
+        return base;
+    },
+
+    getBitmap: function(key, itemData) {
+        var name = this.iconName(key, itemData);
+        if (!name) return null;
+        if (this._noArt[key]) return null;
+        var cacheKey = name;
+        if (this._cache[cacheKey]) return this._cache[cacheKey];
+        var bmp = ImageManager.loadPicture(this._folder + '/' + name + '-B');
+        if (!bmp || !bmp.isReady || bmp.isError()) {
+            bmp = ImageManager.loadPicture(this._folder + '/' + name);
+        }
+        this._cache[cacheKey] = bmp;
+        return bmp;
+    },
+
+    drawIcon: function(contents, key, itemData, x, y, w, h, onReady) {
+        var bmp = this.getBitmap(key, itemData);
+        if (!bmp) return;
+        if (bmp.isReady()) {
+            contents.blt(bmp, 0, 0, bmp.width, bmp.height, x, y, w, h);
         } else if (onReady) {
-            // El bitmap carga asincronico: al estar listo, redibuja el
-            // contenedor (sin esto el icono no aparece hasta reentrar)
             bmp.addLoadListener(function() { onReady(); });
         }
     }

@@ -1,6 +1,6 @@
 # PMZ — Pokémon Essential para RPG Maker MZ
 
-**Versión:** v0.9.13 (Animaciones de batalla) → v0.9.12 (UI encuadre + iconos) → v0.9.11 (Cobertura total + bugfixes)
+**Versión:** v0.9.14.4 (Animación de mecánicas) → v0.9.14.3 (Resumen reencuadrado + fix icono de esquina) → v0.9.14.2 (Icons en tienda + fixes UI)
 **Estado del motor:** ✅ Listo para crear contenido (mapas, eventos, historia)
 **Estado del editor:** ✅ Edición visual de todos los JSON desde el navegador
 **Estado de calidad:** ✅ Suites de tests unitarios con `node:test` (482 tests, `npm test`)
@@ -19,6 +19,72 @@
 | **Entrenadores** | 60 (Kanto + Johto + 22 Hoenn: Roxanne → Juan, Elite 4, Steven, regulares) |
 | **Efectos de movimiento implementados** | 63 (recoil, drain, OHKO, multi-hit, fixed damage, trap, weather, etc.) |
 | **Tests unitarios** | 482 (`node --test`, sin dependencias) en `tests/` sobre datos reales de `PMZ/*.json`, incl. barrido de cobertura (316 movimientos + 113 habilidades) |
+
+## v0.9.14.4 — Animación al activar mecánicas (Mega, Primal, etc.)
+
+- Al activar una mecánica custom (Mega Evolución, Retorno Primigenio...) ya no hay un cambio seco: **flash de pantalla** tintado con el color de la mecánica, **impacto** del color alrededor del Pokémon, **pulso de escala** del sprite viejo y **rayos ascendentes** (burbujas que suben) — la nueva forma se aplica al terminar el pulso.
+- Cada mecánica define su color en `mechanics.json` con el campo `animColor` (`mega` → rosa, `primal` → coral); si no está, usa tono azul por defecto (`#a0d8ff`).
+- Duración del mensaje ampliada (70 frames) para que la secuencia se lea antes de volver al menú de comandos.
+
+## v0.9.14.3 — Resumen de Pokémon reencuadrado + fix icono de esquina
+
+### Fix: icono de esquina desaparecía al reordenar el EQUIPO
+- Causa: al usar "Mover", el intercambio no actualizaba `_selectedPkmn` ni el sprite de la esquina; además `Sprite_PMZ_Icon.refresh` borraba el bitmap primero, y si la carga era asíncrona/fallida el icono quedaba vacío.
+- Solución: tras el swap se refresca `updateInfoWindows()` con el Pokémon de la nueva posición; `refresh` ya no borra el icono previo y salta bitmaps en error.
+
+### Resumen de Pokémon (5 apartados) reencuadrado
+- **Header**: nombre con `#ID`, nivel en dorado y badges de tipo con espacios correctos (48px de alto); el padding deja espacio para el contenido de las páginas.
+- **Sprite/páginas**: el sprite frontal `img/nXXX.png` no existe, así que la esquina ahora muestra el icono real de `Gen 1-6 Icons` (como en el EQUIPO) sobre el windowLayer; las páginas reservan 330px para no pasar por debajo.
+- **Stats**: fuente explícita en cada línea, barras HP/EXP y las 5 stats con columnas alineadas (label/número/bar) que nunca se pisan entre sí.
+- **Movimientos**: rejilla limpia por fila: badge tipo + nombre, y en la misma fila Categoría completa (Física/Especial/Estado), Potencia, Precisión y PP — con separadores entre movimientos.
+- **IV/EV**: dos columnas alineadas con fuentes explícitas (16px) y títulos espaciados; colores por rango (31 dorado / 20+ verde).
+- **Datos e Info**: texto a 16px con ancho limitado (antes 28px por defecto en cajas de 280-350px → se cortaban); datos alineados en columnas.
+
+## v0.9.14.2 — Iconos correctos en tienda/mochila + fixes de UI
+
+### Fix: "Failed to load" en la tienda (iconos con nombre incorrecto)
+- Causa: `PMZ.ItemIcons.iconName` usaba el **key** del objeto (`superpotion`) como nombre de archivo, pero las imágenes se llaman por el nombre del item (`super-potion-B.png`); solo las 5 balls tenían el campo `icon` en `items.json`, así que casi todos los items de la tienda/mochila intentaban cargar archivos inexistentes y el juego reportaba `Failed to load`.
+- Solución: resolución de icono en cascada: campo `icon` → **TMs/HMs según el tipo del movimiento** (`tm-fighting`, `hm-water`, ...) → **alias** para los que no coinciden con el nombre (`oldrod`→`old-rod`, `twistedspoon`→`twisted-spoon`, bays, `upgrade`→`up-grade`, etc.) → slug del nombre del item (`Super Potion`→`super-potion`, con normalización de acentos) → key.
+- `_noArt` excluye los 2 items sin arte en la carpeta (`miracleberry`, `berserkgene`) para no intentar cargarlos.
+- Resultado: 163 items, 161 con icono resuelto, 0 cargas fallidas.
+
+### Fix: animación de captura invisible
+- Causa: al mover `createCaptureSprite()` al principio de `create()` (fix del crash de la Pokéball), el sprite de la ball y el flash quedaban **debajo del fondo y los sprites** (z-order) → la animación no se veía.
+- Solución: al terminar `create()`, `setChildIndex` sube la ball y el flash al frente; además la ball se escala a ~58px (los iconos reales son 90×90) y se resetean rotación/opacidad al iniciar la captura normal y Safari.
+
+### UI: lista de EQUIPO más angosta + sprite en pantalla
+- La lista del menú EQUIPO pasa de 55% → **52%** del ancho y las ventanas de stats/comandos se alinean al nuevo borde; el sprite-icono de la esquina (escala 2.5→2.0) se limita a `w - 128` para no salirse de pantalla.
+
+### UI: ESC en el submenú del EQUIPO
+- La ventana de comandos (Resumen/Mover/Objeto/Equipar/Salir) ahora responde a **ESC** para volver a la lista de Pokémon, sin tener que pulsar "Salir" manualmente.
+
+## v0.9.14.1 — Bugfixes (4 arreglos reportados)
+
+### Fix: crash al lanzar una Pokéball (`Cannot set property 'visible' of undefined`)
+- Causa: `createCaptureSprite()` se ejecutaba **al final** del `create()` de la batalla dentro de un `try/catch`; si cualquier ventana anterior fallaba, el sprite de la ball nunca se creaba y la escena seguía adelante hasta que el lanzamiento intentaba tocar `_ballSprite.visible`.
+- Solución: el sprite de la ball y el flash se crean **primero**, cada uno en su propio `try/catch`, y `updateCapture`/`updateSafariBall` ahora recrean el sprite si falta, retroceden a un paso seguro y abortan limpiamente sin lanzar errores.
+
+### Fix: Pokédex completa congelaba el juego
+- Causa: `PMZ.Icons.drawIcon` registraba `addLoadListener` y su callback llamaba `onReady()` → cada icono cargado **refrescaba la ventana completa**; con las 386 especies desbloqueadas eso producía ~386 refrescos en cascada que congelaban la UI.
+- Solución: el listener ahora dibuja el icono directamente con `contents.blt` sin disparar el refresh, y no registra listeners en bitmaps que fallaron al cargar (estado `error`), evitando callbacks muertos acumulados.
+
+### Fix: slot vacío del menú Pokémon congelaba el juego
+- Causa: en `Scene_PMZ_Party`, seleccionar primero un slot ocupado y luego presionar Resumen sobre un slot **vacío** dejaba `_summaryIndex` apuntando a un Pokémon inexistente → `Scene_PMZ_Summary` creaba páginas sin Pokémon y `showStats()` explotaba.
+- Solución: `onSummary` lee el Pokémon del índice actual y sólo abre el resumen si existe; `createTabWindow` aborta si no hay Pokémon.
+
+### Nuevo: comando SALIR en el menú principal
+- Se añadió la opción **SALIR** al menú del juego (debajo de OPCIONES) que regresa al título del juego (`Scene_Title`) con sonido de confirmación.
+
+## v0.9.14 — Captura con iconos reales + iconos en la mochila
+
+### Animación de captura renovada
+- La ball lanzada usa el **icono real del objeto** (Pokéball, Superball, Ultraball, Masterball, Safari Ball) desde `img/pictures/Gen 1-6 Items`, en lugar del rectángulo rojo/blanco dibujado a mano.
+- Secuencia animada: la ball aparece sobre el objetivo → el Pokémon entra en la ball → cae al suelo con **rebote** → sacudidas con **rotación** (yoyo) → en éxito, **impacto dorado** sobre la ball; en fallo la ball se **abre** (crece y se desvanece) y el Pokémon reaparece.
+- El sprite del Pokémon se oculta durante la captura y se restaura al escapar; el flujo aplica igual en captura normal y Safari.
+
+### Iconos en la mochila
+- La mochila de combate (`Window_PMZ_BattleBag`) y la del menú (`Window_PMZ_ItemList`, incluidos modos tienda comprar/vender) muestran el **icono del objeto** junto al nombre; con redibujado automático al terminar la carga asincrónica (`onReady` → `refresh`).
+- Los objetos definen su icono con el campo `icon` en `items.json` (las balls ya lo tienen); si no hay icono, se mantiene el diseño de solo texto.
 
 ## v0.9.13 — Animaciones de batalla
 
