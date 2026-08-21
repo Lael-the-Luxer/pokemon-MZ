@@ -16,20 +16,13 @@ PMZ convierte RPG Maker MZ en un motor Pokémon completo: batallas, captura, evo
 
 ## Cómo empezar
 
-1. Copia los 5 plugins (carpeta `js/plugins/`) y la carpeta `PMZ/` con los datos a tu proyecto.
-2. Activa los plugins en este orden: `PMZ_Core` → `PMZ_GamePokemon` → `PMZ_BattleCore` → `PMZ_Battle` → `PMZ_Menu`.
-3. Crea un evento con el comando: `Crea un evento: Plugin Command → PMZ_Battle → startBattle species=pikachu level=5` o `startBattle species=pikachu level=5`.
-4. Juega.
+1. Descarga la carpeta del proyecto.
+2. Abrir el proyecto en RPG Maker MZ.
+3. Juega o edita/crea.
 
 ## Estado
 
-| Versión | Novedades |
-|---|---|
-| **v0.9.13** | Animaciones de batalla (impactos, barra de HP, debilitado y cambio de Pokémon) |
-| **v0.9.12** | Pulido de interfaz + fix de iconos |
-| **v0.9.11** | Cobertura total de tests (316 movimientos + 113 habilidades) y 6 bugs corregidos |
-
-**482 tests automatizados** verifican la lógica del motor (`npm test`). Funcional y estable hoy: puedes crear tu mapa, tus eventos y tener un juego jugable sin esperar a v1.0.
+**482 tests automatizados** verifican la lógica del motor (`npm test`). Funcional y estable hoy.
 
 ## Documentación
 
